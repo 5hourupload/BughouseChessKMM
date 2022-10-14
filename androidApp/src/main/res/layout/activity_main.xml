@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    tools:context=".MainActivity"
+    android:id="@+id/view"
+    android:keepScreenOn="true"
+    >
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:id="@+id/optionsmenu"
+            android:background="@color/options_background_color"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/options_tab_color">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/resumearrow"
+                    android:id="@+id/backToGame"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/literallynothing"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/optionsExpand"
+                    android:src="@drawable/menu"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".1"
+                android:background="@drawable/blackgradientup"/>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="8.9">
+
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="60"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.25"
+                        android:background="@drawable/bottomborder"
+                        >
+                        <TimePicker
+                            android:id="@+id/timePicker_Sec"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="0dp"
+                            android:timePickerMode="spinner"/>
+                        <TimePicker
+                            android:id="@+id/timePicker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_alignTop="@+id/timePicker_Sec"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="76dp"
+                            android:background="@drawable/bottomborder"
+                            android:timePickerMode="spinner"/>
+                        <ImageView
+                            android:id="@+id/blocker"
+                            android:layout_width="100dp"
+                            android:layout_height="fill_parent"
+                            android:layout_alignTop="@+id/timePicker_Sec"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="152dp"
+                            android:background="@drawable/bottomborder"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Time"
+                            android:textSize="@dimen/options_text_title_size"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#FFFFFF"
+                            android:id="@+id/timetext"/>
+                        <TextView
+                            android:layout_width="@dimen/options_desc_width"
+                            android:layout_height="wrap_content"
+                            android:text="Recommended time length \nis five minutes."
+                            android:textSize="@dimen/options_text_desc_size"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="#C9C9C9"
+                            android:layout_below="@id/timetext"
+                            android:id="@+id/timeDesc"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Time change will be applied next game."
+                            android:textSize="@dimen/options_text_desc_size"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="#FF0000"
+                            android:layout_alignParentBottom="true"
+                            android:visibility="visible"
+                            android:id="@+id/timeNotice"/>
+
+
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.25"
+                        android:background="@drawable/bottomborder">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Checking"
+                            android:textSize="@dimen/options_text_title_size"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#FFFFFF"
+                            android:id="@+id/checkingtext"
+                            />
+                        <TextView
+                            android:layout_width="@dimen/options_desc_width"
+                            android:layout_height="wrap_content"
+                            android:text="If checking is off, the king may be captured to win the game. Checkmate still applies."
+                            android:textSize="@dimen/options_text_desc_size"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="#C9C9C9"
+                            android:layout_below="@id/checkingtext"
+                            />
+                        <Switch
+                            android:layout_width="200dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/checkingSwitch"
+                            android:textOff="OFF"
+                            android:textOn="ON"
+                            android:layout_marginRight="20dp"
+                            />
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.25"
+                        android:background="@drawable/bottomborder"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Placing in Check"
+                            android:textSize="@dimen/options_text_title_size"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#FFFFFF"
+                            android:id="@+id/placingtext"/>
+                        <TextView
+                            android:layout_width="@dimen/options_desc_width"
+                            android:layout_height="wrap_content"
+                            android:text="When turned off, pieces cannot be placed in checking positions."
+                            android:textSize="@dimen/options_text_desc_size"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="#C9C9C9"
+                            android:layout_below="@id/placingtext"/>
+
+                        <Switch
+                            android:layout_width="200dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/placingSwitch"
+                            android:textOff="OFF"
+                            android:textOn="ON"
+                            android:layout_marginRight="20dp"
+                            />
+
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.25"
+                        android:background="@drawable/bottomborder"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pawn Reversion"
+                            android:textSize="@dimen/options_text_title_size"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#FFFFFF"
+                            android:id="@+id/pawntext"/>
+                        <TextView
+                            android:layout_width="@dimen/options_desc_width"
+                            android:layout_height="wrap_content"
+                            android:text="Revert captured promoted pieces to pawns."
+                            android:textSize="@dimen/options_text_desc_size"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="#C9C9C9"
+                            android:layout_below="@id/pawntext"/>
+
+                        <Switch
+                            android:layout_width="200dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/pawnSwitch"
+                            android:textOff="OFF"
+                            android:textOn="ON"
+                            android:layout_marginRight="20dp"
+                            />
+
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.25"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Placing Pawns on 1st Rank"
+                            android:textSize="@dimen/options_text_title_size"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#FFFFFF"
+                            android:id="@+id/firstranktext"/>
+                        <TextView
+                            android:layout_width="@dimen/options_desc_width"
+                            android:layout_height="wrap_content"
+                            android:text="Allows you to place pawns on the first rank."
+                            android:textSize="@dimen/options_text_desc_size"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="#C9C9C9"
+                            android:layout_below="@id/firstranktext"/>
+
+                        <Switch
+                            android:layout_width="200dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/firstRankSwitch"
+                            android:textOff="OFF"
+                            android:textOn="ON"
+                            android:layout_marginRight="20dp"
+                            />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:id="@+id/rules"
+            android:visibility="gone"
+            android:background="#1E1E1E"
+            >
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Back"
+                        android:id="@+id/rulesToMenu"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/buttongeneric"
+                        android:layout_marginTop="10dp"
+                        />
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rulesToMenu"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:id="@+id/rulesText"
+                        android:background="#1E1E1E">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rules1"
+                            android:textSize="@dimen/rules_text_size_large"
+                            android:textColor="#bcbcbc"
+                            android:gravity="center_horizontal"
+                            android:id="@+id/rules1"
+                            />
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rules2"
+                            android:textSize="@dimen/rules_text_size"
+                            android:textColor="#8A8A8A"
+                            android:id="@+id/rules2"
+                            android:layout_below="@id/rules1"
+                            />
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rules3"
+                            android:textSize="@dimen/rules_text_size_large"
+                            android:textColor="#bcbcbc"
+                            android:layout_below="@id/rules2"
+                            />
+
+
+
+                    </RelativeLayout>
+
+
+
+                </RelativeLayout>
+
+
+            </ScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:id="@+id/mainmenu"
+            android:visibility="visible"
+            android:background="#1e1e1e"
+            >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"/>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="30"
+                    android:id="@+id/mainmenu1">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"/>
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".5"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="2.5"
+                    android:orientation="vertical">
+
+                    <Space
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:text="play"
+                        android:textSize="@dimen/main_menu_font"
+                        android:textColor="@drawable/main_menu_text"
+                        android:id="@+id/play"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="sync devices"-->
+                        <!--android:textSize="60dp"-->
+                        <!--android:textColor="@drawable/main_menu_text"-->
+                        <!--android:id="@+id/connect"/>-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:text="options"
+                        android:textSize="@dimen/main_menu_font"
+                        android:textColor="@drawable/main_menu_text"
+                        android:id="@+id/mainToOptions"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
+                        android:text="rules"
+                        android:textSize="@dimen/main_menu_font"
+                        android:textColor="@drawable/main_menu_text"
+                        android:id="@+id/howToPlay"/>
+                    <Space
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="2"
+                    android:id="@+id/side_image">
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="@string/banner_ad_unit_id">
+                </com.google.android.gms.ads.AdView>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+    </FrameLayout>
+
+
+</RelativeLayout>

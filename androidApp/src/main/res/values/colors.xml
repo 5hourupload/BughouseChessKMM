@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#640000</color>
+    <color name="colorPrimaryDark">#450000</color>
+    <color name="colorAccent">#9A0000</color>
+    <color name="promotion1">#bfffffff</color>
+    <color name="promotion2">#bfbfbfbf</color>
+    <color name="gradient_end">#80000000</color>
+    <color name="timer_text_color">#848484</color>
+</resources>

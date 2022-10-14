@@ -1,0 +1,117 @@
+<resources>
+    <string name="app_name">Bughouse Chess</string>
+
+    <color name="black">#643535</color>
+    <color name="white">#ffffff</color>
+    <color name="roster1">#80B0B0B0</color>
+    <color name="roster2">#808E8E8E</color>
+    <color name="options_background_color">#343434</color>
+    <color name="options_background_color_clear">#00343434</color>
+    <color name="options_tab_color">#7F2200</color>
+    <color name="more_options_tab_color">#5A1700</color>
+    <color name="mainmenu_background">#4D85C1</color>
+    <color name="mainmenu_background_gradient">#36587C</color>
+    <color name="mainmenu1">#4198CB</color>
+    <color name="mainmenu2">#3B8CBB</color>
+    <color name="mainmenu3">#377DA5</color>
+
+
+    <string name="connect">Connect</string>
+    <string name="discover">Discover</string>
+    <string name="register">Register</string>
+    <string name="send">Send</string>
+
+
+    <string name="rules1">Welcome to Bughouse Chess, a popular variation of chess with two chessboards and four players!</string>
+    <string name="rules2">\nIf you don\'t know how to play normal chess, delete this app and learn to play normal chess, then redownload this app.
+    \n\nThere are many variations of bughouse, so the following rules will cover the traditional rules. You can play and combine variations in the options menu.
+    </string>
+    <string name="rules3">
+        \n•<u>A captured piece on one board is passed onto the teammate.</u>
+        \nThe teammate now has the option to make a regular move or place their new piece wherever on the board.
+        \n\nPawns cannot be place on the 1st or 8th rank. When pawns are promoted and then captured, the piece will revert back to a pawn.
+        \n\n•<u>The game ends when either board wins.</u>
+        \nGames can be won either by running out of time, checkmate, or by capturing the king (only possible when playing without checking).
+        \n\nSome positions that would be checkmate in traditional chess are not considered checkmate in bughouse, due to the ability to drop pieces anywhere on the board. This does occasionally cause situations where a player is forced to stall.
+        \n\nStalemates are not possible. If a player cannot move a piece already on the board, they must wait for a piece from their teammate.
+        \n\nCommunication is key between the partners! Have fun!
+    </string>
+    <string name="banner_ad_unit_id">ca-app-pub-9794567752193168/5190432411</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_settings2">Settings</string>
+
+    <string-array name="PlayerCpuSelect">
+        <item>Human</item>
+        <item>AI Random</item>
+        <item>AI Easy</item>
+        <item>AI Intermediate</item>
+    </string-array>
+    <string-array name="PlayerCpuSelectValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="DefaultSelect">0</string>
+
+
+
+</resources>

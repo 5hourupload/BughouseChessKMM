@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  >
+    <PreferenceCategory
+        android:title="Player/AI Options"
+        android:key="pref_key_storage_settings">
+        <ListPreference
+            android:key="player1"
+            android:title="Player 1 (white, top left)"
+            android:dialogTitle="Player 1"
+            android:entries="@array/PlayerCpuSelect"
+            android:entryValues="@array/PlayerCpuSelectValues"
+            android:defaultValue="@string/DefaultSelect"
+            android:summary="%s"/>
+        <ListPreference
+            android:key="player2"
+            android:title="Player 2 (black, top right)"
+            android:dialogTitle="Player 1"
+            android:entries="@array/PlayerCpuSelect"
+            android:entryValues="@array/PlayerCpuSelectValues"
+            android:defaultValue="@string/DefaultSelect"
+            android:summary="%s"/>
+        <ListPreference
+            android:key="player3"
+            android:title="Player 3 (black, bottom left)"
+            android:dialogTitle="Player 1"
+            android:entries="@array/PlayerCpuSelect"
+            android:entryValues="@array/PlayerCpuSelectValues"
+            android:defaultValue="@string/DefaultSelect"
+            android:summary="%s"/>
+        <ListPreference
+            android:key="player4"
+            android:title="Player 4 (white, bottom right)"
+            android:dialogTitle="Player 1"
+            android:entries="@array/PlayerCpuSelect"
+            android:entryValues="@array/PlayerCpuSelectValues"
+            android:defaultValue="@string/DefaultSelect"
+            android:summary="%s"/>
+
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Game Options">
+        <fhu.bughousechess.NumberPickerPreference
+            android:key="key_number"
+            android:title="Set Time (min, sec)"
+            android:summary="Time changes apply on new game"/>
+        <SwitchPreference
+            android:key="checking"
+            android:title="Checking"
+            android:defaultValue="true"
+            android:summary="If checking is off, the king may be captured to win the game. Checkmate still applies."/>
+        <SwitchPreference
+            android:key="placing"
+            android:title="Placing in Check"
+            android:defaultValue="true"
+            android:summary="When turned off, pieces cannot be placed in checking positions."/>
+        <SwitchPreference
+            android:key="reverting"
+            android:title="Pawn Reversion"
+            android:defaultValue="true"
+            android:summary="Revert captured promoted pieces to pawns."/>
+        <SwitchPreference
+            android:key="firstrank"
+            android:title="Placing Pawns on 1st Rank"
+            android:defaultValue="false"
+            android:summary="Allows you to place pawns on first rank."/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

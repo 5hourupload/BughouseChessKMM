@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape
+            android:shape="rectangle">
+            <stroke android:width="1dp" android:color="#C4C4C4" />
+            <solid android:color="#C4C4C4" />
+        </shape>
+    </item>
+
+    <item android:right="1dp">
+        <shape
+            android:shape="rectangle">
+            <stroke android:width="1dp" android:color="@color/options_tab_color" />
+            <solid android:color="@color/options_tab_color" />
+
+        </shape>
+    </item>
+</layer-list>
