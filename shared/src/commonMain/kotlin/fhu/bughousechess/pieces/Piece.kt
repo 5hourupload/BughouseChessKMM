@@ -1,7 +1,7 @@
 package fhu.bughousechess.pieces
 
 import fhu.bughousechess.Move
-import java.util.HashSet
+import kotlin.jvm.JvmField
 
 abstract class Piece {
     @JvmField

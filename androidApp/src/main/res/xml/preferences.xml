@@ -40,7 +40,7 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:title="Game Options">
-        <fhu.bughousechess.NumberPickerPreference
+        <fhu.bughousechess.android.NumberPickerPreference
             android:key="key_number"
             android:title="Set Time (min, sec)"
             android:summary="Time changes apply on new game"/>

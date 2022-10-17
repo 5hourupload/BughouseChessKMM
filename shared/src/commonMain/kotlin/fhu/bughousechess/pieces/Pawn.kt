@@ -2,7 +2,6 @@ package fhu.bughousechess.pieces
 
 import fhu.bughousechess.GameStateManager
 import fhu.bughousechess.Move
-import java.util.HashSet
 
 class Pawn(color: String?) : Piece() {
     init {
@@ -42,7 +41,7 @@ class Pawn(color: String?) : Piece() {
                             ) == "1" && GameStateManager.enP[x + 1][1].substring(
                                 1,
                                 GameStateManager.enP[x + 1][1].length
-                            ) == Integer.toString(GameStateManager.board1Turn)
+                            ) == GameStateManager.board1Turn.toString()
                         ) {
                             moves.add(Move(positions, x, 4, x + 1, 4, "whiteEnP"))
                         }
@@ -54,7 +53,7 @@ class Pawn(color: String?) : Piece() {
                             ) == "1" && GameStateManager.enP[x + 1][3].substring(
                                 1,
                                 GameStateManager.enP[x + 1][3].length
-                            ) == Integer.toString(GameStateManager.board2Turn)
+                            ) == GameStateManager.board2Turn.toString()
                         ) {
                             moves.add(Move(positions, x, 4, x + 1, 4, "whiteEnP"))
                         }
@@ -73,7 +72,7 @@ class Pawn(color: String?) : Piece() {
                             ) == "1" && GameStateManager.enP[x - 1][1].substring(
                                 1,
                                 GameStateManager.enP[x - 1][1].length
-                            ) == Integer.toString(GameStateManager.board1Turn)
+                            ) == GameStateManager.board1Turn.toString()
                         ) {
                             moves.add(Move(positions, x, 4, x - 1, 4, "whiteEnP"))
                         }
@@ -85,7 +84,7 @@ class Pawn(color: String?) : Piece() {
                             ) == "1" && GameStateManager.enP[x - 1][3].substring(
                                 1,
                                 GameStateManager.enP[x - 1][3].length
-                            ) == Integer.toString(GameStateManager.board2Turn)
+                            ) == GameStateManager.board2Turn.toString()
                         ) {
                             moves.add(Move(positions, x, 4, x - 1, 4, "whiteEnP"))
                         }
@@ -115,7 +114,7 @@ class Pawn(color: String?) : Piece() {
                             ) == "1" && GameStateManager.enP[x + 1][0].substring(
                                 1,
                                 GameStateManager.enP[x + 1][0].length
-                            ) == Integer.toString(GameStateManager.board1Turn)
+                            ) == GameStateManager.board1Turn.toString()
                         ) {
                             moves.add(Move(positions, x, 3, x + 1, 3, "blackEnP"))
                         }
@@ -127,7 +126,7 @@ class Pawn(color: String?) : Piece() {
                             ) == "1" && GameStateManager.enP[x + 1][2].substring(
                                 1,
                                 GameStateManager.enP[x + 1][2].length
-                            ) == Integer.toString(GameStateManager.board2Turn)
+                            ) == GameStateManager.board2Turn.toString()
                         ) {
                             moves.add(Move(positions, x, 3, x + 1, 3, "blackEnP"))
                         }
@@ -146,7 +145,7 @@ class Pawn(color: String?) : Piece() {
                             ) == "1" && GameStateManager.enP[x - 1][0].substring(
                                 1,
                                 GameStateManager.enP[x - 1][0].length
-                            ) == Integer.toString(GameStateManager.board1Turn)
+                            ) == GameStateManager.board1Turn.toString()
                         ) {
                             moves.add(Move(positions, x, 3, x - 1, 3, "blackEnP"))
                         }
@@ -158,7 +157,7 @@ class Pawn(color: String?) : Piece() {
                             ) == "1" && GameStateManager.enP[x - 1][2].substring(
                                 1,
                                 GameStateManager.enP[x - 1][2].length
-                            ) == Integer.toString(GameStateManager.board2Turn)
+                            ) == GameStateManager.board2Turn.toString()
                         ) {
                             moves.add(Move(positions, x, 3, x - 1, 3, "blackEnP"))
                         }

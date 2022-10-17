@@ -1,6 +1,7 @@
 package fhu.bughousechess
 
 import fhu.bughousechess.pieces.Piece
+import kotlin.jvm.JvmField
 
 class Move {
     var positions: Array<Array<Piece>>

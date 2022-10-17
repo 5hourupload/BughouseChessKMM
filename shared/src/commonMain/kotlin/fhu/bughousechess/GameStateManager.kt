@@ -2,6 +2,8 @@ package fhu.bughousechess
 
 
 import fhu.bughousechess.pieces.*
+import kotlin.jvm.JvmField
+import kotlin.jvm.JvmStatic
 
 class GameStateManager {
     private val positions = Array(2) { Array<Array<Piece>>(8) { arrayOf<Piece>(Empty(),Empty(),Empty(),Empty(),Empty(),Empty(),Empty(),Empty()) } }
@@ -214,14 +216,14 @@ class GameStateManager {
             gameState = GameState.PAUSED
             return
         }
-        turnChange(positions[boardNumber][x]!![y]!!.color, boardNumber)
-        if (positions[boardNumber][x]!![y]!!.color == "white" && positions[boardNumber][x]!![y]!!.type == "pawn" && y == 1 && y1 == 3) {
-            if (boardNumber == 0) enP[x][0] = "1" + Integer.toString(board1Turn)
-            if (boardNumber == 1) enP[x][2] = "1" + Integer.toString(board2Turn)
+        turnChange(positions[boardNumber][x][y].color, boardNumber)
+        if (positions[boardNumber][x][y].color == "white" && positions[boardNumber][x][y].type == "pawn" && y == 1 && y1 == 3) {
+            if (boardNumber == 0) enP[x][0] = "1$board1Turn"
+            if (boardNumber == 1) enP[x][2] = "1$board2Turn"
         }
-        if (positions[boardNumber][x]!![y]!!.color == "black" && positions[boardNumber][x]!![y]!!.type == "pawn" && y == 6 && y1 == 4) {
-            if (boardNumber == 0) enP[x][1] = "1" + Integer.toString(board1Turn)
-            if (boardNumber == 1) enP[x][3] = "1" + Integer.toString(board2Turn)
+        if (positions[boardNumber][x][y].color == "black" && positions[boardNumber][x][y].type == "pawn" && y == 6 && y1 == 4) {
+            if (boardNumber == 0) enP[x][1] = "1$board1Turn"
+            if (boardNumber == 1) enP[x][3] = "1$board2Turn"
         }
         if (moveType == "take" || moveType == "whiteEnP" || moveType == "blackEnP") {
             addToRoster(x1, y1, boardNumber)
@@ -236,16 +238,16 @@ class GameStateManager {
         if (boardNumber == 0 && turn[boardNumber] == 2) roster = roster2p
         if (boardNumber == 1 && turn[boardNumber] == 1) roster = roster4p
         if (boardNumber == 1 && turn[boardNumber] == 2) roster = roster3p
-        if (roster!![i]!!.empty) {
+        if (roster[i].empty) {
             turn[0] = 3
             turn[1] = 3
             gameState = GameState.PAUSED
             return
         }
-        turnChange(roster[i]!!.color, boardNumber)
-        positions[boardNumber][x]!![y] = roster[i]
+        turnChange(roster[i].color, boardNumber)
+        positions[boardNumber][x][y] = roster[i]
         roster[i] = Empty()
-        endOfMoveChecks(positions[boardNumber][x]!![y]!!.color, boardNumber)
+        endOfMoveChecks(positions[boardNumber][x][y].color, boardNumber)
     }
 
     private fun turnChange(prevColor: String?, boardNumber: Int) {
@@ -291,14 +293,14 @@ class GameStateManager {
         boardNumber: Int
     ): Boolean {
         if (checking) {
-            val temp1 = positions[boardNumber][0]!!.clone()
-            val temp2 = positions[boardNumber][1]!!.clone()
-            val temp3 = positions[boardNumber][2]!!.clone()
-            val temp4 = positions[boardNumber][3]!!.clone()
-            val temp5 = positions[boardNumber][4]!!.clone()
-            val temp6 = positions[boardNumber][5]!!.clone()
-            val temp7 = positions[boardNumber][6]!!.clone()
-            val temp8 = positions[boardNumber][7]!!.clone()
+            val temp1 = positions[boardNumber][0].copyOf()
+            val temp2 = positions[boardNumber][1].copyOf()
+            val temp3 = positions[boardNumber][2].copyOf()
+            val temp4 = positions[boardNumber][3].copyOf()
+            val temp5 = positions[boardNumber][4].copyOf()
+            val temp6 = positions[boardNumber][5].copyOf()
+            val temp7 = positions[boardNumber][6].copyOf()
+            val temp8 = positions[boardNumber][7].copyOf()
             val tempPositions =
                 arrayOf<Array<Piece>>(temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8)
             switchPositions(moveType, tempPositions, x, y, x1, y1)

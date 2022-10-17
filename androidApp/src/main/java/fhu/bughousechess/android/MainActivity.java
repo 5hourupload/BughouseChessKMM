@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                mainmenu.setVisibility(View.INVISIBLE);
                 startGame();
             }
         });

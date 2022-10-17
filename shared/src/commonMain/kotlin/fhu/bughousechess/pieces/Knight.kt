@@ -1,7 +1,6 @@
 package fhu.bughousechess.pieces
 
 import fhu.bughousechess.Move
-import java.util.HashSet
 
 class Knight(color: String?) : Piece() {
     init {

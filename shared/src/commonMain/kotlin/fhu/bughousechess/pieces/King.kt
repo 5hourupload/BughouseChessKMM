@@ -2,7 +2,6 @@ package fhu.bughousechess.pieces
 
 import fhu.bughousechess.GameStateManager
 import fhu.bughousechess.Move
-import java.util.HashSet
 
 class King(color: String?) : Piece() {
     init {
