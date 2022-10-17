@@ -1,7 +1,10 @@
 package fhu.bughousechess.android;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -15,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,10 +28,15 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-//import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,7 +71,7 @@ public class GameActivity extends AppCompatActivity {
 
     private SharedPreferences prefs;
 
-//    InterstitialAd mInterstitialAd;
+    InterstitialAd mInterstitialAd;
 
     static double[] cpuLevel = {0, 0, 0, 0};
 
@@ -130,20 +139,25 @@ public class GameActivity extends AppCompatActivity {
             });
         }
 
-//        mInterstitialAd = new InterstitialAd(this);
-//        mInterstitialAd.setAdUnitId("ca-app-pub-9794567752193168/1898888810");
-//
-//        mInterstitialAd.setAdListener(new AdListener()
-//        {
-//            @Override
-//            public void onAdClosed()
-//            {
-//                requestNewInterstitial();
-//            }
-//
-//        });
-//
-//        requestNewInterstitial();
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this,"ca-app-pub-9794567752193168/1898888810", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.d(TAG, loadAdError.toString());
+                        mInterstitialAd = null;
+                    }
+                });
 
         game = new GameStateManager();
 
@@ -1972,10 +1986,11 @@ public class GameActivity extends AppCompatActivity {
                     public void onClick(View v)
                     {
                         finishScreen.setVisibility(View.INVISIBLE);
-//                        if (mInterstitialAd.isLoaded())
-//                        {
-//                            mInterstitialAd.show();
-//                        }
+                        if (mInterstitialAd != null) {
+                            mInterstitialAd.show(GameActivity.this);
+                        } else {
+                            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                        }
                     }
                 });
             }
@@ -2204,11 +2219,6 @@ public class GameActivity extends AppCompatActivity {
         roster[i].setImageResource(android.R.color.transparent);
     }
 
-//    private void requestNewInterstitial()
-//    {
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        mInterstitialAd.loadAd(adRequest);
-//    }
 
     private int getResID(Piece piece)
     {
@@ -2233,5 +2243,29 @@ public class GameActivity extends AppCompatActivity {
 
         }
         return R.mipmap.nothing;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Yes button clicked
+                        GameActivity.super.onBackPressed();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to exit? Your game will not be saved.").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
     }
 }
