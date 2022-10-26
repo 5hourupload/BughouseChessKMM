@@ -26,12 +26,12 @@ class Rook(color: String?) : Piece() {
             }
             if (positions!![x]!![i]!!.empty) {
                 if (!inbetween) {
-                    moves.add(Move(positions, x, y, x, i, "move"))
+                    moves.add(Move(x, y, x, i, "move"))
                 }
             }
             if (positions[x]!![i]!!.isOpposite(this)) {
                 if (!inbetween) {
-                    moves.add(Move(positions, x, y, x, i, "take"))
+                    moves.add(Move(x, y, x, i, "take"))
                 }
             }
         }
@@ -44,12 +44,12 @@ class Rook(color: String?) : Piece() {
             }
             if (positions!![x]!![i]!!.empty) {
                 if (!inbetween) {
-                    moves.add(Move(positions, x, y, x, i, "move"))
+                    moves.add(Move(x, y, x, i, "move"))
                 }
             }
             if (positions[x]!![i]!!.isOpposite(this)) {
                 if (!inbetween) {
-                    moves.add(Move(positions, x, y, x, i, "take"))
+                    moves.add(Move(x, y, x, i, "take"))
                 }
             }
         }
@@ -62,12 +62,12 @@ class Rook(color: String?) : Piece() {
             }
             if (positions!![i]!![y]!!.empty) {
                 if (!inbetween) {
-                    moves.add(Move(positions, x, y, i, y, "move"))
+                    moves.add(Move(x, y, i, y, "move"))
                 }
             }
             if (positions[i]!![y]!!.isOpposite(this)) {
                 if (!inbetween) {
-                    moves.add(Move(positions, x, y, i, y, "take"))
+                    moves.add(Move(x, y, i, y, "take"))
                 }
             }
         }
@@ -80,12 +80,12 @@ class Rook(color: String?) : Piece() {
             }
             if (positions!![i]!![y]!!.empty) {
                 if (!inbetween) {
-                    moves.add(Move(positions, x, y, i, y, "move"))
+                    moves.add(Move(x, y, i, y, "move"))
                 }
             }
             if (positions[i]!![y]!!.isOpposite(this)) {
                 if (!inbetween) {
-                    moves.add(Move(positions, x, y, i, y, "take"))
+                    moves.add(Move(x, y, i, y, "take"))
                 }
             }
         }

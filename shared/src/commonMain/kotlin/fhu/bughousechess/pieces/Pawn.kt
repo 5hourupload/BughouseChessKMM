@@ -21,17 +21,17 @@ class Pawn(color: String?) : Piece() {
         if (color == "white") {
             if (y < 7) {
                 if (positions!![x]!![y + 1]!!.empty) {
-                    moves.add(Move(positions, x, y, x, y + 1, "move"))
+                    moves.add(Move(x, y, x, y + 1, "move"))
                     if (y == 1) {
                         if (positions[x]!![y + 2]!!.empty) {
-                            moves.add(Move(positions, x, y, x, y + 2, "move"))
+                            moves.add(Move(x, y, x, y + 2, "move"))
                         }
                     }
                 }
             }
             if (x < 7 && y < 7) {
                 if (positions!![x + 1]!![y + 1]!!.isOpposite(this)) {
-                    moves.add(Move(positions, x, y, x + 1, y + 1, "take"))
+                    moves.add(Move(x, y, x + 1, y + 1, "take"))
                 }
                 if (y == 4 && positions[x + 1]!![y]!!.color == "black" && positions[x + 1]!![y]!!.type == "pawn") {
                     if (boardNumber == 0) {
@@ -43,7 +43,7 @@ class Pawn(color: String?) : Piece() {
                                 GameStateManager.enP[x + 1][1].length
                             ) == GameStateManager.board1Turn.toString()
                         ) {
-                            moves.add(Move(positions, x, 4, x + 1, 4, "whiteEnP"))
+                            moves.add(Move(x, 4, x + 1, 4, "whiteEnP"))
                         }
                     }
                     if (boardNumber == 1) {
@@ -55,14 +55,14 @@ class Pawn(color: String?) : Piece() {
                                 GameStateManager.enP[x + 1][3].length
                             ) == GameStateManager.board2Turn.toString()
                         ) {
-                            moves.add(Move(positions, x, 4, x + 1, 4, "whiteEnP"))
+                            moves.add(Move(x, 4, x + 1, 4, "whiteEnP"))
                         }
                     }
                 }
             }
             if (x > 0 && y < 7) {
                 if (positions!![x - 1]!![y + 1]!!.isOpposite(this)) {
-                    moves.add(Move(positions, x, y, x - 1, y + 1, "take"))
+                    moves.add(Move(x, y, x - 1, y + 1, "take"))
                 }
                 if (y == 4 && positions[x - 1]!![y]!!.color == "black" && positions[x - 1]!![y]!!.type == "pawn") {
                     if (boardNumber == 0) {
@@ -74,7 +74,7 @@ class Pawn(color: String?) : Piece() {
                                 GameStateManager.enP[x - 1][1].length
                             ) == GameStateManager.board1Turn.toString()
                         ) {
-                            moves.add(Move(positions, x, 4, x - 1, 4, "whiteEnP"))
+                            moves.add(Move(x, 4, x - 1, 4, "whiteEnP"))
                         }
                     }
                     if (boardNumber == 1) {
@@ -86,7 +86,7 @@ class Pawn(color: String?) : Piece() {
                                 GameStateManager.enP[x - 1][3].length
                             ) == GameStateManager.board2Turn.toString()
                         ) {
-                            moves.add(Move(positions, x, 4, x - 1, 4, "whiteEnP"))
+                            moves.add(Move(x, 4, x - 1, 4, "whiteEnP"))
                         }
                     }
                 }
@@ -94,17 +94,17 @@ class Pawn(color: String?) : Piece() {
         } else {
             if (y > 0) {
                 if (positions!![x]!![y - 1]!!.empty) {
-                    moves.add(Move(positions, x, y, x, y - 1, "move"))
+                    moves.add(Move(x, y, x, y - 1, "move"))
                     if (y == 6) {
                         if (positions[x]!![y - 2]!!.empty) {
-                            moves.add(Move(positions, x, y, x, y - 2, "move"))
+                            moves.add(Move(x, y, x, y - 2, "move"))
                         }
                     }
                 }
             }
             if (x < 7 && y > 0) {
                 if (positions!![x + 1]!![y - 1]!!.isOpposite(this)) {
-                    moves.add(Move(positions, x, y, x + 1, y - 1, "take"))
+                    moves.add(Move(x, y, x + 1, y - 1, "take"))
                 }
                 if (y == 3 && positions[x + 1]!![y]!!.color == "white" && positions[x + 1]!![y]!!.type == "pawn") {
                     if (boardNumber == 0) {
@@ -116,7 +116,7 @@ class Pawn(color: String?) : Piece() {
                                 GameStateManager.enP[x + 1][0].length
                             ) == GameStateManager.board1Turn.toString()
                         ) {
-                            moves.add(Move(positions, x, 3, x + 1, 3, "blackEnP"))
+                            moves.add(Move(x, 3, x + 1, 3, "blackEnP"))
                         }
                     }
                     if (boardNumber == 1) {
@@ -128,14 +128,14 @@ class Pawn(color: String?) : Piece() {
                                 GameStateManager.enP[x + 1][2].length
                             ) == GameStateManager.board2Turn.toString()
                         ) {
-                            moves.add(Move(positions, x, 3, x + 1, 3, "blackEnP"))
+                            moves.add(Move(x, 3, x + 1, 3, "blackEnP"))
                         }
                     }
                 }
             }
             if (x > 0 && y > 0) {
                 if (positions!![x - 1]!![y - 1]!!.isOpposite(this)) {
-                    moves.add(Move(positions, x, y, x - 1, y - 1, "take"))
+                    moves.add(Move(x, y, x - 1, y - 1, "take"))
                 }
                 if (y == 3 && positions[x - 1]!![y]!!.color == "white" && positions[x - 1]!![y]!!.type == "pawn") {
                     if (boardNumber == 0) {
@@ -147,7 +147,7 @@ class Pawn(color: String?) : Piece() {
                                 GameStateManager.enP[x - 1][0].length
                             ) == GameStateManager.board1Turn.toString()
                         ) {
-                            moves.add(Move(positions, x, 3, x - 1, 3, "blackEnP"))
+                            moves.add(Move(x, 3, x - 1, 3, "blackEnP"))
                         }
                     }
                     if (boardNumber == 1) {
@@ -159,7 +159,7 @@ class Pawn(color: String?) : Piece() {
                                 GameStateManager.enP[x - 1][2].length
                             ) == GameStateManager.board2Turn.toString()
                         ) {
-                            moves.add(Move(positions, x, 3, x - 1, 3, "blackEnP"))
+                            moves.add(Move(x, 3, x - 1, 3, "blackEnP"))
                         }
                     }
                 }
@@ -179,21 +179,21 @@ class Pawn(color: String?) : Piece() {
                 if (rosterp[i].color == "white") {
                     for (y in 0..6) {
                         if (positions[x][y].empty) {
-                            moves.add(Move(positions, rosterp, i, x, y, "roster"))
+                            moves.add(Move(i, x, y, "roster"))
                         }
                     }
                 }
                 if (rosterp[i].color == "black") {
                     for (y in 1..7) {
                         if (positions[x][y].empty) {
-                            moves.add(Move(positions, rosterp, i, x, y, "roster"))
+                            moves.add(Move(i, x, y, "roster"))
                         }
                     }
                 }
             } else {
                 for (y in 1..6) {
                     if (positions[x][y].empty) {
-                        moves.add(Move(positions, rosterp, i, x, y, "roster"))
+                        moves.add(Move(i, x, y, "roster"))
                     }
                 }
             }

@@ -29,7 +29,7 @@ abstract class Piece {
         for (x in 0..7) {
             for (y in 0..7) {
                 if (positions[x][y].empty) {
-                    moves.add(Move(positions, rosterp, i, x, y, "roster"))
+                    moves.add(Move(i, x, y, "roster"))
                 }
             }
         }

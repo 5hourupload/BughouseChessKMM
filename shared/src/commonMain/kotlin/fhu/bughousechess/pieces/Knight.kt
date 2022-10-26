@@ -20,72 +20,72 @@ class Knight(color: String?) : Piece() {
         if (x + 1 < 8 && y + 2 < 8) {
             if (positions!![x + 1]!![y + 2]!!.color != color) {
                 if (positions[x + 1]!![y + 2]!!.isOpposite(this)) {
-                    moves.add(Move(positions, x, y, x + 1, y + 2, "take"))
+                    moves.add(Move(x, y, x + 1, y + 2, "take"))
                 } else {
-                    moves.add(Move(positions, x, y, x + 1, y + 2, "move"))
+                    moves.add(Move(x, y, x + 1, y + 2, "move"))
                 }
             }
         }
         if (x + 2 < 8 && y + 1 < 8) {
             if (positions!![x + 2]!![y + 1]!!.color != color) {
                 if (positions[x + 2]!![y + 1]!!.isOpposite(this)) {
-                    moves.add(Move(positions, x, y, x + 2, y + 1, "take"))
+                    moves.add(Move(x, y, x + 2, y + 1, "take"))
                 } else {
-                    moves.add(Move(positions, x, y, x + 2, y + 1, "move"))
+                    moves.add(Move(x, y, x + 2, y + 1, "move"))
                 }
             }
         }
         if (x - 1 > -1 && y + 2 < 8) {
             if (positions!![x - 1]!![y + 2]!!.color != color) {
                 if (positions[x - 1]!![y + 2]!!.isOpposite(this)) {
-                    moves.add(Move(positions, x, y, x - 1, y + 2, "take"))
+                    moves.add(Move(x, y, x - 1, y + 2, "take"))
                 } else {
-                    moves.add(Move(positions, x, y, x - 1, y + 2, "move"))
+                    moves.add(Move(x, y, x - 1, y + 2, "move"))
                 }
             }
         }
         if (x - 2 > -1 && y + 1 < 8) {
             if (positions!![x - 2]!![y + 1]!!.color != color) {
                 if (positions[x - 2]!![y + 1]!!.isOpposite(this)) {
-                    moves.add(Move(positions, x, y, x - 2, y + 1, "take"))
+                    moves.add(Move(x, y, x - 2, y + 1, "take"))
                 } else {
-                    moves.add(Move(positions, x, y, x - 2, y + 1, "move"))
+                    moves.add(Move(x, y, x - 2, y + 1, "move"))
                 }
             }
         }
         if (x + 1 < 8 && y - 2 > -1) {
             if (positions!![x + 1]!![y - 2]!!.color != color) {
                 if (positions[x + 1]!![y - 2]!!.isOpposite(this)) {
-                    moves.add(Move(positions, x, y, x + 1, y - 2, "take"))
+                    moves.add(Move(x, y, x + 1, y - 2, "take"))
                 } else {
-                    moves.add(Move(positions, x, y, x + 1, y - 2, "move"))
+                    moves.add(Move(x, y, x + 1, y - 2, "move"))
                 }
             }
         }
         if (x + 2 < 8 && y - 1 > -1) {
             if (positions!![x + 2]!![y - 1]!!.color != color) {
                 if (positions[x + 2]!![y - 1]!!.isOpposite(this)) {
-                    moves.add(Move(positions, x, y, x + 2, y - 1, "take"))
+                    moves.add(Move(x, y, x + 2, y - 1, "take"))
                 } else {
-                    moves.add(Move(positions, x, y, x + 2, y - 1, "move"))
+                    moves.add(Move(x, y, x + 2, y - 1, "move"))
                 }
             }
         }
         if (x - 1 > -1 && y - 2 > -1) {
             if (positions!![x - 1]!![y - 2]!!.color != color) {
                 if (positions[x - 1]!![y - 2]!!.isOpposite(this)) {
-                    moves.add(Move(positions, x, y, x - 1, y - 2, "take"))
+                    moves.add(Move(x, y, x - 1, y - 2, "take"))
                 } else {
-                    moves.add(Move(positions, x, y, x - 1, y - 2, "move"))
+                    moves.add(Move(x, y, x - 1, y - 2, "move"))
                 }
             }
         }
         if (x - 2 > -1 && y - 1 > -1) {
             if (positions!![x - 2]!![y - 1]!!.color != color) {
                 if (positions[x - 2]!![y - 1]!!.isOpposite(this)) {
-                    moves.add(Move(positions, x, y, x - 2, y - 1, "take"))
+                    moves.add(Move(x, y, x - 2, y - 1, "take"))
                 } else {
-                    moves.add(Move(positions, x, y, x - 2, y - 1, "move"))
+                    moves.add(Move(x, y, x - 2, y - 1, "move"))
                 }
             }
         }
