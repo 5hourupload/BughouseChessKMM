@@ -13,6 +13,9 @@ final class GameManager: ObservableObject {
     @Published var counter: Int = 0
     @Published var board0 = [[Square]]()
     let gms = GameStateManager()
+    var currentMoveType: String = ""
+    var currentX: Int = -1
+    var currentY: Int = -1
     
     
     init(counter: Int)  {
@@ -43,10 +46,46 @@ final class GameManager: ObservableObject {
             }
         }
     }
-    public func potentialMoves(x:Int, y: Int, boardNumber: Int)
+    public func processMove(x:Int, y: Int, boardNumber: Int)
     {
-        var piece = gms.getPositions(boardNumber: Int32(boardNumber)).get(index: Int32(x))?.get(index: Int32(y))
-        var moves = piece!.getMoves(gms.getPositions(boardNumber: Int32(boardNumber)), Int32(x), Int32(y), Int32(boardNumber));
-        
+        if (board0[x][y].cosmetic == "dot" || board0[x][y].cosmetic == "yellow")
+        {
+            gms.performMove(moveType: currentMoveType, x: Int32(currentX), y: Int32(currentY),x1: Int32(x),y1: Int32(y),boardNumber: Int32(boardNumber));
+            updatePieces()
+
+            if (currentMoveType == "take" || currentMoveType == "whiteEnP" || currentMoveType == "blackEnP") {
+//                updateRosterUI(boardNumber);
+            }
+//                    pawnCheck(boardNumber);
+            if (gms.gameOver) {
+//                gameEndProcedures(gms.gameOverSide, gms.gameOverType);
+                return;
+            }
+        }
+        else
+        {
+            let piece = gms.getPositions(boardNumber: Int32(boardNumber)).get(index: Int32(x))?.get(index: Int32(y))
+            let moves = piece!.getMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), x: Int32(x), y: Int32(y), boardNumber: Int32(boardNumber));
+            
+            for m in moves
+            {
+                if (gms.checkIfMoveResultsInCheck(moveType: m.type,x: m.x,y: m.y,x1: m.x1,y1: m.y1,boardNumber: Int32(boardNumber))) {continue}
+                
+                board0[x][y].cosmetic = "yellow"
+                
+                currentMoveType = m.type
+                currentX = x
+                currentY = y
+
+                if (m.type == "take" || m.type == "whiteEnP" || m.type == "blackEnP")
+                {
+                    board0[Int(m.x1)][Int(m.y1)].cosmetic = "red";
+                }
+                else
+                {
+                    board0[Int(m.x1)][Int(m.y1)].cosmetic = "dot"
+                }
+            }
+        }
     }
 }

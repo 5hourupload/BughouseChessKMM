@@ -38,6 +38,8 @@ struct SquareView: View {
                 print(gameManager.counter)
             }.rotationEffect(.degrees(Double(gameManager.counter)))
             
+            Image(uiImage: gameManager.board0[x][y].getCosmetic())
+            
             Image(uiImage: gameManager.board0[x][y].getUIImage())
         }
 

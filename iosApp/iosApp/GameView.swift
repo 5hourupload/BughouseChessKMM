@@ -16,7 +16,7 @@ struct GameView: View {
                 VStack(spacing: 0) {
                     ForEach(0...7, id: \.self) { x in
                         SquareView(x: x, y: y, boardNumber: 0, gameManager: gameManager).onTapGesture {
-                            gameManager.potentialMoves()
+                            gameManager.processMove(x: x,y: y,boardNumber: 0)
                         }
                     }
                 }

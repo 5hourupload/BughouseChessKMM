@@ -208,9 +208,9 @@ class GameStateManager {
     }
 
     fun performMove(moveType: String, x: Int, y: Int, x1: Int, y1: Int, boardNumber: Int) {
-        val color = positions[boardNumber][x]!![y]!!.color
+        val color = positions[boardNumber][x][y].color
         //?? not sur what this is for, possible a fringe case catcher?
-        if (positions[boardNumber][x]!![y]!!.empty) {
+        if (positions[boardNumber][x][y].empty) {
             turn[0] = 3
             turn[1] = 3
             gameState = GameState.PAUSED

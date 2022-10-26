@@ -17,7 +17,7 @@ abstract class Piece {
         x: Int,
         y: Int,
         boardNumber: Int
-    ): Set<Move?>?
+    ): Set<Move>
 
     fun isOpposite(piece: Piece): Boolean {
         if (color == "white") return piece.color == "black"

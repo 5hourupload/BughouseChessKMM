@@ -18,9 +18,6 @@ struct Square {
     var piece: Piece = Empty()
     
     
-//    init() {
-//    }
-    
     public func getUIImage() -> UIImage
     {
         let squareSize = UIScreen.main.bounds.width / 10
@@ -37,6 +34,36 @@ struct Square {
         else
         {
             return (UIImage(named: "nothing"))!
+        }
+    }
+    
+    public func getCosmetic() -> UIImage
+    {
+        let squareSize = UIScreen.main.bounds.width / 10
+        if (cosmetic == "dot")
+        {
+            return (UIImage(named: "dot")?.resizeImageTo(size: CGSize(width: squareSize, height: squareSize)))!
+
+        }
+        else if (cosmetic == "yellow")
+        {
+            return UIColor.yellow.image(CGSize(width: squareSize, height: squareSize))
+        }
+        else if (cosmetic == "red")
+        {
+            return UIColor.red.image(CGSize(width: squareSize, height: squareSize))
+        }
+        else
+        {
+            return (UIImage(named: "nothing"))!
+        }
+    }
+}
+extension UIColor {
+    func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { rendererContext in
+            self.setFill()
+            rendererContext.fill(CGRect(origin: .zero, size: size))
         }
     }
 }

@@ -15,7 +15,7 @@ class Empty : Piece() {
         x: Int,
         y: Int,
         boardNumber: Int
-    ): Set<Move?>? {
-        return null
+    ): Set<Move> {
+        return HashSet()
     }
 }

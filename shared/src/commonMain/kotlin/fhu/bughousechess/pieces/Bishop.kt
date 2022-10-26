@@ -15,8 +15,8 @@ class Bishop(color: String?) : Piece() {
         x: Int,
         y: Int,
         boardNumber: Int
-    ): Set<Move?>? {
-        val moves: MutableSet<Move?> = HashSet()
+    ): Set<Move> {
+        val moves: MutableSet<Move> = HashSet()
         var inbetween = false
         var z = x
         if (y > x) {
@@ -24,16 +24,16 @@ class Bishop(color: String?) : Piece() {
         }
         for (i in 1 until 8 - z) {
             for (j in 1 until i) {
-                if (!positions!![x + j]!![y + j]!!.empty) {
+                if (!positions[x + j][y + j].empty) {
                     inbetween = true
                 }
             }
-            if (positions!![x + i]!![y + i]!!.empty) {
+            if (positions[x + i][y + i].empty) {
                 if (!inbetween) {
                     moves.add(Move(x, y, x + i, y + i, "move"))
                 }
             }
-            if (positions[x + i]!![y + i]!!.isOpposite(this)) {
+            if (positions[x + i][y + i].isOpposite(this)) {
                 if (!inbetween) {
                     moves.add(Move(x, y, x + i, y + i, "take"))
                 }
@@ -47,16 +47,16 @@ class Bishop(color: String?) : Piece() {
         }
         for (i in 1 until z + 1) {
             for (j in 1 until i) {
-                if (!positions!![x - j]!![y - j]!!.empty) {
+                if (!positions[x - j][y - j].empty) {
                     inbetween = true
                 }
             }
-            if (positions!![x - i]!![y - i]!!.empty) {
+            if (positions[x - i][y - i].empty) {
                 if (!inbetween) {
                     moves.add(Move(x, y, x - i, y - i, "move"))
                 }
             }
-            if (positions[x - i]!![y - i]!!.isOpposite(this)) {
+            if (positions[x - i][y - i].isOpposite(this)) {
                 if (!inbetween) {
                     moves.add(Move(x, y, x - i, y - i, "take"))
                 }
@@ -70,16 +70,16 @@ class Bishop(color: String?) : Piece() {
         }
         for (i in 1 until z + 1) {
             for (j in 1 until i) {
-                if (!positions!![x + j]!![y - j]!!.empty) {
+                if (!positions[x + j][y - j].empty) {
                     inbetween = true
                 }
             }
-            if (positions!![x + i]!![y - i]!!.empty) {
+            if (positions[x + i][y - i].empty) {
                 if (!inbetween) {
                     moves.add(Move(x, y, x + i, y - i, "move"))
                 }
             }
-            if (positions[x + i]!![y - i]!!.isOpposite(this)) {
+            if (positions[x + i][y - i].isOpposite(this)) {
                 if (!inbetween) {
                     moves.add(Move(x, y, x + i, y - i, "take"))
                 }
@@ -93,16 +93,16 @@ class Bishop(color: String?) : Piece() {
         }
         for (i in 1 until z + 1) {
             for (j in 1 until i) {
-                if (!positions!![x - j]!![y + j]!!.empty) {
+                if (!positions[x - j][y + j].empty) {
                     inbetween = true
                 }
             }
-            if (positions!![x - i]!![y + i]!!.empty) {
+            if (positions[x - i][y + i].empty) {
                 if (!inbetween) {
                     moves.add(Move(x, y, x - i, y + i, "move"))
                 }
             }
-            if (positions[x - i]!![y + i]!!.isOpposite(this)) {
+            if (positions[x - i][y + i].isOpposite(this)) {
                 if (!inbetween) {
                     moves.add(Move(x, y, x - i, y + i, "take"))
                 }

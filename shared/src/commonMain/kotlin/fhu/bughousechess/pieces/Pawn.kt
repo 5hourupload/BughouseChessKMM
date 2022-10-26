@@ -16,24 +16,24 @@ class Pawn(color: String?) : Piece() {
         x: Int,
         y: Int,
         boardNumber: Int
-    ): Set<Move?>? {
-        val moves: MutableSet<Move?> = HashSet()
+    ): Set<Move> {
+        val moves: MutableSet<Move> = HashSet()
         if (color == "white") {
             if (y < 7) {
-                if (positions!![x]!![y + 1]!!.empty) {
+                if (positions[x][y + 1].empty) {
                     moves.add(Move(x, y, x, y + 1, "move"))
                     if (y == 1) {
-                        if (positions[x]!![y + 2]!!.empty) {
+                        if (positions[x][y + 2].empty) {
                             moves.add(Move(x, y, x, y + 2, "move"))
                         }
                     }
                 }
             }
             if (x < 7 && y < 7) {
-                if (positions!![x + 1]!![y + 1]!!.isOpposite(this)) {
+                if (positions[x + 1][y + 1].isOpposite(this)) {
                     moves.add(Move(x, y, x + 1, y + 1, "take"))
                 }
-                if (y == 4 && positions[x + 1]!![y]!!.color == "black" && positions[x + 1]!![y]!!.type == "pawn") {
+                if (y == 4 && positions[x + 1][y].color == "black" && positions[x + 1][y].type == "pawn") {
                     if (boardNumber == 0) {
                         if (GameStateManager.enP[x + 1][1].substring(
                                 0,
@@ -61,10 +61,10 @@ class Pawn(color: String?) : Piece() {
                 }
             }
             if (x > 0 && y < 7) {
-                if (positions!![x - 1]!![y + 1]!!.isOpposite(this)) {
+                if (positions[x - 1][y + 1].isOpposite(this)) {
                     moves.add(Move(x, y, x - 1, y + 1, "take"))
                 }
-                if (y == 4 && positions[x - 1]!![y]!!.color == "black" && positions[x - 1]!![y]!!.type == "pawn") {
+                if (y == 4 && positions[x - 1][y].color == "black" && positions[x - 1][y].type == "pawn") {
                     if (boardNumber == 0) {
                         if (GameStateManager.enP[x - 1][1].substring(
                                 0,
@@ -93,20 +93,20 @@ class Pawn(color: String?) : Piece() {
             }
         } else {
             if (y > 0) {
-                if (positions!![x]!![y - 1]!!.empty) {
+                if (positions[x][y - 1].empty) {
                     moves.add(Move(x, y, x, y - 1, "move"))
                     if (y == 6) {
-                        if (positions[x]!![y - 2]!!.empty) {
+                        if (positions[x][y - 2].empty) {
                             moves.add(Move(x, y, x, y - 2, "move"))
                         }
                     }
                 }
             }
             if (x < 7 && y > 0) {
-                if (positions!![x + 1]!![y - 1]!!.isOpposite(this)) {
+                if (positions[x + 1][y - 1].isOpposite(this)) {
                     moves.add(Move(x, y, x + 1, y - 1, "take"))
                 }
-                if (y == 3 && positions[x + 1]!![y]!!.color == "white" && positions[x + 1]!![y]!!.type == "pawn") {
+                if (y == 3 && positions[x + 1][y].color == "white" && positions[x + 1][y].type == "pawn") {
                     if (boardNumber == 0) {
                         if (GameStateManager.enP[x + 1][0].substring(
                                 0,
@@ -134,10 +134,10 @@ class Pawn(color: String?) : Piece() {
                 }
             }
             if (x > 0 && y > 0) {
-                if (positions!![x - 1]!![y - 1]!!.isOpposite(this)) {
+                if (positions[x - 1][y - 1].isOpposite(this)) {
                     moves.add(Move(x, y, x - 1, y - 1, "take"))
                 }
-                if (y == 3 && positions[x - 1]!![y]!!.color == "white" && positions[x - 1]!![y]!!.type == "pawn") {
+                if (y == 3 && positions[x - 1][y].color == "white" && positions[x - 1][y].type == "pawn") {
                     if (boardNumber == 0) {
                         if (GameStateManager.enP[x - 1][0].substring(
                                 0,
