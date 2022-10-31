@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SquareView: View {
+struct BoardSquareView: View {
     @State var rotation: Double = 90
     var x: Int
     var y: Int
@@ -34,13 +34,11 @@ struct SquareView: View {
     var body: some View
     {
         ZStack{
-            Image(uiImage: backgroundImage).onTapGesture {
-                print(gameManager.counter)
-            }.rotationEffect(.degrees(Double(gameManager.counter)))
+            Image(uiImage: backgroundImage)
             
-            Image(uiImage: gameManager.board0[x][y].getCosmetic())
+            Image(uiImage: gameManager.board[boardNumber][x][y].getCosmetic())
             
-            Image(uiImage: gameManager.board0[x][y].getUIImage())
+            Image(uiImage: gameManager.board[boardNumber][x][y].getUIImage())
         }
 
     }
