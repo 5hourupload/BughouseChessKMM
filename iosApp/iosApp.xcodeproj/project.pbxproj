@@ -16,6 +16,8 @@
 		296F08A529092D90008C519C /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08A429092D90008C519C /* Square.swift */; };
 		296F08A7290F8DFB008C519C /* RosterSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08A6290F8DFB008C519C /* RosterSquareView.swift */; };
 		296F08A9290F9450008C519C /* RosterSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08A8290F9450008C519C /* RosterSquare.swift */; };
+		296F08AB29136428008C519C /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08AA29136428008C519C /* TimerView.swift */; };
+		296F08AD29144652008C519C /* PawnPromotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08AC29144652008C519C /* PawnPromotionView.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +44,8 @@
 		296F08A429092D90008C519C /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		296F08A6290F8DFB008C519C /* RosterSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterSquareView.swift; sourceTree = "<group>"; };
 		296F08A8290F9450008C519C /* RosterSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterSquare.swift; sourceTree = "<group>"; };
+		296F08AA29136428008C519C /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		296F08AC29144652008C519C /* PawnPromotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawnPromotionView.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -97,6 +101,8 @@
 				296F08A429092D90008C519C /* Square.swift */,
 				296F08A6290F8DFB008C519C /* RosterSquareView.swift */,
 				296F08A8290F9450008C519C /* RosterSquare.swift */,
+				296F08AA29136428008C519C /* TimerView.swift */,
+				296F08AC29144652008C519C /* PawnPromotionView.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -200,9 +206,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				296F08AB29136428008C519C /* TimerView.swift in Sources */,
 				296F08A7290F8DFB008C519C /* RosterSquareView.swift in Sources */,
 				296F089F29061CB8008C519C /* BoardSquareView.swift in Sources */,
 				296F08A129092173008C519C /* GameManager.swift in Sources */,
+				296F08AD29144652008C519C /* PawnPromotionView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				296F08A529092D90008C519C /* Square.swift in Sources */,
 				296F08A9290F9450008C519C /* RosterSquare.swift in Sources */,

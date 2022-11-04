@@ -20,6 +20,12 @@ final class GameManager: ObservableObject {
     
     var moves: Set<Move> = Set()
     
+    @Published var showPawnOptions = [false, false]
+    var pawnPromotionX = [-1, -1];
+    var pawnPromotionY = [-1, -1];
+    var pawnPromotionColor = ["", ""];
+
+    
     
     init(counter: Int)  {
         self.counter = counter
@@ -53,36 +59,60 @@ final class GameManager: ObservableObject {
                 }
             }
         }
+        
+        for i in 0...29 {
+            roster0W[i].piece = gms.roster1p.get(index: Int32(i))!
+            roster0B[i].piece = gms.roster2p.get(index: Int32(i))!
+            roster1W[i].piece = gms.roster4p.get(index: Int32(i))!
+            roster1B[i].piece = gms.roster3p.get(index: Int32(i))!
+        }
     }
     public func processMove(x:Int, y: Int, boardNumber: Int)
     {
+        if (gms.gameState != GameStateManager.GameState.playing) { return }
+        
         for m in moves
         {
             if (m.x1 == x && m.y1 == y)
             {
   
-                gms.performMove(moveType: m.type, x: m.x, y: m.y, x1: Int32(x),y1: Int32(y), boardNumber: Int32(boardNumber));
-                updatePieces()
-                
+                if (m.type == "roster")
+                {
+                    gms.performRosterMove(i: m.i, x: m.x1, y: m.y1, boardNumber: Int32(boardNumber));
+                    moves = Set()
+                    updatePieces()
 
-                if (m.type == "take" || m.type == "whiteEnP" || m.type == "blackEnP") {
-    //                updateRosterUI(boardNumber);
+                    clean(boardNumber: boardNumber);
+                    if (gms.gameOver) {
+//                        gameEndProcedures(gms.gameOverSide, gms.gameOverType);
+                        return
+                    }
+                    return
                 }
-    //                    pawnCheck(boardNumber);
-                clean(boardNumber: boardNumber)
-
-                if (gms.gameOver) {
-    //                gameEndProcedures(gms.gameOverSide, gms.gameOverType);
-                    return;
+                else
+                {
+                    gms.performMove(moveType: m.type, x: m.x, y: m.y, x1: Int32(x), y1: Int32(y), boardNumber: Int32(boardNumber));
+                    moves = Set()
+                    updatePieces()
+                    pawnCheck(boardNumber: boardNumber);
+                    clean(boardNumber: boardNumber)
+                    if (gms.gameOver) {
+        //                gameEndProcedures(gms.gameOverSide, gms.gameOverType);
+                        return;
+                    }
+                    return
                 }
-                return
             }
         }
         
         
         clean(boardNumber: boardNumber)
         let piece = gms.getPositions(boardNumber: Int32(boardNumber)).get(index: Int32(x))?.get(index: Int32(y))
-        moves = piece!.getMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), x: Int32(x), y: Int32(y), boardNumber: Int32(boardNumber));
+        
+        if (piece!.color == "white" && gms.turn.get(index: Int32(boardNumber)) != 1) { return }
+        if (piece!.color == "black" && gms.turn.get(index: Int32(boardNumber)) != 2) { return }
+        
+        moves = piece!.getMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), x: Int32(x), y: Int32(y), boardNumber: Int32(boardNumber))
 
         for m in moves
         {
@@ -101,12 +131,93 @@ final class GameManager: ObservableObject {
         }
         
     }
+    
+    public func processRosterClick(i: Int, roster: [RosterSquare], boardNumber: Int)
+    {
+        if (roster[i].piece.color == "white" && gms.turn.get(index: Int32(boardNumber)) != 1) { return }
+        if (roster[i].piece.color == "black" && gms.turn.get(index: Int32(boardNumber)) != 2) { return }
+        if (gms.gameState != GameStateManager.GameState.playing) { return }
+        
+        clean(boardNumber: boardNumber)
+        let piece = gms.getCurrentRosterArray(boardNumber: Int32(boardNumber)).get(index: Int32(i))
+        moves = piece!.getRosterMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), rosterp: gms.getCurrentRosterArray(boardNumber: Int32(boardNumber)), i: Int32(i))
+
+        for m in moves
+        {
+            if (!gms.rosterMoveIsLegal(rosterPiece: gms.getCurrentRosterArray(boardNumber: Int32(boardNumber)).get(index: Int32(i))!, x: Int32(m.x1), y: (m.y1), boardNumber: Int32(boardNumber))) {continue}
+
+            roster[i].cosmetic = "yellow"
+                        
+            board[boardNumber][Int(m.x1)][Int(m.y1)].cosmetic = "dot"
+            
+        }
+    }
+    
     func clean(boardNumber: Int)
     {
         for x in 0...7 {
             for y in 0...7 {
                 board[boardNumber][x][y].cosmetic = "none"
             }
+        }
+        if (boardNumber == 0)
+        {
+            for i in 0...29 {
+                roster0W[i].cosmetic = "none"
+                roster0B[i].cosmetic = "none"
+            }
+        }
+        if (boardNumber == 1)
+        {
+            for i in 0...29 {
+                roster1W[i].cosmetic = "none"
+                roster1B[i].cosmetic = "none"
+            }
+        }
+        
+    }
+    
+    public func start()
+    {
+        gms.start()
+    }
+    
+    public func pawnCheck(boardNumber: Int)
+    {
+        let nextTurn = gms.turn.get(index: Int32(boardNumber));
+        let y = nextTurn == 2 ? 7 : 0;
+        let color = nextTurn == 2 ? "white" : "black";
+        for i in 0...7
+        {
+            let piece = gms.getPositions(boardNumber: Int32(boardNumber)).get(index: Int32(i))!.get(index: Int32(y))
+            if (piece!.color == color && piece!.type == "pawn")
+            {
+                pawnPromotionX[boardNumber] = i
+                pawnPromotionY[boardNumber] = y
+                pawnPromotionColor[boardNumber] = color
+
+                gms.pause(boardNumber: Int32(boardNumber));
+                showPawnOptions[boardNumber] = true;
+            }
+
+        }
+    }
+    
+    public func selectPromotionPiece(piece: String, boardNumber: Int)
+    {
+        var newPiece: Piece
+        if piece == "queen" { newPiece = Queen(color: pawnPromotionColor[boardNumber]) }
+        else if piece == "rook" { newPiece = Rook(color: pawnPromotionColor[boardNumber]) }
+        else if piece == "bishop" { newPiece = Bishop(color: pawnPromotionColor[boardNumber]) }
+        else { newPiece = Knight(color: pawnPromotionColor[boardNumber]) }
+        
+        gms.promote(x: Int32(pawnPromotionX[boardNumber]), y: Int32(pawnPromotionY[boardNumber]), piece: newPiece, boardNumber: Int32(boardNumber));
+        updatePieces()
+        showPawnOptions[boardNumber] = false
+
+        if (gms.gameState == GameStateManager.GameState.playing)
+        {
+            gms.resume(boardNumber: Int32(boardNumber));
         }
     }
 }
