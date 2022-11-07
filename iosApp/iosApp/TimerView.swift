@@ -21,12 +21,13 @@ struct TimerView: View {
     var color: Int
     var yellow: UIImage
     var gray: UIImage
+    @State var active = false
 
     init(gameManager: GameManager, color: String, boardNumber: Int) {
         let squareSize = UIScreen.main.bounds.width / 10
 
-        yellow = UIColor.yellow.image(CGSize(width: squareSize*2, height: squareSize))
-        gray = UIColor.gray.image(CGSize(width: squareSize*2, height: squareSize))
+        yellow = UIColor(hex: "#FFC900FF")!.image(CGSize(width: squareSize*2, height: squareSize))
+        gray = UIColor(hex: "#B0B0B000")!.image(CGSize(width: squareSize*2, height: squareSize))
         backgroundImage = gray
         
         self.gameManager = gameManager
@@ -48,8 +49,9 @@ struct TimerView: View {
         ZStack{
             Image(uiImage: backgroundImage)
             
-            Text(String(self.time/100)).onReceive(timer) { input in
-                if (gameManager.gms.gameState == GameStateManager.GameState.playing && gameManager.gms.turn.get(index: Int32(boardNumber)) == color)
+            Text(getTimeString(time: self.time)).onReceive(timer) { input in
+                self.active = gameManager.gms.gameState == GameStateManager.GameState.playing && gameManager.gms.turn.get(index: Int32(boardNumber)) == color
+                if self.active
                 {
                     self.time = self.time - 100
                     self.backgroundImage = yellow
@@ -58,10 +60,39 @@ struct TimerView: View {
                 {
                     self.backgroundImage = gray
                 }
-            }
+                
+                if self.time <= 0 {
+                    var side: Int = -1
+                    if boardNumber == 0 && color == 1 { side = 1 }
+                    if boardNumber == 0 && color == 2 { side = 0 }
+                    if boardNumber == 1 && color == 1 { side = 0 }
+                    if boardNumber == 1 && color == 2 { side = 1 }
+                    gameManager.gameEndProcedures(side: Int32(side), type: 2);
+
+                }
+            }.rotationEffect(.degrees(getRotation())).foregroundColor(self.active ? .white : .gray).font(.system(size: 30, weight: .bold))
         }
 
     }
     
+    private func getRotation() -> Double
+    {
+        
+        if boardNumber == 0
+        {
+            return 0.0
+        }
+        else
+        {
+            return 180.0
+        }
+    }
+    
+    private func getTimeString(time: Int) -> String {
+        var seconds = time / 1000
+        var min = Int(seconds / 60)
+        var sec = seconds % 60
+        return String(min) + ":" + String(format: "%02d",sec)
+    }
 }
 

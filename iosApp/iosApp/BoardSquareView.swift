@@ -15,6 +15,9 @@ struct BoardSquareView: View {
     var boardNumber: Int
     var gameManager: GameManager
     var backgroundImage: UIImage
+    @State var dragging: Bool = false
+    @State private var location: CGPoint = CGPoint(x: 0, y: 0)
+
     
     init(x: Int, y: Int, boardNumber: Int, gameManager: GameManager) {
         let squareSize = UIScreen.main.bounds.width / 10
@@ -33,15 +36,45 @@ struct BoardSquareView: View {
     
     var body: some View
     {
+        
         ZStack{
             Image(uiImage: backgroundImage)
             
             Image(uiImage: gameManager.board[boardNumber][x][y].getCosmetic())
             
             Image(uiImage: gameManager.board[boardNumber][x][y].getUIImage())
+                .rotationEffect(.degrees(getRotation()))
+                .gesture(simpleDrag)
+        }
+        if dragging{
+            Image(uiImage: gameManager.board[boardNumber][x][y].getUIImage()).position(location).zIndex(100)
+
         }
 
+
     }
-    
+    var simpleDrag: some Gesture {
+            DragGesture()
+                .onChanged { value in
+//                    self.location = value.location
+//                    dragging = true
+//                    print(location)
+                }
+        }
+    private func getRotation() -> Double
+    {
+        
+        if boardNumber == 0
+        {
+            if gameManager.board[boardNumber][x][y].piece.color == "white" { return 90.0 }
+            if gameManager.board[boardNumber][x][y].piece.color == "black" { return 270.0 }
+        }
+        else
+        {
+            if gameManager.board[boardNumber][x][y].piece.color == "white" { return 270.0 }
+            if gameManager.board[boardNumber][x][y].piece.color == "black" { return 90.0 }
+        }
+        return 0.0
+    }
 }
 

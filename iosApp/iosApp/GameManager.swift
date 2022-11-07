@@ -18,12 +18,15 @@ final class GameManager: ObservableObject {
     @Published var roster1B = [RosterSquare]()
     let gms = GameStateManager()
     
-    var moves: Set<Move> = Set()
+    var moves: [Set<Move>] = [Set(), Set()]
     
     @Published var showPawnOptions = [false, false]
     var pawnPromotionX = [-1, -1];
     var pawnPromotionY = [-1, -1];
     var pawnPromotionColor = ["", ""];
+    
+    @Published var showGameEndScreen = false
+
 
     
     
@@ -71,7 +74,7 @@ final class GameManager: ObservableObject {
     {
         if (gms.gameState != GameStateManager.GameState.playing) { return }
         
-        for m in moves
+        for m in moves[boardNumber]
         {
             if (m.x1 == x && m.y1 == y)
             {
@@ -79,12 +82,12 @@ final class GameManager: ObservableObject {
                 if (m.type == "roster")
                 {
                     gms.performRosterMove(i: m.i, x: m.x1, y: m.y1, boardNumber: Int32(boardNumber));
-                    moves = Set()
+                    moves[boardNumber] = Set()
                     updatePieces()
 
                     clean(boardNumber: boardNumber);
                     if (gms.gameOver) {
-//                        gameEndProcedures(gms.gameOverSide, gms.gameOverType);
+                        gameEndProcedures(side: gms.gameOverSide, type: gms.gameOverType);
                         return
                     }
                     return
@@ -92,12 +95,12 @@ final class GameManager: ObservableObject {
                 else
                 {
                     gms.performMove(moveType: m.type, x: m.x, y: m.y, x1: Int32(x), y1: Int32(y), boardNumber: Int32(boardNumber));
-                    moves = Set()
+                    moves[boardNumber] = Set()
                     updatePieces()
                     pawnCheck(boardNumber: boardNumber);
                     clean(boardNumber: boardNumber)
                     if (gms.gameOver) {
-        //                gameEndProcedures(gms.gameOverSide, gms.gameOverType);
+                        gameEndProcedures(side: gms.gameOverSide, type: gms.gameOverType);
                         return;
                     }
                     return
@@ -105,18 +108,19 @@ final class GameManager: ObservableObject {
             }
         }
         
-        
-        clean(boardNumber: boardNumber)
         let piece = gms.getPositions(boardNumber: Int32(boardNumber)).get(index: Int32(x))?.get(index: Int32(y))
-        
         if (piece!.color == "white" && gms.turn.get(index: Int32(boardNumber)) != 1) { return }
         if (piece!.color == "black" && gms.turn.get(index: Int32(boardNumber)) != 2) { return }
         
-        moves = piece!.getMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), x: Int32(x), y: Int32(y), boardNumber: Int32(boardNumber))
-
-        for m in moves
+        clean(boardNumber: boardNumber)
+        
+        var allMoves = piece!.getMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), x: Int32(x), y: Int32(y), boardNumber: Int32(boardNumber))
+        moves[boardNumber] = Set()
+        for m in allMoves
         {
             if (gms.checkIfMoveResultsInCheck(moveType: m.type,x: m.x,y: m.y,x1: m.x1,y1: m.y1,boardNumber: Int32(boardNumber))) {continue}
+            
+            moves[boardNumber].insert(m)
             
             board[boardNumber][x][y].cosmetic = "yellow"
 
@@ -134,18 +138,21 @@ final class GameManager: ObservableObject {
     
     public func processRosterClick(i: Int, roster: [RosterSquare], boardNumber: Int)
     {
-        if (roster[i].piece.color == "white" && gms.turn.get(index: Int32(boardNumber)) != 1) { return }
-        if (roster[i].piece.color == "black" && gms.turn.get(index: Int32(boardNumber)) != 2) { return }
         if (gms.gameState != GameStateManager.GameState.playing) { return }
         
-        clean(boardNumber: boardNumber)
         let piece = gms.getCurrentRosterArray(boardNumber: Int32(boardNumber)).get(index: Int32(i))
-        moves = piece!.getRosterMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), rosterp: gms.getCurrentRosterArray(boardNumber: Int32(boardNumber)), i: Int32(i))
-
-        for m in moves
+        if (roster[i].piece.color == "white" && gms.turn.get(index: Int32(boardNumber)) != 1) { return }
+        if (roster[i].piece.color == "black" && gms.turn.get(index: Int32(boardNumber)) != 2) { return }
+        
+        
+        clean(boardNumber: boardNumber)
+        
+        var allMoves = piece!.getRosterMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), rosterp: gms.getCurrentRosterArray(boardNumber: Int32(boardNumber)), i: Int32(i))
+        moves[boardNumber] = Set()
+        for m in allMoves
         {
             if (!gms.rosterMoveIsLegal(rosterPiece: gms.getCurrentRosterArray(boardNumber: Int32(boardNumber)).get(index: Int32(i))!, x: Int32(m.x1), y: (m.y1), boardNumber: Int32(boardNumber))) {continue}
-
+            moves[boardNumber].insert(m)
             roster[i].cosmetic = "yellow"
                         
             board[boardNumber][Int(m.x1)][Int(m.y1)].cosmetic = "dot"
@@ -219,5 +226,14 @@ final class GameManager: ObservableObject {
         {
             gms.resume(boardNumber: Int32(boardNumber));
         }
+    }
+    
+    public func gameEndProcedures(side: Int32, type: Int32)
+    {
+        gms.gameEndProcedures(side: side, type: type);
+        clean(boardNumber: 0);
+        clean(boardNumber: 1);
+        showGameEndScreen = true
+        
     }
 }

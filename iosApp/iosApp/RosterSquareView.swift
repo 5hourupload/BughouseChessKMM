@@ -42,9 +42,25 @@ struct RosterSquareView: View {
             
             Image(uiImage: square.getCosmetic())
             
-            Image(uiImage: square.getUIImage())
+            Image(uiImage: square.getUIImage()).rotationEffect(.degrees(getRotation()))
         }
 
+    }
+    
+    private func getRotation() -> Double
+    {
+        
+        if boardNumber == 0
+        {
+            if square.piece.color == "white" { return 90.0 }
+            if square.piece.color == "black" { return 270.0 }
+        }
+        else
+        {
+            if square.piece.color == "white" { return 270.0 }
+            if square.piece.color == "black" { return 90.0 }
+        }
+        return 0.0
     }
     
 }
