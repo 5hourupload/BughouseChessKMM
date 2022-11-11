@@ -45,8 +45,8 @@ struct StartButtonView: View {
             }
             else if (gameManager.gms.gameState == GameStateManager.GameState.playing)
             {
-                gameManager.clean(boardNumber: 0);
-                gameManager.clean(boardNumber: 1);
+                gameManager.clean(boardNumber: 0,leaveCheck: true);
+                gameManager.clean(boardNumber: 1, leaveCheck: true);
                 gameManager.gms.pause();
                 text = "Resume";
             }

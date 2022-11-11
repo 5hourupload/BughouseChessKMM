@@ -152,6 +152,9 @@ class GameStateManager {
     @JvmField
     var gameOverType = -1
 
+    @JvmField
+    var checking = true
+
     enum class GameState {
         PREGAME, PLAYING, PAUSED
     }
@@ -616,6 +619,23 @@ class GameStateManager {
         }
     }
 
+    /**
+     * Along with blackInCheck, this requires the positions and boardnumber variable because
+     * the positions might be temporary, separate from the class variable
+     */
+    fun inCheck(positions: Array<Array<Piece>>, color: String, boardNumber: Int): Boolean {
+        for (i in 0..7) {
+            for (j in 0..7) {
+                if (positions[i][j].color == color && positions[i][j].type == "king" &&
+                    checkCheck(positions, i, j, boardNumber)
+                ) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
     companion object {
         var whiteCastleQueen1 = true
         var whiteCastleKing1 = true
@@ -625,8 +645,7 @@ class GameStateManager {
         var whiteCastleKing2 = true
         var blackCastleQueen2 = true
         var blackCastleKing2 = true
-        @JvmField
-        var checking = true
+
         @JvmField
         var placing = true
         @JvmField
@@ -697,23 +716,7 @@ class GameStateManager {
             positions[x]!![y] = Empty()
         }
 
-        /**
-         * Along with blackInCheck, this requires the positions and boardnumber variable because
-         * the positions might be temporary, separate from the class variable
-         */
-        @JvmStatic
-        fun inCheck(positions: Array<Array<Piece>>, color: String, boardNumber: Int): Boolean {
-            for (i in 0..7) {
-                for (j in 0..7) {
-                    if (positions[i]!![j]!!.color == color && positions[i]!![j]!!.type == "king" &&
-                        checkCheck(positions, i, j, boardNumber)
-                    ) {
-                        return true
-                    }
-                }
-            }
-            return false
-        }
+
 
         fun checkCheck(
             positions: Array<Array<Piece>>,

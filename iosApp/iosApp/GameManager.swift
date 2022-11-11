@@ -11,7 +11,7 @@ import shared
 final class GameManager: ObservableObject {
     
     @Published var counter: Int = 0
-    @Published var board = [[[Square]]](repeating: [[Square]](), count: 2)
+    @Published var board = [[[BoardSquare]]](repeating: [[BoardSquare]](), count: 2)
     @Published var roster0W = [RosterSquare]()
     @Published var roster0B = [RosterSquare]()
     @Published var roster1W = [RosterSquare]()
@@ -41,7 +41,7 @@ final class GameManager: ObservableObject {
         {
             for b in 0...1 {
                 for _ in 0...7 {
-                    board[b].append([Square(), Square(), Square(), Square(), Square(), Square(), Square(), Square()])
+                    board[b].append([BoardSquare(), BoardSquare(), BoardSquare(), BoardSquare(), BoardSquare(), BoardSquare(), BoardSquare(), BoardSquare()])
                 }
             }
         }
@@ -85,10 +85,15 @@ final class GameManager: ObservableObject {
                     moves[boardNumber] = Set()
                     updatePieces()
 
-                    clean(boardNumber: boardNumber);
+                    clean(boardNumber: boardNumber, leaveCheck: false);
                     if (gms.gameOver) {
                         gameEndProcedures(side: gms.gameOverSide, type: gms.gameOverType);
                         return
+                    }
+                    var color = gms.turn.get(index: Int32(boardNumber)) == 1 ? "white" : "black";
+                    if (gms.checking && gms.inCheck(positions: gms.getPositions(boardNumber: Int32(boardNumber)),color: color,boardNumber: Int32(boardNumber)))
+                    {
+                        setCheckUIConditions(color: color,boardNumber: boardNumber);
                     }
                     return
                 }
@@ -98,10 +103,15 @@ final class GameManager: ObservableObject {
                     moves[boardNumber] = Set()
                     updatePieces()
                     pawnCheck(boardNumber: boardNumber);
-                    clean(boardNumber: boardNumber)
+                    clean(boardNumber: boardNumber, leaveCheck: false)
                     if (gms.gameOver) {
                         gameEndProcedures(side: gms.gameOverSide, type: gms.gameOverType);
                         return;
+                    }
+                    var color = gms.turn.get(index: Int32(boardNumber)) == 1 ? "white" : "black";
+                    if (gms.checking && gms.inCheck(positions: gms.getPositions(boardNumber: Int32(boardNumber)),color: color,boardNumber: Int32(boardNumber)))
+                    {
+                        setCheckUIConditions(color: color,boardNumber: boardNumber);
                     }
                     return
                 }
@@ -112,7 +122,7 @@ final class GameManager: ObservableObject {
         if (piece!.color == "white" && gms.turn.get(index: Int32(boardNumber)) != 1) { return }
         if (piece!.color == "black" && gms.turn.get(index: Int32(boardNumber)) != 2) { return }
         
-        clean(boardNumber: boardNumber)
+        clean(boardNumber: boardNumber, leaveCheck: true)
         
         var allMoves = piece!.getMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), x: Int32(x), y: Int32(y), boardNumber: Int32(boardNumber))
         moves[boardNumber] = Set()
@@ -145,7 +155,7 @@ final class GameManager: ObservableObject {
         if (roster[i].piece.color == "black" && gms.turn.get(index: Int32(boardNumber)) != 2) { return }
         
         
-        clean(boardNumber: boardNumber)
+        clean(boardNumber: boardNumber, leaveCheck: true)
         
         var allMoves = piece!.getRosterMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), rosterp: gms.getCurrentRosterArray(boardNumber: Int32(boardNumber)), i: Int32(i))
         moves[boardNumber] = Set()
@@ -160,10 +170,14 @@ final class GameManager: ObservableObject {
         }
     }
     
-    func clean(boardNumber: Int)
+    func clean(boardNumber: Int, leaveCheck: Bool)
     {
         for x in 0...7 {
             for y in 0...7 {
+                if leaveCheck && board[boardNumber][x][y].cosmetic == "blue"
+                {
+                    continue
+                }
                 board[boardNumber][x][y].cosmetic = "none"
             }
         }
@@ -231,9 +245,23 @@ final class GameManager: ObservableObject {
     public func gameEndProcedures(side: Int32, type: Int32)
     {
         gms.gameEndProcedures(side: side, type: type);
-        clean(boardNumber: 0);
-        clean(boardNumber: 1);
+        clean(boardNumber: 0, leaveCheck: true);
+        clean(boardNumber: 1, leaveCheck: true);
         showGameEndScreen = true
         
+    }
+    
+    private func setCheckUIConditions(color: String, boardNumber: Int)
+    {
+        for i in 0...7
+        {
+            for j in 0...7
+            {
+                if gms.getPositions(boardNumber: Int32(boardNumber)).get(index: Int32(i))?.get(index: Int32(j))!.color == color && gms.getPositions(boardNumber: Int32(boardNumber)).get(index: Int32(i))?.get(index: Int32(j))!.type == "king"
+                {
+                    board[boardNumber][i][j].cosmetic = "blue";
+                }
+            }
+        }
     }
 }

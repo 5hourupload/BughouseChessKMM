@@ -11,7 +11,7 @@ import SwiftUI
 import shared
 import Combine
 
-struct Square {
+struct BoardSquare {
     
     
     var cosmetic: String = "none"
@@ -51,6 +51,10 @@ struct Square {
         else if (cosmetic == "red")
         {
             return UIColor.red.image(CGSize(width: squareSize, height: squareSize))
+        }
+        else if (cosmetic == "blue")
+        {
+            return UIColor.blue.image(CGSize(width: squareSize, height: squareSize))
         }
         else
         {
