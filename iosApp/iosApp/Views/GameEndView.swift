@@ -57,7 +57,7 @@ struct GameEndView: View {
     
     private func getEndText() -> String
     {
-        var type = gameManager.gms.gameOverType
+        let type = gameManager.gms.gameOverType
         if type == 0
         {
             return "CHECKMATE"

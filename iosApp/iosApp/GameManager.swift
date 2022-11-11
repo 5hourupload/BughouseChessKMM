@@ -16,7 +16,7 @@ final class GameManager: ObservableObject {
     @Published var roster0B = [RosterSquare]()
     @Published var roster1W = [RosterSquare]()
     @Published var roster1B = [RosterSquare]()
-    let gms = GameStateManager()
+    var gms = GameStateManager()
     
     var moves: [Set<Move>] = [Set(), Set()]
     
@@ -26,6 +26,8 @@ final class GameManager: ObservableObject {
     var pawnPromotionColor = ["", ""];
     
     @Published var showGameEndScreen = false
+    @Published var controlButtonText = "Start"
+    var times = [300*1000, 300*1000, 300*1000, 300*1000]
 
 
     
@@ -124,7 +126,7 @@ final class GameManager: ObservableObject {
         
         clean(boardNumber: boardNumber, leaveCheck: true)
         
-        var allMoves = piece!.getMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), x: Int32(x), y: Int32(y), boardNumber: Int32(boardNumber))
+        let allMoves = piece!.getMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), x: Int32(x), y: Int32(y), boardNumber: Int32(boardNumber))
         moves[boardNumber] = Set()
         for m in allMoves
         {
@@ -248,6 +250,7 @@ final class GameManager: ObservableObject {
         clean(boardNumber: 0, leaveCheck: true);
         clean(boardNumber: 1, leaveCheck: true);
         showGameEndScreen = true
+        controlButtonText = "Start"
         
     }
     
@@ -262,6 +265,41 @@ final class GameManager: ObservableObject {
                     board[boardNumber][i][j].cosmetic = "blue";
                 }
             }
+        }
+    }
+    
+    public func newGame()
+    {
+        gms = GameStateManager()
+        updatePieces()
+        showPawnOptions[0] = false
+        showPawnOptions[1] = false
+        times = [300*1000, 300*1000, 300*1000, 300*1000]
+    }
+    
+    public func controlButtonClick()
+    {
+        if (gms.gameState == GameStateManager.GameState.pregame)
+        {
+            newGame();
+//                        scroll1.fullScroll(View.FOCUS_UP);
+//                        scroll3.fullScroll(View.FOCUS_UP);
+//                        scroll2.fullScroll(View.FOCUS_DOWN);
+//                        scroll4.fullScroll(View.FOCUS_DOWN);
+            start()
+            controlButtonText = "Pause"
+        }
+        else if (gms.gameState == GameStateManager.GameState.paused)
+        {
+            gms.resume();
+            controlButtonText = "Pause"
+        }
+        else if gms.gameState == GameStateManager.GameState.playing
+        {
+            clean(boardNumber: 0,leaveCheck: true);
+            clean(boardNumber: 1, leaveCheck: true);
+            gms.pause();
+            controlButtonText = "Resume";
         }
     }
 }

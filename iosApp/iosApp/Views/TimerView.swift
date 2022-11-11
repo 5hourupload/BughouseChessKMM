@@ -10,18 +10,17 @@ import SwiftUI
 import shared
 
 struct TimerView: View {
-    @State var rotation: Double = 90
   
     var gameManager: GameManager
     @State var backgroundImage: UIImage
 
-    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-    @State var time: Int = 300*1000
+    let timer = Timer.publish(every: 0.1, on: .main, in: .default)
     var boardNumber: Int
     var color: Int
     var yellow: UIImage
     var gray: UIImage
     @State var active = false
+    var timeIndex = -1
 
     init(gameManager: GameManager, color: String, boardNumber: Int) {
         let squareSize = UIScreen.main.bounds.width / 10
@@ -32,7 +31,7 @@ struct TimerView: View {
         
         self.gameManager = gameManager
         self.boardNumber = boardNumber
-        if (color == "white")
+        if color == "white"
         {
             self.color = 1
 
@@ -41,6 +40,13 @@ struct TimerView: View {
         {
             self.color = 2
         }
+        
+        if boardNumber == 0 && color == "white" { timeIndex = 0 }
+        if boardNumber == 0 && color == "black" { timeIndex = 1 }
+        if boardNumber == 1 && color == "black" { timeIndex = 2 }
+        if boardNumber == 1 && color == "white" { timeIndex = 3 }
+        
+        _ = timer.connect()
 
     }
     
@@ -49,11 +55,12 @@ struct TimerView: View {
         ZStack{
             Image(uiImage: backgroundImage)
             
-            Text(getTimeString(time: self.time)).onReceive(timer) { input in
+            Text(getTimeString(time: gameManager.times[timeIndex])).onReceive(timer) { input in
+
                 self.active = gameManager.gms.gameState == GameStateManager.GameState.playing && gameManager.gms.turn.get(index: Int32(boardNumber)) == color
                 if self.active
                 {
-                    self.time = self.time - 100
+                    gameManager.times[timeIndex] = gameManager.times[timeIndex] - 100
                     self.backgroundImage = yellow
                 }
                 else
@@ -61,7 +68,7 @@ struct TimerView: View {
                     self.backgroundImage = gray
                 }
                 
-                if self.time <= 0 {
+                if gameManager.times[timeIndex] <= 0 {
                     var side: Int = -1
                     if boardNumber == 0 && color == 1 { side = 1 }
                     if boardNumber == 0 && color == 2 { side = 0 }
@@ -89,9 +96,9 @@ struct TimerView: View {
     }
     
     private func getTimeString(time: Int) -> String {
-        var seconds = time / 1000
-        var min = Int(seconds / 60)
-        var sec = seconds % 60
+        let seconds = time / 1000
+        let min = Int(seconds / 60)
+        let sec = seconds % 60
         return String(min) + ":" + String(format: "%02d",sec)
     }
 }
