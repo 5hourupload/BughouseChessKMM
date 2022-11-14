@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct BoardSquareView: View {
-    @State var rotation: Double = 90
     var x: Int
     var y: Int
     var boardNumber: Int
@@ -39,42 +38,12 @@ struct BoardSquareView: View {
         
         ZStack{
             Image(uiImage: backgroundImage)
-            
             Image(uiImage: gameManager.board[boardNumber][x][y].getCosmetic())
-            
-            Image(uiImage: gameManager.board[boardNumber][x][y].getUIImage())
-                .rotationEffect(.degrees(getRotation()))
-                .gesture(simpleDrag)
+        }.onTapGesture {
+            gameManager.processMove(x: x,y: y,boardNumber: boardNumber)
         }
-        if dragging{
-            Image(uiImage: gameManager.board[boardNumber][x][y].getUIImage()).position(location).zIndex(100)
-
-        }
-
 
     }
-    var simpleDrag: some Gesture {
-            DragGesture()
-                .onChanged { value in
-//                    self.location = value.location
-//                    dragging = true
-//                    print(location)
-                }
-        }
-    private func getRotation() -> Double
-    {
-        
-        if boardNumber == 0
-        {
-            if gameManager.board[boardNumber][x][y].piece.color == "white" { return 90.0 }
-            if gameManager.board[boardNumber][x][y].piece.color == "black" { return 270.0 }
-        }
-        else
-        {
-            if gameManager.board[boardNumber][x][y].piece.color == "white" { return 270.0 }
-            if gameManager.board[boardNumber][x][y].piece.color == "black" { return 90.0 }
-        }
-        return 0.0
-    }
+    
 }
 

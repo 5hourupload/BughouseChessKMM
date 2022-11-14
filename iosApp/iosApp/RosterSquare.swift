@@ -16,7 +16,14 @@ class RosterSquare: ObservableObject {
     
     @Published var cosmetic: String = "none"
     @Published var piece: Piece = Empty()
+    @Published var pieceType: String
+    @Published var quantity: Int = 0
+
     
+    
+    init(pieceType: String) {
+        self.pieceType = pieceType
+    }
     
     public func getUIImage() -> UIImage
     {

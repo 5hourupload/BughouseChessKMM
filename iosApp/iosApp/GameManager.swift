@@ -47,12 +47,30 @@ final class GameManager: ObservableObject {
                 }
             }
         }
-        for _ in 0...30 {
-            roster0W.append(RosterSquare())
-            roster0B.append(RosterSquare())
-            roster1W.append(RosterSquare())
-            roster1B.append(RosterSquare())
-        }
+        roster0W.append(RosterSquare(pieceType: "pawn"))
+        roster0W.append(RosterSquare(pieceType: "knight"))
+        roster0W.append(RosterSquare(pieceType: "bishop"))
+        roster0W.append(RosterSquare(pieceType: "rook"))
+        roster0W.append(RosterSquare(pieceType: "queen"))
+        
+        roster0B.append(RosterSquare(pieceType: "pawn"))
+        roster0B.append(RosterSquare(pieceType: "knight"))
+        roster0B.append(RosterSquare(pieceType: "bishop"))
+        roster0B.append(RosterSquare(pieceType: "rook"))
+        roster0B.append(RosterSquare(pieceType: "queen"))
+        
+        roster1W.append(RosterSquare(pieceType: "pawn"))
+        roster1W.append(RosterSquare(pieceType: "knight"))
+        roster1W.append(RosterSquare(pieceType: "bishop"))
+        roster1W.append(RosterSquare(pieceType: "rook"))
+        roster1W.append(RosterSquare(pieceType: "queen"))
+        
+        roster1B.append(RosterSquare(pieceType: "pawn"))
+        roster1B.append(RosterSquare(pieceType: "knight"))
+        roster1B.append(RosterSquare(pieceType: "bishop"))
+        roster1B.append(RosterSquare(pieceType: "rook"))
+        roster1B.append(RosterSquare(pieceType: "queen"))
+        
     }
     
     func updatePieces()
@@ -65,12 +83,29 @@ final class GameManager: ObservableObject {
             }
         }
         
-        for i in 0...29 {
-            roster0W[i].piece = gms.roster1p.get(index: Int32(i))!
-            roster0B[i].piece = gms.roster2p.get(index: Int32(i))!
-            roster1W[i].piece = gms.roster4p.get(index: Int32(i))!
-            roster1B[i].piece = gms.roster3p.get(index: Int32(i))!
-        }
+//        var counter0W = [0,0,0,0,0]
+//        var counter0B = [0,0,0,0,0]
+//        var counter1W = [0,0,0,0,0]
+//        var counter1B = [0,0,0,0,0]
+//
+//        for i in 0...29 {
+//            var piece0W = gms.roster1p.get(index: Int32(i))!
+//            var piece0B = gms.roster2p.get(index: Int32(i))!
+//            var piece1W = gms.roster4p.get(index: Int32(i))!
+//            var piece1B = gms.roster3p.get(index: Int32(i))!
+//
+//            if piece0W.type == "pawn" { counter0W[0] = counter0W[0] + 1}
+//            if piece0W.type == "knight" { counter0W[1] = counter0W[1] + 1}
+//            if piece0W.type == "bishop" { counter0W[2] = counter0W[2] + 1}
+//            if piece0W.type == "rook" { counter0W[3] = counter0W[3] + 1}
+//            if piece0W.type == "queen" { counter0W[4] = counter0W[4] + 1}
+//
+//            if piece0B.type == "pawn" { counter0B[0] = counter0B[0] + 1}
+//            if piece0B.type == "knight" { counter0B[1] = counter0B[1] + 1}
+//            if piece0B.type == "bishop" { counter0B[2] = counter0B[2] + 1}
+//            if piece0B.type == "rook" { counter0B[3] = counter0B[3] + 1}
+//            if piece0B.type == "queen" { counter0B[4] = counter0B[4] + 1}
+//        }
     }
     public func processMove(x:Int, y: Int, boardNumber: Int)
     {
@@ -92,7 +127,7 @@ final class GameManager: ObservableObject {
                         gameEndProcedures(side: gms.gameOverSide, type: gms.gameOverType);
                         return
                     }
-                    var color = gms.turn.get(index: Int32(boardNumber)) == 1 ? "white" : "black";
+                    let color = gms.turn.get(index: Int32(boardNumber)) == 1 ? "white" : "black";
                     if (gms.checking && gms.inCheck(positions: gms.getPositions(boardNumber: Int32(boardNumber)),color: color,boardNumber: Int32(boardNumber)))
                     {
                         setCheckUIConditions(color: color,boardNumber: boardNumber);
@@ -110,7 +145,7 @@ final class GameManager: ObservableObject {
                         gameEndProcedures(side: gms.gameOverSide, type: gms.gameOverType);
                         return;
                     }
-                    var color = gms.turn.get(index: Int32(boardNumber)) == 1 ? "white" : "black";
+                    let color = gms.turn.get(index: Int32(boardNumber)) == 1 ? "white" : "black";
                     if (gms.checking && gms.inCheck(positions: gms.getPositions(boardNumber: Int32(boardNumber)),color: color,boardNumber: Int32(boardNumber)))
                     {
                         setCheckUIConditions(color: color,boardNumber: boardNumber);
@@ -153,13 +188,13 @@ final class GameManager: ObservableObject {
         if (gms.gameState != GameStateManager.GameState.playing) { return }
         
         let piece = gms.getCurrentRosterArray(boardNumber: Int32(boardNumber)).get(index: Int32(i))
-        if (roster[i].piece.color == "white" && gms.turn.get(index: Int32(boardNumber)) != 1) { return }
-        if (roster[i].piece.color == "black" && gms.turn.get(index: Int32(boardNumber)) != 2) { return }
+//        if (roster[i].piece.color == "white" && gms.turn.get(index: Int32(boardNumber)) != 1) { return }
+//        if (roster[i].piece.color == "black" && gms.turn.get(index: Int32(boardNumber)) != 2) { return }
         
         
         clean(boardNumber: boardNumber, leaveCheck: true)
         
-        var allMoves = piece!.getRosterMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), rosterp: gms.getCurrentRosterArray(boardNumber: Int32(boardNumber)), i: Int32(i))
+        let allMoves = piece!.getRosterMoves(positions: gms.getPositions(boardNumber: Int32(boardNumber)), rosterp: gms.getCurrentRosterArray(boardNumber: Int32(boardNumber)), i: Int32(i))
         moves[boardNumber] = Set()
         for m in allMoves
         {
@@ -183,20 +218,20 @@ final class GameManager: ObservableObject {
                 board[boardNumber][x][y].cosmetic = "none"
             }
         }
-        if (boardNumber == 0)
-        {
-            for i in 0...29 {
-                roster0W[i].cosmetic = "none"
-                roster0B[i].cosmetic = "none"
-            }
-        }
-        if (boardNumber == 1)
-        {
-            for i in 0...29 {
-                roster1W[i].cosmetic = "none"
-                roster1B[i].cosmetic = "none"
-            }
-        }
+//        if (boardNumber == 0)
+//        {
+//            for i in 0...29 {
+//                roster0W[i].cosmetic = "none"
+//                roster0B[i].cosmetic = "none"
+//            }
+//        }
+//        if (boardNumber == 1)
+//        {
+//            for i in 0...29 {
+//                roster1W[i].cosmetic = "none"
+//                roster1B[i].cosmetic = "none"
+//            }
+//        }
         
     }
     
