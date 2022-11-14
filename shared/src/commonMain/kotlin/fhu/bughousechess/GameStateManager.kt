@@ -7,138 +7,16 @@ import kotlin.jvm.JvmStatic
 
 class GameStateManager {
     private val positions = Array(2) { Array<Array<Piece>>(8) { arrayOf<Piece>(Empty(),Empty(),Empty(),Empty(),Empty(),Empty(),Empty(),Empty()) } }
+
     @JvmField
-    var roster1p = arrayOf<Piece>(
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty()
-    )
+    var captured0W = mutableMapOf("pawn" to 0, "knight" to 0, "bishop" to 0, "rook" to 0, "queen" to 0)
     @JvmField
-    var roster2p = arrayOf<Piece>(
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty()
-    )
+    var captured0B = mutableMapOf("pawn" to 0, "knight" to 0, "bishop" to 0, "rook" to 0, "queen" to 0)
     @JvmField
-    var roster3p = arrayOf<Piece>(
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty()
-    )
+    var captured1W = mutableMapOf("pawn" to 0, "knight" to 0, "bishop" to 0, "rook" to 0, "queen" to 0)
     @JvmField
-    var roster4p = arrayOf<Piece>(
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty(),
-        Empty()
-    )
+    var captured1B = mutableMapOf("pawn" to 0, "knight" to 0, "bishop" to 0, "rook" to 0, "queen" to 0)
+
     @JvmField
     var turn = intArrayOf(1, 1)
     @JvmField
@@ -202,12 +80,30 @@ class GameStateManager {
             positions[b][4]!![0] = King("white")
             positions[b][4]!![7] = King("black")
         }
-        for (i in 0..29) {
-            roster1p[i] = Empty()
-            roster2p[i] = Empty()
-            roster3p[i] = Empty()
-            roster4p[i] = Empty()
-        }
+
+        captured0W["pawn"] = 0
+        captured0W["knight"] = 0
+        captured0W["bishop"] = 0
+        captured0W["rook"] = 0
+        captured0W["queen"] = 0
+
+        captured0B["pawn"] = 0
+        captured0B["knight"] = 0
+        captured0B["bishop"] = 0
+        captured0B["rook"] = 0
+        captured0B["queen"] = 0
+
+        captured1W["pawn"] = 0
+        captured1W["knight"] = 0
+        captured1W["bishop"] = 0
+        captured1W["rook"] = 0
+        captured1W["queen"] = 0
+
+        captured1B["pawn"] = 0
+        captured1B["knight"] = 0
+        captured1B["bishop"] = 0
+        captured1B["rook"] = 0
+        captured1B["queen"] = 0
     }
 
     fun performMove(moveType: String, x: Int, y: Int, x1: Int, y1: Int, boardNumber: Int) {
@@ -235,21 +131,26 @@ class GameStateManager {
         endOfMoveChecks(color, boardNumber)
     }
 
-    fun performRosterMove(i: Int, x: Int, y: Int, boardNumber: Int) {
-        var roster: Array<Piece> = roster1p
-        if (boardNumber == 0 && turn[boardNumber] == 1) roster = roster1p
-        if (boardNumber == 0 && turn[boardNumber] == 2) roster = roster2p
-        if (boardNumber == 1 && turn[boardNumber] == 1) roster = roster4p
-        if (boardNumber == 1 && turn[boardNumber] == 2) roster = roster3p
-        if (roster[i].empty) {
+    fun performRosterMove(pieceType: String, x: Int, y: Int, boardNumber: Int) {
+        var roster = captured0W
+        if (boardNumber == 0 && turn[boardNumber] == 1) roster = captured0W
+        if (boardNumber == 0 && turn[boardNumber] == 2) roster = captured0B
+        if (boardNumber == 1 && turn[boardNumber] == 1) roster = captured1W
+        if (boardNumber == 1 && turn[boardNumber] == 2) roster = captured1B
+        if (roster[pieceType]!! <= 0) {
             turn[0] = 3
             turn[1] = 3
             gameState = GameState.PAUSED
             return
         }
-        turnChange(roster[i].color, boardNumber)
-        positions[boardNumber][x][y] = roster[i]
-        roster[i] = Empty()
+        val color = if (turn[boardNumber] == 1) "white" else "black"
+        turnChange(color, boardNumber)
+        if (pieceType == "pawn") positions[boardNumber][x][y] = Pawn(color)
+        if (pieceType == "knight") positions[boardNumber][x][y] = Knight(color)
+        if (pieceType == "bishop") positions[boardNumber][x][y] = Bishop(color)
+        if (pieceType == "rook") positions[boardNumber][x][y] = Rook(color)
+        if (pieceType == "queen") positions[boardNumber][x][y] = Queen(color)
+        roster[pieceType] = roster[pieceType]?.minus(1) ?: 0
         endOfMoveChecks(positions[boardNumber][x][y].color, boardNumber)
     }
 
@@ -323,38 +224,45 @@ class GameStateManager {
         return false
     }
 
-    fun rosterMoveIsLegal(rosterPiece: Piece, x: Int, y: Int, boardNumber: Int): Boolean {
+    fun rosterMoveIsLegal(pieceType: String, color: String, x: Int, y: Int, boardNumber: Int): Boolean {
+        var rosterPiece: Piece = Empty()
+        if (pieceType == "pawn") rosterPiece = Pawn(color)
+        if (pieceType == "knight") rosterPiece = Knight(color)
+        if (pieceType == "bishop") rosterPiece = Bishop(color)
+        if (pieceType == "rook") rosterPiece = Rook(color)
+        if (pieceType == "queen") rosterPiece = Queen(color)
+
         if (!placing) {
-            val old = positions[boardNumber][x]!![y]
-            positions[boardNumber][x]!![y] = rosterPiece
-            if (rosterPiece!!.color == "white") {
+            val old = positions[boardNumber][x][y]
+            positions[boardNumber][x][y] = rosterPiece
+            if (rosterPiece.color == "white") {
                 if (inCheck(positions[boardNumber], "black", boardNumber)) {
-                    positions[boardNumber][x]!![y] = old
+                    positions[boardNumber][x][y] = old
                     return false
                 }
             } else {
                 if (inCheck(positions[boardNumber], "white", boardNumber)) {
-                    positions[boardNumber][x]!![y] = old
+                    positions[boardNumber][x][y] = old
                     return false
                 }
             }
-            positions[boardNumber][x]!![y] = old
+            positions[boardNumber][x][y] = old
         }
         if (checking) {
-            val old = positions[boardNumber][x]!![y]
-            positions[boardNumber][x]!![y] = rosterPiece
-            if (rosterPiece!!.color == "white") {
+            val old = positions[boardNumber][x][y]
+            positions[boardNumber][x][y] = rosterPiece
+            if (rosterPiece.color == "white") {
                 if (inCheck(positions[boardNumber], "white", boardNumber)) {
-                    positions[boardNumber][x]!![y] = old
+                    positions[boardNumber][x][y] = old
                     return false
                 }
             } else {
                 if (inCheck(positions[boardNumber], "black", boardNumber)) {
-                    positions[boardNumber][x]!![y] = old
+                    positions[boardNumber][x][y] = old
                     return false
                 }
             }
-            positions[boardNumber][x]!![y] = old
+            positions[boardNumber][x][y] = old
         }
         return true
     }
@@ -469,35 +377,35 @@ class GameStateManager {
             }
         }
         var piecesOnRoster = false
-        var roster: Array<Piece> = roster1p
-        if (boardNumber == 0 && color == "white") roster = roster1p
-        if (boardNumber == 0 && color == "black") roster = roster2p
-        if (boardNumber == 1 && color == "white") roster = roster4p
-        if (boardNumber == 1 && color == "black") roster = roster3p
-        for (i in 0..29) {
-            if (!roster!![i]!!.empty) {
-                piecesOnRoster = true
-                val moves = roster[i]!!
-                    .getRosterMoves(positions[boardNumber], roster, i)
-                for (m in moves) {
-                    if (rosterMoveIsLegal(roster[i], m.x1, m.y1, boardNumber)) {
-                        checkmate = false
-                        break
-                    }
-                }
-            }
-        }
-        if (!piecesOnRoster) {
-            roster!![0] = Queen(color)
-            val moves = roster[0].getRosterMoves(positions[boardNumber], roster, 0)
-            for (m in moves) {
-                if (rosterMoveIsLegal(roster[0], m.x1, m.y1, boardNumber)) {
-                    checkmate = false
-                    break
-                }
-            }
-            roster[0] = Empty()
-        }
+        var roster = captured0W
+        if (boardNumber == 0 && color == "white") roster = captured0W
+        if (boardNumber == 0 && color == "black") roster = captured0B
+        if (boardNumber == 1 && color == "white") roster = captured1W
+        if (boardNumber == 1 && color == "black") roster = captured1B
+//        for (i in 0..29) {
+//            if (!roster!![i]!!.empty) {
+//                piecesOnRoster = true
+//                val moves = roster[i]!!
+//                    .getRosterMoves(positions[boardNumber], roster, i)
+//                for (m in moves) {
+//                    if (rosterMoveIsLegal(roster[i], m.x1, m.y1, boardNumber)) {
+//                        checkmate = false
+//                        break
+//                    }
+//                }
+//            }
+//        }
+//        if (!piecesOnRoster) {
+//            roster!![0] = Queen(color)
+//            val moves = roster[0].getRosterMoves(positions[boardNumber], roster, 0)
+//            for (m in moves) {
+//                if (rosterMoveIsLegal(roster[0], m.x1, m.y1, boardNumber)) {
+//                    checkmate = false
+//                    break
+//                }
+//            }
+//            roster[0] = Empty()
+//        }
         if (checkmate) {
             if (boardNumber == 0 && color == "white") gameEndProcedures(1, 0)
             if (boardNumber == 0 && color == "black") gameEndProcedures(0, 0)
@@ -513,16 +421,16 @@ class GameStateManager {
         gameOverType = type
     }
 
-    fun getCurrentRosterArray(boardNumber: Int): Array<Piece> {
+    fun getCurrentRosterArray(boardNumber: Int): MutableMap<String, Int> {
         if (boardNumber == 0) {
-            if (turn[boardNumber] == 1) return roster1p
-            if (turn[boardNumber] == 2) return roster2p
+            if (turn[boardNumber] == 1) return captured0W
+            if (turn[boardNumber] == 2) return captured0B
         }
         if (boardNumber == 1) {
-            if (turn[boardNumber] == 1) return roster4p
-            if (turn[boardNumber] == 2) return roster3p
+            if (turn[boardNumber] == 1) return captured1W
+            if (turn[boardNumber] == 2) return captured1B
         }
-        return roster4p //should never get here
+        return captured0W //should never get here
     }
 
     fun promote(x: Int, y: Int, piece: Piece, boardNumber: Int) {
@@ -581,43 +489,25 @@ class GameStateManager {
     }
 
     fun addToRoster(x1: Int, y1: Int, boardNumber: Int) {
+        val piece = positions[boardNumber][x1][y1]
+        val type = if (reverting && piece.wasPawn) "pawn" else piece.type
         if (boardNumber == 0) {
-            if (positions[boardNumber][x1]!![y1]!!.color == "white") {
-                addToRosterShit(roster4p, x1, y1, boardNumber)
+            if (piece.color == "white") {
+                captured1W[type.toString()] = captured1W[type.toString()]?.plus(1) ?: 1
             }
-            if (positions[boardNumber][x1]!![y1]!!.color == "black") {
-                addToRosterShit(roster3p, x1, y1, boardNumber)
+            if (positions[boardNumber][x1][y1].color == "black") {
+                captured1B[type.toString()] = captured1B[type.toString()]?.plus(1) ?: 1
             }
         } else {
-            if (positions[boardNumber][x1]!![y1]!!.color == "white") {
-                addToRosterShit(roster1p, x1, y1, boardNumber)
+            if (positions[boardNumber][x1][y1].color == "white") {
+                captured0W[type.toString()] = captured0W[type.toString()]?.plus(1) ?: 1
             }
-            if (positions[boardNumber][x1]!![y1]!!.color == "black") {
-                addToRosterShit(roster2p, x1, y1, boardNumber)
+            if (positions[boardNumber][x1][y1].color == "black") {
+                captured0B[type.toString()] = captured0B[type.toString()]?.plus(1) ?: 1
             }
         }
     }
 
-    private fun addToRosterShit(rosterp: Array<Piece>, x1: Int, y1: Int, boardNumber: Int) {
-        for (i in 0..29) {
-            if (rosterp[i]!!.empty) {
-                if (reverting) {
-                    if (positions[boardNumber][x1]!![y1]!!.wasPawn) {
-                        if (positions[boardNumber][x1]!![y1]!!.color == "white") {
-                            rosterp[i] = Pawn("white")
-                            break
-                        }
-                        if (positions[boardNumber][x1]!![y1]!!.color == "black") {
-                            rosterp[i] = Pawn("black")
-                            break
-                        }
-                    }
-                }
-                rosterp[i] = positions[boardNumber][x1]!![y1]
-                break
-            }
-        }
-    }
 
     /**
      * Along with blackInCheck, this requires the positions and boardnumber variable because
@@ -634,6 +524,50 @@ class GameStateManager {
             }
         }
         return false
+    }
+
+    fun getRosterMoves(positions: Array<Array<Piece>>, pieceType: String, color: String): Set<Move> {
+        val moves: MutableSet<Move> = HashSet()
+        if (pieceType.equals("pawn"))
+        {
+            for (x in 0..7) {
+                if (firstrank) {
+                    if (color == "white") {
+                        for (y in 0..6) {
+                            if (positions[x][y].empty) {
+                                moves.add(Move(pieceType, x, y, "roster"))
+                            }
+                        }
+                    }
+                    if (color == "black") {
+                        for (y in 1..7) {
+                            if (positions[x][y].empty) {
+                                moves.add(Move(pieceType, x, y, "roster"))
+                            }
+                        }
+                    }
+                } else {
+                    for (y in 1..6) {
+                        if (positions[x][y].empty) {
+                            moves.add(Move(pieceType, x, y, "roster"))
+                        }
+                    }
+                }
+            }
+            return moves
+        }
+        else
+        {
+            for (x in 0..7) {
+                for (y in 0..7) {
+                    if (positions[x][y].empty) {
+                        moves.add(Move(pieceType, x, y, "roster"))
+                    }
+                }
+            }
+            return moves
+        }
+
     }
 
     companion object {

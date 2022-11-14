@@ -24,12 +24,12 @@ abstract class Piece {
         return if (color == "black") piece.color == "white" else false
     }
 
-    open fun getRosterMoves(positions: Array<Array<Piece>>, rosterp: Array<Piece>, i: Int): Set<Move> {
+    open fun getRosterMoves(positions: Array<Array<Piece>>, pieceType: String): Set<Move> {
         val moves: MutableSet<Move> = HashSet()
         for (x in 0..7) {
             for (y in 0..7) {
                 if (positions[x][y].empty) {
-                    moves.add(Move(i, x, y, "roster"))
+                    moves.add(Move(pieceType, x, y, "roster"))
                 }
             }
         }

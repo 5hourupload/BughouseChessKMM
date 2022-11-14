@@ -6,7 +6,7 @@ import kotlin.jvm.JvmField
 class Move {
 
     @JvmField
-    var i = 0
+    var pieceType = ""
     @JvmField
     var x = 0
     @JvmField
@@ -27,13 +27,13 @@ class Move {
     }
 
     constructor(
-        i: Int,
+        pieceType: String,
         x1: Int,
         y1: Int,
         type: String
     ) {
 
-        this.i = i
+        this.pieceType = pieceType
         this.x1 = x1
         this.y1 = y1
         this.type = type

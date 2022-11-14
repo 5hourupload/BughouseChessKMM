@@ -99,7 +99,7 @@ public class SettingsActivity extends PreferenceActivity
                 }
                 if(key.equals("checking"))
                 {
-                    GameStateManager.checking = prefs.getBoolean("checking", GameStateManager.checking);
+//                    GameStateManager.checking = prefs.getBoolean("checking", GameStateManager.checking);
                 }
                 if(key.equals("placing"))
                 {

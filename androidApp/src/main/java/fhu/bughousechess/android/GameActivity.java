@@ -41,6 +41,8 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.TimeZone;
@@ -59,10 +61,10 @@ public class GameActivity extends AppCompatActivity {
 
     private ImageView board[][][] = new ImageView[2][8][8];
     private ImageView baseBoard[][] = new ImageView[8][8];
-    private ImageView roster1[] = new ImageView[30];
-    private ImageView roster2[] = new ImageView[30];
-    private ImageView roster3[] = new ImageView[30];
-    private ImageView roster4[] = new ImageView[30];
+    private ImageView roster1[] = new ImageView[5];
+    private ImageView roster2[] = new ImageView[5];
+    private ImageView roster3[] = new ImageView[5];
+    private ImageView roster4[] = new ImageView[5];
 
     private LinearLayout[] pawnOptions = new LinearLayout[2];
 
@@ -334,57 +336,7 @@ public class GameActivity extends AppCompatActivity {
         roster1[2] = findViewById(R.id.roster3_1);
         roster1[3] = findViewById(R.id.roster4_1);
         roster1[4] = findViewById(R.id.roster5_1);
-        roster1[5] = findViewById(R.id.roster6_1);
-        roster1[6] = findViewById(R.id.roster7_1);
-        roster1[7] = findViewById(R.id.roster8_1);
-        roster1[8] = findViewById(R.id.roster9_1);
-        roster1[9] = findViewById(R.id.roster10_1);
-        roster1[10] = findViewById(R.id.roster11_1);
-        roster1[11] = findViewById(R.id.roster12_1);
-        roster1[12] = findViewById(R.id.roster13_1);
-        roster1[13] = findViewById(R.id.roster14_1);
-        roster1[14] = findViewById(R.id.roster15_1);
-        roster1[15] = findViewById(R.id.roster16_1);
-        roster1[16] = findViewById(R.id.roster17_1);
-        roster1[17] = findViewById(R.id.roster18_1);
-        roster1[18] = findViewById(R.id.roster19_1);
-        roster1[19] = findViewById(R.id.roster20_1);
-        roster1[20] = findViewById(R.id.roster21_1);
-        roster1[21] = findViewById(R.id.roster22_1);
-        roster1[22] = findViewById(R.id.roster23_1);
-        roster1[23] = findViewById(R.id.roster24_1);
-        roster1[24] = findViewById(R.id.roster25_1);
-        roster1[25] = findViewById(R.id.roster26_1);
-        roster1[26] = findViewById(R.id.roster27_1);
-        roster1[27] = findViewById(R.id.roster28_1);
-        roster1[28] = findViewById(R.id.roster29_1);
-        roster1[29] = findViewById(R.id.roster30_1);
 
-        roster2[29] = findViewById(R.id.roster1_2);
-        roster2[28] = findViewById(R.id.roster2_2);
-        roster2[27] = findViewById(R.id.roster3_2);
-        roster2[26] = findViewById(R.id.roster4_2);
-        roster2[25] = findViewById(R.id.roster5_2);
-        roster2[24] = findViewById(R.id.roster6_2);
-        roster2[23] = findViewById(R.id.roster7_2);
-        roster2[22] = findViewById(R.id.roster8_2);
-        roster2[21] = findViewById(R.id.roster9_2);
-        roster2[20] = findViewById(R.id.roster10_2);
-        roster2[19] = findViewById(R.id.roster11_2);
-        roster2[18] = findViewById(R.id.roster12_2);
-        roster2[17] = findViewById(R.id.roster13_2);
-        roster2[16] = findViewById(R.id.roster14_2);
-        roster2[15] = findViewById(R.id.roster15_2);
-        roster2[14] = findViewById(R.id.roster16_2);
-        roster2[13] = findViewById(R.id.roster17_2);
-        roster2[12] = findViewById(R.id.roster18_2);
-        roster2[11] = findViewById(R.id.roster19_2);
-        roster2[10] = findViewById(R.id.roster20_2);
-        roster2[9] = findViewById(R.id.roster21_2);
-        roster2[8] = findViewById(R.id.roster22_2);
-        roster2[7] = findViewById(R.id.roster23_2);
-        roster2[6] = findViewById(R.id.roster24_2);
-        roster2[5] = findViewById(R.id.roster25_2);
         roster2[4] = findViewById(R.id.roster26_2);
         roster2[3] = findViewById(R.id.roster27_2);
         roster2[2] = findViewById(R.id.roster28_2);
@@ -396,57 +348,7 @@ public class GameActivity extends AppCompatActivity {
         roster3[2] = findViewById(R.id.roster3_3);
         roster3[3] = findViewById(R.id.roster4_3);
         roster3[4] = findViewById(R.id.roster5_3);
-        roster3[5] = findViewById(R.id.roster6_3);
-        roster3[6] = findViewById(R.id.roster7_3);
-        roster3[7] = findViewById(R.id.roster8_3);
-        roster3[8] = findViewById(R.id.roster9_3);
-        roster3[9] = findViewById(R.id.roster10_3);
-        roster3[10] = findViewById(R.id.roster11_3);
-        roster3[11] = findViewById(R.id.roster12_3);
-        roster3[12] = findViewById(R.id.roster13_3);
-        roster3[13] = findViewById(R.id.roster14_3);
-        roster3[14] = findViewById(R.id.roster15_3);
-        roster3[15] = findViewById(R.id.roster16_3);
-        roster3[16] = findViewById(R.id.roster17_3);
-        roster3[17] = findViewById(R.id.roster18_3);
-        roster3[18] = findViewById(R.id.roster19_3);
-        roster3[19] = findViewById(R.id.roster20_3);
-        roster3[20] = findViewById(R.id.roster21_3);
-        roster3[21] = findViewById(R.id.roster22_3);
-        roster3[22] = findViewById(R.id.roster23_3);
-        roster3[23] = findViewById(R.id.roster24_3);
-        roster3[24] = findViewById(R.id.roster25_3);
-        roster3[25] = findViewById(R.id.roster26_3);
-        roster3[26] = findViewById(R.id.roster27_3);
-        roster3[27] = findViewById(R.id.roster28_3);
-        roster3[28] = findViewById(R.id.roster29_3);
-        roster3[29] = findViewById(R.id.roster30_3);
 
-        roster4[29] = findViewById(R.id.roster1_4);
-        roster4[28] = findViewById(R.id.roster2_4);
-        roster4[27] = findViewById(R.id.roster3_4);
-        roster4[26] = findViewById(R.id.roster4_4);
-        roster4[25] = findViewById(R.id.roster5_4);
-        roster4[24] = findViewById(R.id.roster6_4);
-        roster4[23] = findViewById(R.id.roster7_4);
-        roster4[22] = findViewById(R.id.roster8_4);
-        roster4[21] = findViewById(R.id.roster9_4);
-        roster4[20] = findViewById(R.id.roster10_4);
-        roster4[19] = findViewById(R.id.roster11_4);
-        roster4[18] = findViewById(R.id.roster12_4);
-        roster4[17] = findViewById(R.id.roster13_4);
-        roster4[16] = findViewById(R.id.roster14_4);
-        roster4[15] = findViewById(R.id.roster15_4);
-        roster4[14] = findViewById(R.id.roster16_4);
-        roster4[13] = findViewById(R.id.roster17_4);
-        roster4[12] = findViewById(R.id.roster18_4);
-        roster4[11] = findViewById(R.id.roster19_4);
-        roster4[10] = findViewById(R.id.roster20_4);
-        roster4[9] = findViewById(R.id.roster21_4);
-        roster4[8] = findViewById(R.id.roster22_4);
-        roster4[7] = findViewById(R.id.roster23_4);
-        roster4[6] = findViewById(R.id.roster24_4);
-        roster4[5] = findViewById(R.id.roster25_4);
         roster4[4] = findViewById(R.id.roster26_4);
         roster4[3] = findViewById(R.id.roster27_4);
         roster4[2] = findViewById(R.id.roster28_4);
@@ -457,7 +359,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void prepareUIElements()
     {
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 5; i++)
         {
             roster1[i].setRotation(90);
             roster2[i].setRotation(270);
@@ -469,7 +371,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void run()
             {
-                for (int i = 0; i < 30; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     roster1[i].getLayoutParams().height = board[0][1][1].getHeight();
                     roster1[i].getLayoutParams().width = board[0][1][1].getHeight();
@@ -681,12 +583,12 @@ public class GameActivity extends AppCompatActivity {
             }
         }
 
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 5; i++)
         {
-            roster1[i].setImageResource(getResID(game.roster1p[i]));
-            roster2[i].setImageResource(getResID(game.roster2p[i]));
-            roster3[i].setImageResource(getResID(game.roster3p[i]));
-            roster4[i].setImageResource(getResID(game.roster4p[i]));
+            roster1[i].setImageResource(R.mipmap.nothing);
+            roster2[i].setImageResource(R.mipmap.nothing);
+            roster3[i].setImageResource(R.mipmap.nothing);
+            roster4[i].setImageResource(R.mipmap.nothing);
         }
 
     }
@@ -703,7 +605,7 @@ public class GameActivity extends AppCompatActivity {
                     setInitialSquareListeners(0);
                     setInitialSquareListeners(1);
                     start.setText("Pause");
-                    startAI();
+//                    startAI();
                     return;
                 }
                 if (game.gameState == GameStateManager.GameState.PLAYING)
@@ -736,7 +638,7 @@ public class GameActivity extends AppCompatActivity {
 
                     startTimers();
                     start.setText("Pause");
-                    startAI();
+//                    startAI();
                 }
             }
         });
@@ -1088,7 +990,9 @@ public class GameActivity extends AppCompatActivity {
             }
         }
 
-        for (int i = 0; i < 30; i++)
+        String[] capturedTypes = {"pawn", "knight", "bishop", "rook", "queen"};
+
+        for (int i = 0; i < 5; i++)
         {
             final int j = i;
             roster1[i].setOnTouchListener(new View.OnTouchListener()
@@ -1097,10 +1001,10 @@ public class GameActivity extends AppCompatActivity {
                 public boolean onTouch(View view, MotionEvent motionEvent)
                 {
                     String ID = "00";
-                    if (game.turn[0] == 1 && !game.roster1p[j].empty && game.position1)
+                    if (game.turn[0] == 1 && game.captured0W.get(capturedTypes[j]) > 0 && game.position1)
                     {
-                        setRosterPiecePotentialMoves(j, 0);
-                        ID = game.roster1p[j].type + "1";
+                        setRosterPiecePotentialMoves(capturedTypes[j],"white", 0);
+                        ID = capturedTypes[j] + "1";
                     }
 
                     if (motionEvent.getAction() == MotionEvent.ACTION_MOVE && !ID.equals("00"))
@@ -1119,10 +1023,10 @@ public class GameActivity extends AppCompatActivity {
                 public boolean onTouch(View view, MotionEvent motionEvent)
                 {
                     String ID = "00";
-                    if (!game.roster2p[j].empty && game.turn[0] == 2 && game.position2)
+                    if (game.captured0B.get(capturedTypes[j]) > 0 && game.turn[0] == 2 && game.position2)
                     {
-                        setRosterPiecePotentialMoves(j, 0);
-                        ID = game.roster2p[j].type + "2";
+                        setRosterPiecePotentialMoves(capturedTypes[j], "black", 0);
+                        ID = capturedTypes[j] + "2";
                     }
                     if (motionEvent.getAction() == MotionEvent.ACTION_MOVE && !ID.equals("00"))
                     {
@@ -1140,10 +1044,10 @@ public class GameActivity extends AppCompatActivity {
                 public boolean onTouch(View view, MotionEvent motionEvent)
                 {
                     String ID = "00";
-                    if (game.turn[1] == 2 && !game.roster3p[j].empty && game.position3)
+                    if (game.turn[1] == 2 && game.captured1B.get(capturedTypes[j]) > 0 && game.position3)
                     {
-                        setRosterPiecePotentialMoves(j ,1);
-                        ID = game.roster3p[j].type + "4";
+                        setRosterPiecePotentialMoves(capturedTypes[j], "black",1);
+                        ID = capturedTypes[j] + "4";
                     }
                     if (motionEvent.getAction() == MotionEvent.ACTION_MOVE && !ID.equals("00"))
                     {
@@ -1161,10 +1065,10 @@ public class GameActivity extends AppCompatActivity {
                 public boolean onTouch(View view, MotionEvent motionEvent)
                 {
                     String ID = "00";
-                    if (!game.roster4p[j].empty && game.turn[1] == 1 && game.position4)
+                    if (game.captured1W.get(capturedTypes[j]) > 0 && game.turn[1] == 1 && game.position4)
                     {
-                        setRosterPiecePotentialMoves(j, 1);
-                        ID = game.roster4p[j].type + "3";
+                        setRosterPiecePotentialMoves(capturedTypes[j], "white", 1);
+                        ID = capturedTypes[j] + "3";
                     }
                     if (motionEvent.getAction() == MotionEvent.ACTION_MOVE && !ID.equals("00"))
                     {
@@ -1236,26 +1140,31 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private void setRosterPiecePotentialMoves(int i, int boardNumber)
+    private void setRosterPiecePotentialMoves(String pieceType, String color, int boardNumber)
     {
         setInitialSquareListeners(boardNumber);
-        Piece[] rosterArray = game.getCurrentRosterArray(boardNumber);
-        Set<Move> moves = rosterArray[i].getRosterMoves(game.getPositions(boardNumber), rosterArray, i);
+        Map<String, Integer> rosterArray = game.getCurrentRosterArray(boardNumber);
+        Set<Move> moves = game.getRosterMoves(game.getPositions(boardNumber), pieceType, color);
         for (Move m : moves)
         {
-            setPotentialRosterMove(m.i, m.x1, m.y1, boardNumber);
+            setPotentialRosterMove(m.pieceType,color, m.x1, m.y1, boardNumber);
         }
     }
 
-    private void setPotentialRosterMove(final int i, final int x, final int y, int boardNumber)
+    private void setPotentialRosterMove(final String pieceType, String color, final int x, final int y, int boardNumber)
     {
         ImageView[][] board = this.board[boardNumber];
 
-        ImageView[] roster = getRosterImageViewArray(boardNumber, game.getCurrentRosterArray(boardNumber)[i].color);
-        Piece[] rosterArray = game.getCurrentRosterArray(boardNumber);
+        ImageView[] roster = getRosterImageViewArray(boardNumber, color);
 
-        if (!game.rosterMoveIsLegal(rosterArray[i],x, y, boardNumber)) return;
+        if (!game.rosterMoveIsLegal(pieceType, color, x, y, boardNumber)) return;
 
+        int i = -1;
+        if (pieceType.equals("pawn")) i = 0;
+        if (pieceType.equals("knight")) i = 1;
+        if (pieceType.equals("bishop")) i = 2;
+        if (pieceType.equals("rook")) i = 3;
+        if (pieceType.equals("queen")) i = 4;
         roster[i].setBackgroundColor(Color.YELLOW);
         alteredRosterBackgrounds[getRosterNum(boardNumber)-1].add(i);
 
@@ -1268,7 +1177,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event)
             {
-                performRosterMove(i, x, y, boardNumber);
+                performRosterMove(pieceType, x, y, boardNumber);
                 return true;
             }
         });
@@ -1290,7 +1199,7 @@ public class GameActivity extends AppCompatActivity {
 
                     case DragEvent.ACTION_DROP:
                         dragClean(board, x, y);
-                        performRosterMove(i, x, y, boardNumber);
+                        performRosterMove(pieceType, x, y, boardNumber);
                         break;
                 }
                 return true;
@@ -1298,13 +1207,13 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    private void performRosterMove(int i, int x, int y, int boardNumber)
+    private void performRosterMove(String pieceType, int x, int y, int boardNumber)
     {
         clean(boardNumber);
 
-        game.performRosterMove(i, x, y, boardNumber);
+        game.performRosterMove(pieceType, x, y, boardNumber);
 
-        switchRosterImages(i, x, y, boardNumber);
+        switchRosterImages(pieceType, x, y, boardNumber);
 
 
 
@@ -1486,27 +1395,19 @@ public class GameActivity extends AppCompatActivity {
      */
     private void updateRosterUI(int boardNumber)
     {
-        Piece[] rosterp = null;
-        ImageView[] roster = null;
 
-        if (boardNumber == 0 && game.turn[boardNumber] == 1) rosterp = game.roster4p;
-        if (boardNumber == 0 && game.turn[boardNumber] == 2) rosterp = game.roster3p;
-        if (boardNumber == 1 && game.turn[boardNumber] == 1) rosterp = game.roster1p;
-        if (boardNumber == 1 && game.turn[boardNumber] == 2) rosterp = game.roster2p;
+        if (game.captured0W.get("pawn") == 0) roster1[0].setImageResource(R.mipmap.nothing);
+        else roster1[0].setImageResource(R.mipmap.pawn);
+        if (game.captured0W.get("knight") == 0) roster1[1].setImageResource(R.mipmap.nothing);
+        else roster1[1].setImageResource(R.mipmap.knight);
+        if (game.captured0W.get("bishop") == 0) roster1[2].setImageResource(R.mipmap.nothing);
+        else roster1[2].setImageResource(R.mipmap.bishop);
+        if (game.captured0W.get("rook") == 0) roster1[3].setImageResource(R.mipmap.nothing);
+        else roster1[3].setImageResource(R.mipmap.rook);
+        if (game.captured0W.get("queen") == 0) roster1[4].setImageResource(R.mipmap.nothing);
+        else roster1[4].setImageResource(R.mipmap.queen);
 
-        if (boardNumber == 0 && game.turn[boardNumber] == 1) roster = roster4;
-        if (boardNumber == 0 && game.turn[boardNumber] == 2) roster = roster3;
-        if (boardNumber == 1 && game.turn[boardNumber] == 1) roster = roster1;
-        if (boardNumber == 1 && game.turn[boardNumber] == 2) roster = roster2;
 
-        for (int i = 1; i < 30; i++)
-        {
-            if (rosterp[i].empty)
-            {
-                roster[i-1].setImageResource(getResID(rosterp[i-1]));
-                break;
-            }
-        }
     }
 
     private void pawnCheck(int boardNumber)
@@ -1644,7 +1545,7 @@ public class GameActivity extends AppCompatActivity {
         }
         if (boardNumber == 0)
         {
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 5; i++)
             {
                 roster1[i].setOnClickListener(new View.OnClickListener()
                 {
@@ -1667,7 +1568,7 @@ public class GameActivity extends AppCompatActivity {
         }
         else
         {
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 5; i++)
             {
                 roster3[i].setOnClickListener(new View.OnClickListener()
                 {
@@ -1690,238 +1591,238 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private void startAI()
-    {
-        if (!game.position1)
-        {
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    boolean a = true;
-                    while (a)
-                    {
-                        if (game.gameState == GameStateManager.GameState.PREGAME || game.gameState == GameStateManager.GameState.PAUSED)
-                        {
-                            a = false;
-                        }
-                        Random rand = new Random();
-                        int wait = rand.nextInt(1000);
-                        try
-                        {
-                            Thread.sleep(wait);
-                        } catch (InterruptedException e)
-                        {
-                            System.out.println("got interrupted!");
-                        }
-                        if (game.turn[0] == 1)
-                        {
-                            try
-                            {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e)
-                            {
-                                System.out.println("got interrupted!");
-                            }
-                        }
-                        if (game.turn[0] == 1)
-                        {
-                            AIMinimax ai = new AIMinimax("white", board[0], getArrayClone(game.getPositions(0)), roster1, game.roster1p.clone(), roster2, game.roster2p.clone(), 0);
-                            final Move bestMove = ai.getBestMove();
-                            if (bestMove == null)
-                            {
-                                continue;
-                            }
-                            runOnUiThread(new Runnable()
-                            {
-                                @Override
-                                public void run()
-                                {
-                                    if (bestMove.type.equals("roster"))
-                                        performRosterMove(bestMove.i, bestMove.x1, bestMove.y1, 0);
-                                    else
-                                        performMove(bestMove.type, bestMove.x, bestMove.y, bestMove.x1, bestMove.y1, 0);
-                                }
-                            });
-                        }
-                    }
-                }
-            }).start();
-        }
-        if (!game.position2)
-        {
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    boolean a = true;
-                    while (a)
-                    {
-                        if (game.gameState == GameStateManager.GameState.PREGAME || game.gameState == GameStateManager.GameState.PAUSED)
-                        {
-                            a = false;
-                        }
-                        Random rand = new Random();
-                        int wait = rand.nextInt(1000);
-                        try
-                        {
-                            Thread.sleep(wait);
-                        } catch (InterruptedException e)
-                        {
-                            System.out.println("got interrupted!");
-                        }
-                        if (game.turn[0] == 2)
-                        {
-                            try
-                            {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e)
-                            {
-                                System.out.println("got interrupted!");
-                            }
-                        }
-                        if (game.turn[0] == 2)
-                        {
-                            AIMinimax ai = new AIMinimax("black", board[0], getArrayClone(game.getPositions(0)), roster2, game.roster2p.clone(), roster1, game.roster1p.clone(), 0);
-                            final Move bestMove = ai.getBestMove();
-                            if (bestMove == null)
-                            {
-                                continue;
-                            }
-                            runOnUiThread(new Runnable()
-                            {
-                                @Override
-                                public void run()
-                                {
-                                    if (bestMove.type.equals("roster"))
-                                        performRosterMove(bestMove.i, bestMove.x, bestMove.y, 0);
-                                    else
-                                        performMove(bestMove.type, bestMove.x, bestMove.y, bestMove.x1, bestMove.y1, 0);
-                                }
-                            });
-                        }
-                    }
-
-                }
-            }).start();
-        }
-        if (!game.position3)
-        {
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    boolean a = true;
-                    while (a)
-                    {
-                        if (game.gameState == GameStateManager.GameState.PREGAME || game.gameState == GameStateManager.GameState.PAUSED)
-                        {
-                            a = false;
-                        }
-                        Random rand = new Random();
-                        int wait = rand.nextInt(1000);
-                        try
-                        {
-                            Thread.sleep(wait);
-                        } catch (InterruptedException e)
-                        {
-                            System.out.println("got interrupted!");
-                        }
-                        if (game.turn[1] == 2)
-                        {
-                            try
-                            {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e)
-                            {
-                                System.out.println("got interrupted!");
-                            }
-                        }
-                        if (game.turn[1] == 2)
-                        {
-                            AIMinimax ai = new AIMinimax("black", board[1], getArrayClone(game.getPositions(1)), roster4, game.roster4p.clone(), roster3, game.roster3p.clone(), 12);
-                            final Move bestMove = ai.getBestMove();
-                            if (bestMove == null)
-                            {
-                                continue;
-                            }
-                            runOnUiThread(new Runnable()
-                            {
-                                @Override
-                                public void run()
-                                {
-                                    if (bestMove.type.equals("roster"))
-                                        performRosterMove(bestMove.i, bestMove.x, bestMove.y,1);
-                                    else
-                                        performMove(bestMove.type, bestMove.x, bestMove.y, bestMove.x1, bestMove.y1,1);
-                                }
-                            });
-                        }
-                    }
-                }
-            }).start();
-        }
-        if (!game.position4)
-        {
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    boolean a = true;
-                    while (a)
-                    {
-                        if (game.gameState == GameStateManager.GameState.PREGAME || game.gameState == GameStateManager.GameState.PAUSED)
-                        {
-                            a = false;
-                        }
-                        Random rand = new Random();
-                        int wait = rand.nextInt(1000);
-                        try
-                        {
-                            Thread.sleep(wait);
-                        } catch (InterruptedException e)
-                        {
-                            System.out.println("got interrupted!");
-                        }
-                        if (game.turn[1] == 1)
-                        {
-                            try
-                            {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e)
-                            {
-                                System.out.println("got interrupted!");
-                            }
-                        }
-                        if (game.turn[1] == 1)
-                        {
-                            AIMinimax ai = new AIMinimax("white", board[1], getArrayClone(game.getPositions(1)), roster3, game.roster3p.clone(), roster4, game.roster4p.clone(), 1);
-                            final Move bestMove = ai.getBestMove();
-                            if (bestMove == null)
-                            {
-                                continue;
-                            }
-                            runOnUiThread(new Runnable()
-                            {
-                                @Override
-                                public void run()
-                                {
-                                    if (bestMove.type.equals("roster"))
-                                        performRosterMove(bestMove.i, bestMove.x, bestMove.y, 1);
-                                    else
-                                        performMove(bestMove.type, bestMove.x, bestMove.y, bestMove.x1, bestMove.y1, 1);
-                                }
-                            });
-                        }
-                    }
-                }
-            }).start();
-        }
-    }
+//    private void startAI()
+//    {
+//        if (!game.position1)
+//        {
+//            new Thread(new Runnable()
+//            {
+//                @Override
+//                public void run()
+//                {
+//                    boolean a = true;
+//                    while (a)
+//                    {
+//                        if (game.gameState == GameStateManager.GameState.PREGAME || game.gameState == GameStateManager.GameState.PAUSED)
+//                        {
+//                            a = false;
+//                        }
+//                        Random rand = new Random();
+//                        int wait = rand.nextInt(1000);
+//                        try
+//                        {
+//                            Thread.sleep(wait);
+//                        } catch (InterruptedException e)
+//                        {
+//                            System.out.println("got interrupted!");
+//                        }
+//                        if (game.turn[0] == 1)
+//                        {
+//                            try
+//                            {
+//                                Thread.sleep(1000);
+//                            } catch (InterruptedException e)
+//                            {
+//                                System.out.println("got interrupted!");
+//                            }
+//                        }
+//                        if (game.turn[0] == 1)
+//                        {
+//                            AIMinimax ai = new AIMinimax("white", board[0], getArrayClone(game.getPositions(0)), roster1, game.roster1p.clone(), roster2, game.roster2p.clone(), 0);
+//                            final Move bestMove = ai.getBestMove();
+//                            if (bestMove == null)
+//                            {
+//                                continue;
+//                            }
+//                            runOnUiThread(new Runnable()
+//                            {
+//                                @Override
+//                                public void run()
+//                                {
+//                                    if (bestMove.type.equals("roster"))
+//                                        performRosterMove(bestMove.i, bestMove.x1, bestMove.y1, 0);
+//                                    else
+//                                        performMove(bestMove.type, bestMove.x, bestMove.y, bestMove.x1, bestMove.y1, 0);
+//                                }
+//                            });
+//                        }
+//                    }
+//                }
+//            }).start();
+//        }
+//        if (!game.position2)
+//        {
+//            new Thread(new Runnable()
+//            {
+//                @Override
+//                public void run()
+//                {
+//                    boolean a = true;
+//                    while (a)
+//                    {
+//                        if (game.gameState == GameStateManager.GameState.PREGAME || game.gameState == GameStateManager.GameState.PAUSED)
+//                        {
+//                            a = false;
+//                        }
+//                        Random rand = new Random();
+//                        int wait = rand.nextInt(1000);
+//                        try
+//                        {
+//                            Thread.sleep(wait);
+//                        } catch (InterruptedException e)
+//                        {
+//                            System.out.println("got interrupted!");
+//                        }
+//                        if (game.turn[0] == 2)
+//                        {
+//                            try
+//                            {
+//                                Thread.sleep(1000);
+//                            } catch (InterruptedException e)
+//                            {
+//                                System.out.println("got interrupted!");
+//                            }
+//                        }
+//                        if (game.turn[0] == 2)
+//                        {
+//                            AIMinimax ai = new AIMinimax("black", board[0], getArrayClone(game.getPositions(0)), roster2, game.roster2p.clone(), roster1, game.roster1p.clone(), 0);
+//                            final Move bestMove = ai.getBestMove();
+//                            if (bestMove == null)
+//                            {
+//                                continue;
+//                            }
+//                            runOnUiThread(new Runnable()
+//                            {
+//                                @Override
+//                                public void run()
+//                                {
+//                                    if (bestMove.type.equals("roster"))
+//                                        performRosterMove(bestMove.i, bestMove.x, bestMove.y, 0);
+//                                    else
+//                                        performMove(bestMove.type, bestMove.x, bestMove.y, bestMove.x1, bestMove.y1, 0);
+//                                }
+//                            });
+//                        }
+//                    }
+//
+//                }
+//            }).start();
+//        }
+//        if (!game.position3)
+//        {
+//            new Thread(new Runnable()
+//            {
+//                @Override
+//                public void run()
+//                {
+//                    boolean a = true;
+//                    while (a)
+//                    {
+//                        if (game.gameState == GameStateManager.GameState.PREGAME || game.gameState == GameStateManager.GameState.PAUSED)
+//                        {
+//                            a = false;
+//                        }
+//                        Random rand = new Random();
+//                        int wait = rand.nextInt(1000);
+//                        try
+//                        {
+//                            Thread.sleep(wait);
+//                        } catch (InterruptedException e)
+//                        {
+//                            System.out.println("got interrupted!");
+//                        }
+//                        if (game.turn[1] == 2)
+//                        {
+//                            try
+//                            {
+//                                Thread.sleep(1000);
+//                            } catch (InterruptedException e)
+//                            {
+//                                System.out.println("got interrupted!");
+//                            }
+//                        }
+//                        if (game.turn[1] == 2)
+//                        {
+//                            AIMinimax ai = new AIMinimax("black", board[1], getArrayClone(game.getPositions(1)), roster4, game.roster4p.clone(), roster3, game.roster3p.clone(), 12);
+//                            final Move bestMove = ai.getBestMove();
+//                            if (bestMove == null)
+//                            {
+//                                continue;
+//                            }
+//                            runOnUiThread(new Runnable()
+//                            {
+//                                @Override
+//                                public void run()
+//                                {
+//                                    if (bestMove.type.equals("roster"))
+//                                        performRosterMove(bestMove.i, bestMove.x, bestMove.y,1);
+//                                    else
+//                                        performMove(bestMove.type, bestMove.x, bestMove.y, bestMove.x1, bestMove.y1,1);
+//                                }
+//                            });
+//                        }
+//                    }
+//                }
+//            }).start();
+//        }
+//        if (!game.position4)
+//        {
+//            new Thread(new Runnable()
+//            {
+//                @Override
+//                public void run()
+//                {
+//                    boolean a = true;
+//                    while (a)
+//                    {
+//                        if (game.gameState == GameStateManager.GameState.PREGAME || game.gameState == GameStateManager.GameState.PAUSED)
+//                        {
+//                            a = false;
+//                        }
+//                        Random rand = new Random();
+//                        int wait = rand.nextInt(1000);
+//                        try
+//                        {
+//                            Thread.sleep(wait);
+//                        } catch (InterruptedException e)
+//                        {
+//                            System.out.println("got interrupted!");
+//                        }
+//                        if (game.turn[1] == 1)
+//                        {
+//                            try
+//                            {
+//                                Thread.sleep(1000);
+//                            } catch (InterruptedException e)
+//                            {
+//                                System.out.println("got interrupted!");
+//                            }
+//                        }
+//                        if (game.turn[1] == 1)
+//                        {
+//                            AIMinimax ai = new AIMinimax("white", board[1], getArrayClone(game.getPositions(1)), roster3, game.roster3p.clone(), roster4, game.roster4p.clone(), 1);
+//                            final Move bestMove = ai.getBestMove();
+//                            if (bestMove == null)
+//                            {
+//                                continue;
+//                            }
+//                            runOnUiThread(new Runnable()
+//                            {
+//                                @Override
+//                                public void run()
+//                                {
+//                                    if (bestMove.type.equals("roster"))
+//                                        performRosterMove(bestMove.i, bestMove.x, bestMove.y, 1);
+//                                    else
+//                                        performMove(bestMove.type, bestMove.x, bestMove.y, bestMove.x1, bestMove.y1, 1);
+//                                }
+//                            });
+//                        }
+//                    }
+//                }
+//            }).start();
+//        }
+//    }
 
     private void gameEndProcedures(int side, int type)
     {
@@ -2209,14 +2110,15 @@ public class GameActivity extends AppCompatActivity {
         return -1;
     }
 
-    private void switchRosterImages(int i, int x, int y, int boardNumber)
+    private void switchRosterImages(String pieceType, int x, int y, int boardNumber)
     {
         String color = game.getPositions(boardNumber)[x][y].color;
         ImageView[] roster = getRosterImageViewArray(boardNumber, color);
 
         board[boardNumber][x][y].setImageResource(getResID(game.getPositions(boardNumber)[x][y]));
-        board[boardNumber][x][y].setRotation(roster[i].getRotation());
-        roster[i].setImageResource(android.R.color.transparent);
+        board[boardNumber][x][y].setRotation(roster[0].getRotation());
+        updateRosterUI(boardNumber);
+//        roster[i].setImageResource(android.R.color.transparent);
     }
 
 

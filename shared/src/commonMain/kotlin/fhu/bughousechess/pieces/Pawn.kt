@@ -167,37 +167,4 @@ class Pawn(color: String?) : Piece() {
         }
         return moves
     }
-
-    override fun getRosterMoves(
-        positions: Array<Array<Piece>>,
-        rosterp: Array<Piece>,
-        i: Int
-    ): Set<Move> {
-        val moves: MutableSet<Move> = HashSet()
-        for (x in 0..7) {
-            if (GameStateManager.firstrank) {
-                if (rosterp[i].color == "white") {
-                    for (y in 0..6) {
-                        if (positions[x][y].empty) {
-                            moves.add(Move(i, x, y, "roster"))
-                        }
-                    }
-                }
-                if (rosterp[i].color == "black") {
-                    for (y in 1..7) {
-                        if (positions[x][y].empty) {
-                            moves.add(Move(i, x, y, "roster"))
-                        }
-                    }
-                }
-            } else {
-                for (y in 1..6) {
-                    if (positions[x][y].empty) {
-                        moves.add(Move(i, x, y, "roster"))
-                    }
-                }
-            }
-        }
-        return moves
-    }
 }
