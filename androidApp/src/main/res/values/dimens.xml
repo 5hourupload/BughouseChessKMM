@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="board_length">280dp</dimen>
+    <dimen name="board_length">100dp</dimen>
     <dimen name="square_length">35dp</dimen>
     <dimen name="square_lengthx2">70dp</dimen>
     <dimen name="roster_length">1190dp</dimen>

@@ -4,6 +4,7 @@ package fhu.bughousechess.android;
 import static android.content.ContentValues.TAG;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,11 +19,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -61,10 +66,10 @@ public class GameActivity extends AppCompatActivity {
 
     private ImageView board[][][] = new ImageView[2][8][8];
     private ImageView baseBoard[][] = new ImageView[8][8];
-    private ImageView roster1[] = new ImageView[5];
-    private ImageView roster2[] = new ImageView[5];
-    private ImageView roster3[] = new ImageView[5];
-    private ImageView roster4[] = new ImageView[5];
+    private FrameLayout roster1[] = new FrameLayout[5];
+    private FrameLayout roster2[] = new FrameLayout[5];
+    private FrameLayout roster3[] = new FrameLayout[5];
+    private FrameLayout roster4[] = new FrameLayout[5];
 
     private LinearLayout[] pawnOptions = new LinearLayout[2];
 
@@ -91,15 +96,13 @@ public class GameActivity extends AppCompatActivity {
     TextView timer3 = null;
     TextView timer4 = null;
     Button options = null;
-    ScrollView scroll1 = null;
-    ScrollView scroll3 = null;
-    ScrollView scroll2 = null;
-    ScrollView scroll4 = null;
 
     // Keeps track of cosmetic changes to erase
     ArrayList<Integer>[] dots = new ArrayList[2];
     ArrayList<Integer>[] alteredBackgrounds = new ArrayList[2];
     ArrayList<Integer>[] alteredRosterBackgrounds = new ArrayList[4];
+
+    private int squareSize = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -163,11 +166,19 @@ public class GameActivity extends AppCompatActivity {
 
         game = new GameStateManager();
 
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE); // the results will be higher than using the activity context object or the getWindowManager() shortcut
+        wm.getDefaultDisplay().getMetrics(displayMetrics);
+        squareSize = displayMetrics.widthPixels/10;
+
         setBoardBackground();
         setStartingPiecesUI();
         getPrefs();
         prepareUIElements();
         setControlButtons();
+
+
     }
 
     private void connectViews()
@@ -177,10 +188,6 @@ public class GameActivity extends AppCompatActivity {
         timer3 = findViewById(R.id.timer3);
         timer4 = findViewById(R.id.timer4);
         options = findViewById(R.id.options);
-        scroll1 = findViewById(R.id.scroll1);
-        scroll3 = findViewById(R.id.scroll3);
-        scroll2 = findViewById(R.id.scroll2);
-        scroll4 = findViewById(R.id.scroll4);
         start = findViewById(R.id.start);
 
         pawnOptions[0] = findViewById(R.id.pawnOptions1);
@@ -337,11 +344,11 @@ public class GameActivity extends AppCompatActivity {
         roster1[3] = findViewById(R.id.roster4_1);
         roster1[4] = findViewById(R.id.roster5_1);
 
-        roster2[4] = findViewById(R.id.roster26_2);
-        roster2[3] = findViewById(R.id.roster27_2);
-        roster2[2] = findViewById(R.id.roster28_2);
-        roster2[1] = findViewById(R.id.roster29_2);
-        roster2[0] = findViewById(R.id.roster30_2);
+        roster2[4] = findViewById(R.id.roster5_2);
+        roster2[3] = findViewById(R.id.roster4_2);
+        roster2[2] = findViewById(R.id.roster3_2);
+        roster2[1] = findViewById(R.id.roster2_2);
+        roster2[0] = findViewById(R.id.roster1_2);
 
         roster3[0] = findViewById(R.id.roster1_3);
         roster3[1] = findViewById(R.id.roster2_3);
@@ -349,23 +356,17 @@ public class GameActivity extends AppCompatActivity {
         roster3[3] = findViewById(R.id.roster4_3);
         roster3[4] = findViewById(R.id.roster5_3);
 
-        roster4[4] = findViewById(R.id.roster26_4);
-        roster4[3] = findViewById(R.id.roster27_4);
-        roster4[2] = findViewById(R.id.roster28_4);
-        roster4[1] = findViewById(R.id.roster29_4);
-        roster4[0] = findViewById(R.id.roster30_4);
+        roster4[4] = findViewById(R.id.roster5_4);
+        roster4[3] = findViewById(R.id.roster4_4);
+        roster4[2] = findViewById(R.id.roster3_4);
+        roster4[1] = findViewById(R.id.roster2_4);
+        roster4[0] = findViewById(R.id.roster1_4);
 
     }
 
     private void prepareUIElements()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            roster1[i].setRotation(90);
-            roster2[i].setRotation(270);
-            roster3[i].setRotation(90);
-            roster4[i].setRotation(270);
-        }
+
         roster1[1].post(new Runnable()
         {
             @Override
@@ -373,24 +374,21 @@ public class GameActivity extends AppCompatActivity {
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    roster1[i].getLayoutParams().height = board[0][1][1].getHeight();
-                    roster1[i].getLayoutParams().width = board[0][1][1].getHeight();
+                    roster1[i].getLayoutParams().height = squareSize;
+                    roster1[i].getLayoutParams().width = squareSize;
                     roster1[i].requestLayout();
-                    roster2[i].getLayoutParams().height = board[0][1][1].getHeight();
-                    roster2[i].getLayoutParams().width = board[0][1][1].getHeight();
+                    roster2[i].getLayoutParams().height = squareSize;
+                    roster2[i].getLayoutParams().width = squareSize;
                     roster2[i].requestLayout();
-                    roster3[i].getLayoutParams().height = board[0][1][1].getHeight();
-                    roster3[i].getLayoutParams().width = board[0][1][1].getHeight();
+                    roster3[i].getLayoutParams().height = squareSize;
+                    roster3[i].getLayoutParams().width = squareSize;
                     roster3[i].requestLayout();
-                    roster4[i].getLayoutParams().height = board[0][1][1].getHeight();
-                    roster4[i].getLayoutParams().width = board[0][1][1].getHeight();
+                    roster4[i].getLayoutParams().height = squareSize;
+                    roster4[i].getLayoutParams().width = squareSize;
                     roster4[i].requestLayout();
                 }
             }
         });
-
-        scroll1.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
-        scroll3.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
 
         board[0][1][1].post(new Runnable()
         {
@@ -401,28 +399,32 @@ public class GameActivity extends AppCompatActivity {
                 {
                     for (int j = 0; j < 8; j++)
                     {
-                        board[0][i][j].getLayoutParams().width = board[0][i][j].getHeight();
-                        board[1][i][j].getLayoutParams().width = board[1][i][j].getHeight();
+                        board[0][i][j].getLayoutParams().width = squareSize;
+                        board[0][i][j].getLayoutParams().height = squareSize;
+                        board[1][i][j].getLayoutParams().width = squareSize;
+                        board[1][i][j].getLayoutParams().height = squareSize;
                         board[0][i][j].requestLayout();
                         board[1][i][j].requestLayout();
                     }
                 }
-                timer1.getLayoutParams().width = timer1.getHeight() * 2;
-                timer2.getLayoutParams().width = timer2.getHeight() * 2;
-                timer3.getLayoutParams().width = timer3.getHeight() * 2;
-                timer4.getLayoutParams().width = timer4.getHeight() * 2;
+                timer1.getLayoutParams().width = squareSize * 2;
+                timer1.getLayoutParams().height = squareSize;
+                timer2.getLayoutParams().width = squareSize * 2;
+                timer2.getLayoutParams().height = squareSize;
+                timer3.getLayoutParams().width = squareSize * 2;
+                timer3.getLayoutParams().height = squareSize;
+                timer4.getLayoutParams().width = squareSize * 2;
+                timer4.getLayoutParams().height = squareSize;
                 timer1.requestLayout();
                 timer2.requestLayout();
                 timer3.requestLayout();
                 timer4.requestLayout();
-                start.getLayoutParams().width = timer1.getHeight() * 2;
+                start.getLayoutParams().width = squareSize * 2;
+                start.getLayoutParams().height = (int) (squareSize * .75);
                 start.requestLayout();
-                options.getLayoutParams().width = timer1.getHeight() * 2;
+                options.getLayoutParams().width = squareSize * 2;
+                options.getLayoutParams().height = (int) (squareSize * .75);
                 options.requestLayout();
-                scroll2.fullScroll(View.FOCUS_DOWN);
-                scroll2.requestLayout();
-                scroll4.fullScroll(View.FOCUS_DOWN);
-                scroll4.requestLayout();
             }
         });
 
@@ -585,10 +587,10 @@ public class GameActivity extends AppCompatActivity {
 
         for (int i = 0; i < 5; i++)
         {
-            roster1[i].setImageResource(R.mipmap.nothing);
-            roster2[i].setImageResource(R.mipmap.nothing);
-            roster3[i].setImageResource(R.mipmap.nothing);
-            roster4[i].setImageResource(R.mipmap.nothing);
+            updateCapturedView(roster1[i], R.mipmap.nothing, 0);
+            updateCapturedView(roster2[i], R.mipmap.nothing, 0);
+            updateCapturedView(roster3[i], R.mipmap.nothing, 0);
+            updateCapturedView(roster4[i], R.mipmap.nothing, 0);
         }
 
     }
@@ -620,17 +622,6 @@ public class GameActivity extends AppCompatActivity {
                 if (game.gameState == GameStateManager.GameState.PREGAME)
                 {
                     newGame();
-                    scroll1.post(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            scroll1.fullScroll(View.FOCUS_UP);
-                            scroll3.fullScroll(View.FOCUS_UP);
-                            scroll2.fullScroll(View.FOCUS_DOWN);
-                            scroll4.fullScroll(View.FOCUS_DOWN);
-                        }
-                    });
 
                     game.start();
                     setInitialSquareListeners(0);
@@ -884,13 +875,15 @@ public class GameActivity extends AppCompatActivity {
             for (int i = 0; i < alteredRosterBackgrounds[0].size(); i++)
             {
                 int index = alteredRosterBackgrounds[0].get(i);
-                roster1[index].setBackgroundColor(index % 2 == 0 ? light : dark);
+                ImageView iv = (ImageView) ((ViewGroup) roster1[index]).getChildAt(0);
+                iv.setBackgroundColor(index % 2 == 0 ? light : dark);
             }
             alteredRosterBackgrounds[0].clear();
             for (int i = 0; i < alteredRosterBackgrounds[1].size(); i++)
             {
                 int index = alteredRosterBackgrounds[1].get(i);
-                roster2[index].setBackgroundColor(index % 2 == 0 ? light : dark);
+                ImageView iv = (ImageView) ((ViewGroup) roster2[index]).getChildAt(0);
+                iv.setBackgroundColor(index % 2 == 0 ? light : dark);
             }
             alteredRosterBackgrounds[1].clear();
         }
@@ -899,13 +892,15 @@ public class GameActivity extends AppCompatActivity {
             for (int i = 0; i < alteredRosterBackgrounds[2].size(); i++)
             {
                 int index = alteredRosterBackgrounds[2].get(i);
-                roster3[index].setBackgroundColor(index % 2 == 0 ? light : dark);
+                ImageView iv = (ImageView) ((ViewGroup) roster3[index]).getChildAt(0);
+                iv.setBackgroundColor(index % 2 == 0 ? light : dark);
             }
             alteredRosterBackgrounds[2].clear();
             for (int i = 0; i < alteredRosterBackgrounds[3].size(); i++)
             {
                 int index = alteredRosterBackgrounds[3].get(i);
-                roster4[index].setBackgroundColor(index % 2 == 0 ? light : dark);
+                ImageView iv = (ImageView) ((ViewGroup) roster4[index]).getChildAt(0);
+                iv.setBackgroundColor(index % 2 == 0 ? light : dark);
             }
             alteredRosterBackgrounds[3].clear();
         }
@@ -1155,7 +1150,7 @@ public class GameActivity extends AppCompatActivity {
     {
         ImageView[][] board = this.board[boardNumber];
 
-        ImageView[] roster = getRosterImageViewArray(boardNumber, color);
+        FrameLayout[] roster = getRosterImageViewArray(boardNumber, color);
 
         if (!game.rosterMoveIsLegal(pieceType, color, x, y, boardNumber)) return;
 
@@ -1165,7 +1160,7 @@ public class GameActivity extends AppCompatActivity {
         if (pieceType.equals("bishop")) i = 2;
         if (pieceType.equals("rook")) i = 3;
         if (pieceType.equals("queen")) i = 4;
-        roster[i].setBackgroundColor(Color.YELLOW);
+        setCapturedViewToYellow(roster[i]);
         alteredRosterBackgrounds[getRosterNum(boardNumber)-1].add(i);
 
         board[x][y].setImageResource(R.mipmap.dot);
@@ -1297,7 +1292,7 @@ public class GameActivity extends AppCompatActivity {
 
         switchBoardImages(moveType, x, y, x1, y1, boardNumber);
         if (moveType.equals("take") || moveType.equals("whiteEnP") || moveType.equals("blackEnP")) {
-            updateRosterUI(boardNumber);
+            updateRosterUI();
         }
 
 
@@ -1391,24 +1386,43 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * This function is called after the turn has changed
-     * @param boardNumber
      */
-    private void updateRosterUI(int boardNumber)
+    private void updateRosterUI()
     {
 
-        if (game.captured0W.get("pawn") == 0) roster1[0].setImageResource(R.mipmap.nothing);
-        else roster1[0].setImageResource(R.mipmap.pawn);
-        if (game.captured0W.get("knight") == 0) roster1[1].setImageResource(R.mipmap.nothing);
-        else roster1[1].setImageResource(R.mipmap.knight);
-        if (game.captured0W.get("bishop") == 0) roster1[2].setImageResource(R.mipmap.nothing);
-        else roster1[2].setImageResource(R.mipmap.bishop);
-        if (game.captured0W.get("rook") == 0) roster1[3].setImageResource(R.mipmap.nothing);
-        else roster1[3].setImageResource(R.mipmap.rook);
-        if (game.captured0W.get("queen") == 0) roster1[4].setImageResource(R.mipmap.nothing);
-        else roster1[4].setImageResource(R.mipmap.queen);
+        updateCapturedView(roster1[0], R.mipmap.pawn, game.captured0W.get("pawn"));
+        updateCapturedView(roster1[1], R.mipmap.knight, game.captured0W.get("knight"));
+        updateCapturedView(roster1[2], R.mipmap.bishop, game.captured0W.get("bishop"));
+        updateCapturedView(roster1[3], R.mipmap.rook, game.captured0W.get("rook"));
+        updateCapturedView(roster1[4], R.mipmap.queen, game.captured0W.get("queen"));
+
+        updateCapturedView(roster2[0], R.mipmap.bpawn, game.captured0B.get("pawn"));
+        updateCapturedView(roster2[1], R.mipmap.bknight, game.captured0B.get("knight"));
+        updateCapturedView(roster2[2], R.mipmap.bbishop, game.captured0B.get("bishop"));
+        updateCapturedView(roster2[3], R.mipmap.brook, game.captured0B.get("rook"));
+        updateCapturedView(roster2[4], R.mipmap.bqueen, game.captured0B.get("queen"));
 
 
+        updateCapturedView(roster3[0], R.mipmap.bpawn, game.captured1B.get("pawn"));
+        updateCapturedView(roster3[1], R.mipmap.bknight, game.captured1B.get("knight"));
+        updateCapturedView(roster3[2], R.mipmap.bbishop, game.captured1B.get("bishop"));
+        updateCapturedView(roster3[3], R.mipmap.brook, game.captured1B.get("rook"));
+        updateCapturedView(roster3[4], R.mipmap.bqueen, game.captured1B.get("queen"));
+
+        updateCapturedView(roster4[0], R.mipmap.pawn, game.captured1W.get("pawn"));
+        updateCapturedView(roster4[1], R.mipmap.knight, game.captured1W.get("knight"));
+        updateCapturedView(roster4[2], R.mipmap.bishop, game.captured1W.get("bishop"));
+        updateCapturedView(roster4[3], R.mipmap.rook, game.captured1W.get("rook"));
+        updateCapturedView(roster4[4], R.mipmap.queen, game.captured1W.get("queen"));
     }
+
+    private void setCapturedViewToYellow(FrameLayout fl)
+    {
+        ImageView iv = (ImageView) ((ViewGroup) fl).getChildAt(0);
+        iv.setBackgroundColor(Color.YELLOW);
+    }
+
+
 
     private void pawnCheck(int boardNumber)
     {
@@ -1447,9 +1461,9 @@ public class GameActivity extends AppCompatActivity {
                         {
                             game.promote(x, y, new Queen(color), boardNumber);
                             board[boardNumber][x][y].setImageResource(color.equals("white") ? R.mipmap.queen : R.mipmap.bqueen);
+                            pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
                             if (game.gameState == GameStateManager.GameState.PLAYING)
                             {
-                                pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
                                 game.resume(boardNumber);
                                 setInitialSquareListeners(boardNumber);
                             }
@@ -1462,9 +1476,9 @@ public class GameActivity extends AppCompatActivity {
                         {
                             game.promote(x, y, new Rook(color), boardNumber);
                             board[boardNumber][x][y].setImageResource(color.equals("white") ? R.mipmap.rook : R.mipmap.brook);
+                            pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
                             if (game.gameState == GameStateManager.GameState.PLAYING)
                             {
-                                pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
                                 game.resume(boardNumber);
                                 setInitialSquareListeners(boardNumber);
                             }
@@ -1477,9 +1491,9 @@ public class GameActivity extends AppCompatActivity {
                         {
                             game.promote(x, y, new Bishop(color), boardNumber);
                             board[boardNumber][x][y].setImageResource(color.equals("white") ? R.mipmap.bishop : R.mipmap.bbishop);
+                            pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
                             if (game.gameState == GameStateManager.GameState.PLAYING)
                             {
-                                pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
                                 game.resume(boardNumber);
                                 setInitialSquareListeners(boardNumber);
                             }
@@ -1492,9 +1506,9 @@ public class GameActivity extends AppCompatActivity {
                         {
                             game.promote(x, y, new Knight(color), boardNumber);
                             board[boardNumber][x][y].setImageResource(color.equals("white") ? R.mipmap.knight : R.mipmap.bknight);
+                            pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
                             if (game.gameState == GameStateManager.GameState.PLAYING)
                             {
-                                pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
                                 game.resume(boardNumber);
                                 setInitialSquareListeners(boardNumber);
                             }
@@ -2048,6 +2062,17 @@ public class GameActivity extends AppCompatActivity {
         Piece[][] tempPositions = {temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8};
         return tempPositions;
     }
+
+    private void updateCapturedView(FrameLayout fl, int resID, int number)
+    {
+        ImageView nextChild = (ImageView) ((ViewGroup) fl).getChildAt(0);
+        if (number == 0) nextChild.setImageResource(R.mipmap.nothing);
+        else nextChild.setImageResource(resID);
+
+        TextView text = (TextView) ((ViewGroup) fl).getChildAt(1);
+        if (number >= 2) text.setText(Integer.toString(number));
+        else text.setText("");
+    }
     private void newGame()
     {
         game = new GameStateManager();
@@ -2091,9 +2116,10 @@ public class GameActivity extends AppCompatActivity {
                 newGame();
             }
         }
+        getPrefs();
     }
 
-    private ImageView[] getRosterImageViewArray(int boardNumber, String color)
+    private FrameLayout[] getRosterImageViewArray(int boardNumber, String color)
     {
         if (boardNumber == 0 && color.equals("white")) return roster1;
         if (boardNumber == 0 && color.equals("black")) return roster2;
@@ -2113,12 +2139,11 @@ public class GameActivity extends AppCompatActivity {
     private void switchRosterImages(String pieceType, int x, int y, int boardNumber)
     {
         String color = game.getPositions(boardNumber)[x][y].color;
-        ImageView[] roster = getRosterImageViewArray(boardNumber, color);
+        FrameLayout[] roster = getRosterImageViewArray(boardNumber, color);
 
         board[boardNumber][x][y].setImageResource(getResID(game.getPositions(boardNumber)[x][y]));
         board[boardNumber][x][y].setRotation(roster[0].getRotation());
-        updateRosterUI(boardNumber);
-//        roster[i].setImageResource(android.R.color.transparent);
+        updateRosterUI();
     }
 
 

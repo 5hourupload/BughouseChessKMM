@@ -32,6 +32,12 @@ class GameStateManager {
 
     @JvmField
     var checking = true
+    @JvmField
+    var placing = true
+    @JvmField
+    var reverting = true
+    @JvmField
+    var firstrank = false
 
     enum class GameState {
         PREGAME, PLAYING, PAUSED
@@ -360,15 +366,15 @@ class GameStateManager {
         var checkmate = true
         for (x in 0..7) {
             for (y in 0..7) {
-                if (positions[boardNumber][x]!![y]!!.color == color) {
-                    val moves = positions[boardNumber][x]!![y]!!.getMoves(
+                if (positions[boardNumber][x][y].color == color) {
+                    val moves = positions[boardNumber][x][y].getMoves(
                         positions[boardNumber],
                         x,
                         y,
                         boardNumber
                     )
-                    for (m in moves!!) {
-                        if (!checkIfMoveResultsInCheck(m!!.type, x, y, m.x1, m.y1, boardNumber)) {
+                    for (m in moves) {
+                        if (!checkIfMoveResultsInCheck(m.type, x, y, m.x1, m.y1, boardNumber)) {
                             checkmate = false
                             break
                         }
@@ -376,36 +382,15 @@ class GameStateManager {
                 }
             }
         }
-        var piecesOnRoster = false
-        var roster = captured0W
-        if (boardNumber == 0 && color == "white") roster = captured0W
-        if (boardNumber == 0 && color == "black") roster = captured0B
-        if (boardNumber == 1 && color == "white") roster = captured1W
-        if (boardNumber == 1 && color == "black") roster = captured1B
-//        for (i in 0..29) {
-//            if (!roster!![i]!!.empty) {
-//                piecesOnRoster = true
-//                val moves = roster[i]!!
-//                    .getRosterMoves(positions[boardNumber], roster, i)
-//                for (m in moves) {
-//                    if (rosterMoveIsLegal(roster[i], m.x1, m.y1, boardNumber)) {
-//                        checkmate = false
-//                        break
-//                    }
-//                }
-//            }
-//        }
-//        if (!piecesOnRoster) {
-//            roster!![0] = Queen(color)
-//            val moves = roster[0].getRosterMoves(positions[boardNumber], roster, 0)
-//            for (m in moves) {
-//                if (rosterMoveIsLegal(roster[0], m.x1, m.y1, boardNumber)) {
-//                    checkmate = false
-//                    break
-//                }
-//            }
-//            roster[0] = Empty()
-//        }
+
+        val moves = getRosterMoves(positions[boardNumber], "queen", color)
+        for (m in moves) {
+            if (rosterMoveIsLegal("queen", color, m.x1, m.y1, boardNumber)) {
+                checkmate = false
+                break
+            }
+        }
+
         if (checkmate) {
             if (boardNumber == 0 && color == "white") gameEndProcedures(1, 0)
             if (boardNumber == 0 && color == "black") gameEndProcedures(0, 0)
@@ -440,19 +425,19 @@ class GameStateManager {
 
     fun pause(boardNumber: Int) {
         if (boardNumber == 0) {
-            turnSave1 = turn[0]
+            if (turn[0] != 3) turnSave1 = turn[0]
             turn[0] = 3
         }
         if (boardNumber == 1) {
-            turnSave2 = turn[1]
+            if (turn[1] != 3) turnSave2 = turn[1]
             turn[1] = 3
         }
     }
 
     fun pause() {
-        turnSave1 = turn[0]
+        if (turn[0] != 3) turnSave1 = turn[0]
         turn[0] = 3
-        turnSave2 = turn[1]
+        if (turn[1] != 3) turnSave2 = turn[1]
         turn[1] = 3
         gameState = GameState.PAUSED
     }
@@ -580,12 +565,7 @@ class GameStateManager {
         var blackCastleQueen2 = true
         var blackCastleKing2 = true
 
-        @JvmField
-        var placing = true
-        @JvmField
-        var reverting = true
-        @JvmField
-        var firstrank = false
+
         var enP = Array(8) { arrayOf<String>("","","","") }
         var board1Turn = 0
         var board2Turn = 0

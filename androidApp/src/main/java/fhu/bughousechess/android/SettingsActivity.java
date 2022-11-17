@@ -97,22 +97,6 @@ public class SettingsActivity extends PreferenceActivity
                     GameActivity.second = prefs.getInt("time2", GameActivity.second);
                     GameActivity.milliseconds = ((GameActivity.minute * 60) + GameActivity.second) * 1000;
                 }
-                if(key.equals("checking"))
-                {
-//                    GameStateManager.checking = prefs.getBoolean("checking", GameStateManager.checking);
-                }
-                if(key.equals("placing"))
-                {
-                    GameStateManager.placing = prefs.getBoolean("placing", GameStateManager.placing);
-                }
-                if(key.equals("reverting"))
-                {
-                    GameStateManager.reverting = prefs.getBoolean("reverting", GameStateManager.reverting);
-                }
-                if(key.equals("firstrank"))
-                {
-                    GameStateManager.firstrank = prefs.getBoolean("firstrank", GameStateManager.firstrank);
-                }
             }
         };
         prefs.registerOnSharedPreferenceChangeListener(listener);
