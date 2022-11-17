@@ -11,15 +11,13 @@ import SwiftUI
 struct PawnPromotionView: View {
     
     var boardNumber: Int
-    var color: String
     var gameManager: GameManager
     @State var show: Bool
 
     
-    init(boardNumber: Int, color: String, gameManager: GameManager, show: Bool) {
+    init(boardNumber: Int, gameManager: GameManager, show: Bool) {
         
         self.boardNumber = boardNumber
-        self.color = color
         self.gameManager = gameManager
         self.show = show
 

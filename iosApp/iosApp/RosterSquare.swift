@@ -15,27 +15,28 @@ class RosterSquare: ObservableObject {
     
     
     @Published var cosmetic: String = "none"
-    @Published var piece: Piece = Empty()
     @Published var pieceType: String
     @Published var quantity: Int = 0
+    @Published var color: String
 
     
     
-    init(pieceType: String) {
+    init(pieceType: String, color: String) {
         self.pieceType = pieceType
+        self.color = color
     }
     
     public func getUIImage() -> UIImage
     {
         let squareSize = UIScreen.main.bounds.width / 10
-        if (piece.color == "white")
+        if (color == "white")
         {
-            return (UIImage(named: piece.type!)?.resizeImageTo(size: CGSize(width: squareSize, height: squareSize)))!
+            return (UIImage(named: pieceType)?.resizeImageTo(size: CGSize(width: squareSize, height: squareSize)))!
 
         }
-        else if (piece.color == "black")
+        else if (color == "black")
         {
-            return (UIImage(named: "b" + piece.type!)?.resizeImageTo(size: CGSize(width: squareSize, height: squareSize)))!
+            return (UIImage(named: "b" + pieceType)?.resizeImageTo(size: CGSize(width: squareSize, height: squareSize)))!
 
         }
         else

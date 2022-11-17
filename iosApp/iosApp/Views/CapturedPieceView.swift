@@ -9,22 +9,17 @@
 import SwiftUI
 
 struct CapturedPieceView: View {
-    @State var rotation: Double = 90
-    var x: Int
-    var y: Int
-    var boardNumber: Int
+    
+    var boardNumber: Int = 0
     @ObservedObject var gameManager: GameManager
     @State var dragging: Bool = false
     @State private var location: CGPoint = CGPoint(x: 0, y: 0)
+    @State var square: RosterSquare
 
-    
-    init(x: Int, y: Int, boardNumber: Int, gameManager: GameManager) {
-
-        
-        self.x = x
-        self.y = y
+    init(boardNumber: Int, gameManager: GameManager, square: RosterSquare) {
         self.boardNumber = boardNumber
         self.gameManager = gameManager
+        self.square = square
     }
     
     var body: some View
@@ -32,101 +27,112 @@ struct CapturedPieceView: View {
         let squareSize = UIScreen.main.bounds.width / 10
 
         ZStack{
-            Image(uiImage: gameManager.board[boardNumber][x][y].getUIImage())
-                .rotationEffect(.degrees(getRotation()))
-                .gesture(simpleDrag)
-                .onTapGesture {
-                    gameManager.processMove(x: x,y: y,boardNumber: boardNumber)
+            if square.quantity >= 1
+            {
+                Image(uiImage: square.getUIImage())
+                    .rotationEffect(.degrees(getRotation()))
+                    .gesture(simpleDrag)
+                    .onTapGesture {
+                        gameManager.processRosterClick(square: square, boardNumber: boardNumber)
+                    }
+                if dragging{
+                    Image(uiImage: square.getUIImage().rotate(radians: Float(getRotationRadions()))!)
+                        .position(location)
                 }
-            if dragging{
-                Image(uiImage: gameManager.board[boardNumber][x][y].getUIImage().rotate(radians: Float(getRotationRadions()))!)
-                    .position(location)
             }
+            
         }.frame(width: squareSize, height: squareSize)
         
-
-
     }
     var simpleDrag: some Gesture {
             DragGesture()
                 .onChanged { value in
                     self.location = value.location
                     if !dragging {
-                        gameManager.processMove(x: x, y: y, boardNumber: boardNumber)
+                        gameManager.processRosterClick(square: square, boardNumber: boardNumber)
                     }
                     dragging = true
                 }
                 .onEnded { value in
                     dragging = false
                     let squareSize = UIScreen.main.bounds.width / 10
-                    var newX = x
-                    var newY = y
-                    if boardNumber == 0
+                    var newX = 0
+                    var newY = 0
+                    if (boardNumber == 0 && square.color == "white") 
                     {
-                        if value.location.x < 0 {
-                            newY = y + (Int((value.location.x) / squareSize) - 1)
-                        }
-                        else {
-                            newY = y + Int((value.location.x) / squareSize)
-                        }
-                        if value.location.y < 0 {
-                            newX = x + (Int((value.location.y) / squareSize) - 1)
-                        }
-                        else {
-                            newX = x + Int((value.location.y) / squareSize)
-                        }
+                        newY = Int((value.location.x) / squareSize) - 1
+                        if square.pieceType == "pawn" { newX = Int((value.location.y + 1.5 * squareSize) / squareSize) }
+                        if square.pieceType == "knight" { newX = Int((value.location.y + 2.5 * squareSize) / squareSize) }
+                        if square.pieceType == "bishop" { newX = Int((value.location.y + 3.5 * squareSize) / squareSize) }
+                        if square.pieceType == "rook" { newX = Int((value.location.y + 4.5 * squareSize) / squareSize) }
+                        if square.pieceType == "queen" { newX = Int((value.location.y + 5.5 * squareSize) / squareSize) }
+
                     }
-                    if boardNumber == 1
+                    else if (boardNumber == 0 && square.color == "black")
                     {
-                        if value.location.x < 0 {
-                            newY = y - (Int((value.location.x) / squareSize) - 1)
-                        }
-                        else {
-                            newY = y - Int((value.location.x) / squareSize)
-                        }
-                        if value.location.y < 0 {
-                            newX = x - (Int((value.location.y) / squareSize) - 1)
-                        }
-                        else {
-                            newX = x - Int((value.location.y) / squareSize)
-                        }
+                        newY = Int((value.location.x) / squareSize) + 7
+                        if square.pieceType == "pawn" { newX = Int((value.location.y + 5.5 * squareSize) / squareSize) }
+                        if square.pieceType == "knight" { newX = Int((value.location.y + 4.5 * squareSize) / squareSize) }
+                        if square.pieceType == "bishop" { newX = Int((value.location.y + 3.5 * squareSize) / squareSize) }
+                        if square.pieceType == "rook" { newX = Int((value.location.y + 2.5 * squareSize) / squareSize) }
+                        if square.pieceType == "queen" { newX = Int((value.location.y + 1.5 * squareSize) / squareSize) }
+
                     }
-                    
+                    else if (boardNumber == 1 && square.color == "black")
+                    {
+                        newY = Int((value.location.x) / squareSize) * -1 + 8
+                        if square.pieceType == "pawn" { newX = Int((value.location.y * -1 + 6.5 * squareSize) / squareSize) }
+                        if square.pieceType == "knight" { newX = Int((value.location.y * -1 + 5.5 * squareSize) / squareSize) }
+                        if square.pieceType == "bishop" { newX = Int((value.location.y * -1 + 4.5 * squareSize) / squareSize) }
+                        if square.pieceType == "rook" { newX = Int((value.location.y * -1 + 3.5 * squareSize) / squareSize) }
+                        if square.pieceType == "queen" { newX = Int((value.location.y * -1 + 2.5 * squareSize) / squareSize) }
+
+                    }
+                    else if (boardNumber == 1 && square.color == "white")
+                    {
+                        newY = Int((value.location.x) / squareSize) * -1
+                        if square.pieceType == "pawn" { newX = Int((value.location.y * -1 + 2.5 * squareSize) / squareSize) }
+                        if square.pieceType == "knight" { newX = Int((value.location.y * -1 + 3.5 * squareSize) / squareSize) }
+                        if square.pieceType == "bishop" { newX = Int((value.location.y * -1 + 4.5 * squareSize) / squareSize) }
+                        if square.pieceType == "rook" { newX = Int((value.location.y  * -1 + 5.5 * squareSize) / squareSize) }
+                        if square.pieceType == "queen" { newX = Int((value.location.y * -1 + 6.5 * squareSize) / squareSize) }
+
+                    }
+
                     if (newX >= 0 && newX <= 7 && newY >= 0 && newY <= 7)
                     {
                         gameManager.processMove(x: newX, y: newY, boardNumber: boardNumber)
 
                     }
-
                 }
         }
     private func getRotation() -> Double
     {
-        
+
         if boardNumber == 0
         {
-            if gameManager.board[boardNumber][x][y].piece.color == "white" { return 90.0 }
-            if gameManager.board[boardNumber][x][y].piece.color == "black" { return 270.0 }
+            if square.color == "white" { return 90.0 }
+            if square.color == "black" { return 270.0 }
         }
         else
         {
-            if gameManager.board[boardNumber][x][y].piece.color == "white" { return 270.0 }
-            if gameManager.board[boardNumber][x][y].piece.color == "black" { return 90.0 }
+            if square.color == "white" { return 270.0 }
+            if square.color == "black" { return 90.0 }
         }
         return 0.0
     }
     private func getRotationRadions() -> Float
     {
-        
+
         if boardNumber == 0
         {
-            if gameManager.board[boardNumber][x][y].piece.color == "white" { return .pi/2 }
-            if gameManager.board[boardNumber][x][y].piece.color == "black" { return .pi*3/2}
+            if square.color == "white" { return .pi/2 }
+            if square.color == "black" { return .pi*3/2}
         }
         else
         {
-            if gameManager.board[boardNumber][x][y].piece.color == "white" { return .pi*3/2 }
-            if gameManager.board[boardNumber][x][y].piece.color == "black" { return .pi/2 }
+            if square.color == "white" { return .pi*3/2 }
+            if square.color == "black" { return .pi/2 }
         }
         return 0.0
     }

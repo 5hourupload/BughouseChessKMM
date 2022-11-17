@@ -14,14 +14,14 @@
 		296F08A129092173008C519C /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08A029092173008C519C /* GameManager.swift */; };
 		296F08A3290923C8008C519C /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08A2290923C8008C519C /* GameView.swift */; };
 		296F08A529092D90008C519C /* BoardSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08A429092D90008C519C /* BoardSquare.swift */; };
-		296F08A7290F8DFB008C519C /* RosterSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08A6290F8DFB008C519C /* RosterSquareView.swift */; };
 		296F08A9290F9450008C519C /* RosterSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08A8290F9450008C519C /* RosterSquare.swift */; };
 		296F08AB29136428008C519C /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08AA29136428008C519C /* TimerView.swift */; };
 		296F08AD29144652008C519C /* PawnPromotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08AC29144652008C519C /* PawnPromotionView.swift */; };
 		296F08B12915BE19008C519C /* GameEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08B02915BE19008C519C /* GameEndView.swift */; };
 		296F08B3291604EF008C519C /* StartButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F08B2291604EF008C519C /* StartButtonView.swift */; };
 		2974E9152921D9F0003EFFD5 /* PieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974E9142921D9F0003EFFD5 /* PieceView.swift */; };
-		2974E9192921FF8B003EFFD5 /* CapturedPieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974E9182921FF8B003EFFD5 /* CapturedPieceView.swift */; };
+		2974E9192921FF8B003EFFD5 /* CapturedSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974E9182921FF8B003EFFD5 /* CapturedSquareView.swift */; };
+		2974E91D2925D556003EFFD5 /* CapturedPieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974E91C2925D556003EFFD5 /* CapturedPieceView.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,14 +46,14 @@
 		296F08A029092173008C519C /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		296F08A2290923C8008C519C /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		296F08A429092D90008C519C /* BoardSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSquare.swift; sourceTree = "<group>"; };
-		296F08A6290F8DFB008C519C /* RosterSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterSquareView.swift; sourceTree = "<group>"; };
 		296F08A8290F9450008C519C /* RosterSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterSquare.swift; sourceTree = "<group>"; };
 		296F08AA29136428008C519C /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		296F08AC29144652008C519C /* PawnPromotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawnPromotionView.swift; sourceTree = "<group>"; };
 		296F08B02915BE19008C519C /* GameEndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndView.swift; sourceTree = "<group>"; };
 		296F08B2291604EF008C519C /* StartButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButtonView.swift; sourceTree = "<group>"; };
 		2974E9142921D9F0003EFFD5 /* PieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceView.swift; sourceTree = "<group>"; };
-		2974E9182921FF8B003EFFD5 /* CapturedPieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedPieceView.swift; sourceTree = "<group>"; };
+		2974E9182921FF8B003EFFD5 /* CapturedSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedSquareView.swift; sourceTree = "<group>"; };
+		2974E91C2925D556003EFFD5 /* CapturedPieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedPieceView.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -87,9 +87,9 @@
 				296F08B02915BE19008C519C /* GameEndView.swift */,
 				296F08AA29136428008C519C /* TimerView.swift */,
 				296F08AC29144652008C519C /* PawnPromotionView.swift */,
-				296F08A6290F8DFB008C519C /* RosterSquareView.swift */,
 				2974E9142921D9F0003EFFD5 /* PieceView.swift */,
-				2974E9182921FF8B003EFFD5 /* CapturedPieceView.swift */,
+				2974E9182921FF8B003EFFD5 /* CapturedSquareView.swift */,
+				2974E91C2925D556003EFFD5 /* CapturedPieceView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -226,9 +226,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2974E91D2925D556003EFFD5 /* CapturedPieceView.swift in Sources */,
 				296F08AB29136428008C519C /* TimerView.swift in Sources */,
-				2974E9192921FF8B003EFFD5 /* CapturedPieceView.swift in Sources */,
-				296F08A7290F8DFB008C519C /* RosterSquareView.swift in Sources */,
+				2974E9192921FF8B003EFFD5 /* CapturedSquareView.swift in Sources */,
 				296F089F29061CB8008C519C /* BoardSquareView.swift in Sources */,
 				296F08A129092173008C519C /* GameManager.swift in Sources */,
 				296F08AD29144652008C519C /* PawnPromotionView.swift in Sources */,
