@@ -15,14 +15,14 @@ struct CapturedSquareView: View {
     @State var square: RosterSquare
 
     var backgroundImage: UIImage
+    let squareSize: CGFloat
 
-    
     init(boardNumber: Int, gameManager: GameManager, square: RosterSquare) {
 
         self.boardNumber = boardNumber
         self.gameManager = gameManager
         self.square = square
-        let squareSize = UIScreen.main.bounds.width / 10
+        self.squareSize = UIScreen.main.bounds.width / 10
 
         
         if (square.pieceType == "pawn" || square.pieceType == "bishop" || square.pieceType == "queen") {
@@ -35,10 +35,17 @@ struct CapturedSquareView: View {
     
     var body: some View
     {
-        ZStack{
+        ZStack (alignment: Alignment(horizontal: .trailing, vertical: .top)){
             Image(uiImage: backgroundImage)
             Image(uiImage: square.getCosmetic())
-            Text("0")
+            if square.quantity >= 2
+            {
+                Text(String(square.quantity)).offset(x:  1, y:  1).padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 1))
+                Text(String(square.quantity)).offset(x: -1, y: -1).padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 1))
+                Text(String(square.quantity)).offset(x: -1, y:  1).padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 1))
+                Text(String(square.quantity)).offset(x:  1, y: -1).padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 1))
+                Text(String(square.quantity)).foregroundColor(Color.white).padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 1))
+            }
         }.rotationEffect(.degrees(getRotation()))
     }
     
