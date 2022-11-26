@@ -27,14 +27,22 @@ struct MainMenuView: View {
                     Spacer()
                     VStack()
                     {
-                        Text("Hello, world!").foregroundColor(Color.white).font(Font.custom("Montepetrum bold", size: 18))
-
-                        Button("Play") {
+                        Button("play") {
                             currentView = "Game View"
-                        }.foregroundColor(Color.white).font(Font.custom("Montepetrum bold", size: 18))
-                        Button("Options") {
-                            currentView = "Options View"
                         }.foregroundColor(Color.white)
+                            .font(Font.custom("Montepetrum", size: 75))
+                        Button("options") {
+                            currentView = "Options View"
+                        }
+                        .foregroundColor(Color.white)
+                        .font(Font.custom("Montepetrum", size: 75))
+                        
+                        Button("rules") {
+                            currentView = "Options View"
+                        }
+                        .foregroundColor(Color.white)
+                        .font(Font.custom("Montepetrum", size: 75))
+
                     }
                     Spacer()
                     Image(uiImage: UIImage(named: "main_menu_side_image")!)

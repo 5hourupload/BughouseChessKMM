@@ -38,7 +38,7 @@ struct OptionsView: View {
                     currentView = "Game View"
 
                 }
-                    Section(header: Text("Time"))
+                Section(header: Text("Time"), footer: Text("Time changes apply on new game."))
                     {
 
                             Picker("Minutes", selection: $minutes)
@@ -62,27 +62,27 @@ struct OptionsView: View {
                     
                 
                 
-                Section(header: Text("Rules"), footer: Text("aaa"))
+                Section(header: Text("Rules"), footer: Text("If checking is off, the king maybe be captured to win the game. Checkmate still applies."))
                 {
                     Toggle(isOn: $checkingToggle,
                         label: {Text("Checking")})
                 }
-                Section(footer: Text("aaa"))
+                Section(footer: Text("When turned off, pieces cannot be placed in checking positions."))
                 {
                     Toggle(isOn: $placingToggle,
                         label: {Text("Placing In Check")})
                     
                 }
-                Section(footer: Text("aaa"))
+                Section(footer: Text("Revert captured promoted pieces to pawns."))
                 {
                     Toggle(isOn: $revertingToggle,
-                        label: {Text("Reverting")})
+                        label: {Text("Pawn Reversion")})
                     
                 }
-                Section(footer: Text("aaa"))
+                Section(footer: Text("Allows placing of pawns on the first rank."))
                 {
                     Toggle(isOn: $firstrankToggle,
-                        label: {Text("First Rank")})
+                        label: {Text("Placing Pawns on 1st Rank")})
                     
                 }
             }
