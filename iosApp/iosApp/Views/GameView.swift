@@ -2,11 +2,14 @@ import SwiftUI
 import shared
 
 struct GameView: View {
+    
     @ObservedObject var gm: GameManager
 
-    init() {
-        self.gm = GameManager(counter: 0)
-    }
+    @Binding var currentView: String
+    
+//    init() {
+//        self.gm = GameManager()
+//    }
 
     var body: some View {
  
@@ -133,6 +136,7 @@ struct GameView: View {
                     TimerView(gameManager: gm, color: "black", boardNumber: 1)
                     Spacer()
                     Button("Options") {
+                        currentView = "Options View"
                     }.frame(width: squareSize * 2, height: squareSize * 0.75).foregroundColor(.black)
                         .background(Color.gray)
                         .cornerRadius(10)

@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 import shared
+
 final class GameManager: ObservableObject {
     
-    @Published var counter: Int = 0
     @Published var board = [[[BoardSquare]]](repeating: [[BoardSquare]](), count: 2)
     @Published var roster0W = [RosterSquare]()
     @Published var roster0B = [RosterSquare]()
@@ -27,15 +27,14 @@ final class GameManager: ObservableObject {
     
     @Published var showGameEndScreen = false
     @Published var controlButtonText = "Start"
+    var minutes: Int = 0
+    var seconds: Int = 0
     var times = [300*1000, 300*1000, 300*1000, 300*1000]
-
-
     
-    
-    init(counter: Int)  {
-        self.counter = counter
+    init()  {
         initBoard(boardNumber: 0)
         updatePieces()
+        getUserDefaults()
     }
     func initBoard(boardNumber: Int)
     {
@@ -311,7 +310,9 @@ final class GameManager: ObservableObject {
         updatePieces()
         showPawnOptions[0] = false
         showPawnOptions[1] = false
-        times = [300*1000, 300*1000, 300*1000, 300*1000]
+        getUserDefaults()
+        var time = 1000 * (minutes * 60 + seconds)
+        times = [time, time, time, time]
     }
     
     public func controlButtonClick()
@@ -334,5 +335,16 @@ final class GameManager: ObservableObject {
             gms.pause();
             controlButtonText = "Resume";
         }
+    }
+    
+    public func getUserDefaults()
+    {
+        minutes = UserDefaults.standard.integer(forKey: "minutes")
+        seconds = UserDefaults.standard.integer(forKey: "seconds")
+        
+        gms.checking = UserDefaults.standard.bool(forKey: "checking")
+        gms.placing = UserDefaults.standard.bool(forKey: "placing")
+        gms.reverting = UserDefaults.standard.bool(forKey: "reverting")
+        gms.firstrank = UserDefaults.standard.bool(forKey: "firstrank")
     }
 }

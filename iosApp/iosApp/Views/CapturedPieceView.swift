@@ -58,7 +58,7 @@ struct CapturedPieceView: View {
                     let squareSize = UIScreen.main.bounds.width / 10
                     var newX = 0
                     var newY = 0
-                    if (boardNumber == 0 && square.color == "white") 
+                    if (boardNumber == 0 && square.color == "white")
                     {
                         newY = Int((value.location.x) / squareSize) - 1
                         if square.pieceType == "pawn" { newX = Int((value.location.y + 1.5 * squareSize) / squareSize) }

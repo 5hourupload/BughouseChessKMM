@@ -2,22 +2,37 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-	let greet = Greeting().greeting()
     
-	var body: some View {
+    @State private var currentView = "Main Menu View"
+     var gameManager = GameManager()
+
+    
+    var body: some View {
         ZStack {
             Color(hex: "FF1E1E1E").ignoresSafeArea()
-                    
-            GameView()
+            
+            if currentView == "Main Menu View"
+            {
+                MainMenuView(currentView: $currentView)
+            }
+            else if currentView == "Game View"
+            {
+                GameView(gm: gameManager, currentView: $currentView)
 
             }
+            else if currentView == "Options View"
+            {
+                OptionsView(gm: gameManager, currentView: $currentView)
+            }
+            
+            }
         }
-	}
+    }
 
 struct ContentView_Previews: PreviewProvider {
-	static var previews: some View {
-		ContentView()
-	}
+    static var previews: some View {
+        ContentView()
+    }
 }
 
 
