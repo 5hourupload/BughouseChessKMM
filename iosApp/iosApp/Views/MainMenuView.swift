@@ -38,7 +38,7 @@ struct MainMenuView: View {
                         .font(Font.custom("Montepetrum", size: 75))
                         
                         Button("rules") {
-                            currentView = "Options View"
+                            currentView = "Rules View"
                         }
                         .foregroundColor(Color.white)
                         .font(Font.custom("Montepetrum", size: 75))

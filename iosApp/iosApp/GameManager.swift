@@ -164,7 +164,7 @@ final class GameManager: ObservableObject {
         moves[boardNumber] = Set()
         for m in allMoves
         {
-            if (gms.checkIfMoveResultsInCheck(moveType: m.type,x: m.x,y: m.y,x1: m.x1,y1: m.y1,boardNumber: Int32(boardNumber))) {continue}
+            if (gms.checkIfMoveResultsInCheck(moveType: m.type,x: m.x,y: m.y,x1: m.x1,y1: m.y1, color: piece!.color!, boardNumber: Int32(boardNumber))) {continue}
             
             moves[boardNumber].insert(m)
             
@@ -264,16 +264,20 @@ final class GameManager: ObservableObject {
     
     public func selectPromotionPiece(piece: String, boardNumber: Int)
     {
-        var newPiece: Piece
-        if piece == "queen" { newPiece = Queen(color: pawnPromotionColor[boardNumber]) }
-        else if piece == "rook" { newPiece = Rook(color: pawnPromotionColor[boardNumber]) }
-        else if piece == "bishop" { newPiece = Bishop(color: pawnPromotionColor[boardNumber]) }
-        else { newPiece = Knight(color: pawnPromotionColor[boardNumber]) }
-        
-        gms.promote(x: Int32(pawnPromotionX[boardNumber]), y: Int32(pawnPromotionY[boardNumber]), piece: newPiece, boardNumber: Int32(boardNumber));
+        gms.promote(x: Int32(pawnPromotionX[boardNumber]), y: Int32(pawnPromotionY[boardNumber]), piece: piece, color: pawnPromotionColor[boardNumber], boardNumber: Int32(boardNumber));
         updatePieces()
         showPawnOptions[boardNumber] = false
 
+        let color = gms.turn.get(index: Int32(boardNumber)) == 1 ? "white" : "black";
+        if (gms.checking && gms.inCheck(positions: gms.getPositions(boardNumber: Int32(boardNumber)),color: color,boardNumber: Int32(boardNumber)))
+        {
+            setCheckUIConditions(color: color, boardNumber: boardNumber);
+        }
+        if (gms.gameOver) {
+            gameEndProcedures(side: gms.gameOverSide, type: gms.gameOverType);
+            return;
+        }
+        
         if (gms.gameState == GameStateManager.GameState.playing)
         {
             gms.resume(boardNumber: Int32(boardNumber));
@@ -313,6 +317,8 @@ final class GameManager: ObservableObject {
         getUserDefaults()
         var time = 1000 * (minutes * 60 + seconds)
         times = [time, time, time, time]
+        clean(boardNumber: 0, leaveCheck: false)
+        clean(boardNumber: 1, leaveCheck: false)
     }
     
     public func controlButtonClick()

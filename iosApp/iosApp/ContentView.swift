@@ -24,6 +24,10 @@ struct ContentView: View {
             {
                 OptionsView(gm: gameManager, currentView: $currentView)
             }
+            else if currentView == "Rules View"
+            {
+                RulesView(currentView: $currentView)
+            }
             
             }
         }

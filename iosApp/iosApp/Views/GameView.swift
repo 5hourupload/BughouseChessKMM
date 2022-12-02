@@ -7,9 +7,6 @@ struct GameView: View {
 
     @Binding var currentView: String
     
-//    init() {
-//        self.gm = GameManager()
-//    }
 
     var body: some View {
  

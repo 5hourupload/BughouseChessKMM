@@ -134,7 +134,7 @@ class GameStateManager {
             addToRoster(x1, y1, boardNumber)
         }
         switchPositions(moveType, positions[boardNumber], x, y, x1, y1)
-        endOfMoveChecks(color, boardNumber)
+        endOfMoveChecks(color!!, boardNumber)
     }
 
     fun performRosterMove(pieceType: String, x: Int, y: Int, boardNumber: Int) {
@@ -157,7 +157,7 @@ class GameStateManager {
         if (pieceType == "rook") positions[boardNumber][x][y] = Rook(color)
         if (pieceType == "queen") positions[boardNumber][x][y] = Queen(color)
         roster[pieceType] = roster[pieceType]?.minus(1) ?: 0
-        endOfMoveChecks(positions[boardNumber][x][y].color, boardNumber)
+        endOfMoveChecks(positions[boardNumber][x][y].color!!, boardNumber)
     }
 
     private fun turnChange(prevColor: String?, boardNumber: Int) {
@@ -194,14 +194,7 @@ class GameStateManager {
         }
     }
 
-    fun checkIfMoveResultsInCheck(
-        moveType: String,
-        x: Int,
-        y: Int,
-        x1: Int,
-        y1: Int,
-        boardNumber: Int
-    ): Boolean {
+    fun checkIfMoveResultsInCheck(moveType: String, x: Int, y: Int, x1: Int, y1: Int, color: String, boardNumber: Int): Boolean {
         if (checking) {
             val temp1 = positions[boardNumber][0].copyOf()
             val temp2 = positions[boardNumber][1].copyOf()
@@ -214,18 +207,8 @@ class GameStateManager {
             val tempPositions =
                 arrayOf<Array<Piece>>(temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8)
             switchPositions(moveType, tempPositions, x, y, x1, y1)
-            if (turn[boardNumber] == 1) if (inCheck(
-                    tempPositions,
-                    "white",
-                    boardNumber
-                )
-            ) return true
-            if (turn[boardNumber] == 2) if (inCheck(
-                    tempPositions,
-                    "black",
-                    boardNumber
-                )
-            ) return true
+
+            if (inCheck(tempPositions, color, boardNumber)) return true
         }
         return false
     }
@@ -318,23 +301,23 @@ class GameStateManager {
 
     fun updateLegalCastlingVariables(boardNumber: Int) {
         if (boardNumber == 0) {
-            if (positions[boardNumber][0]!![0]!!.color != "white" || positions[boardNumber][0]!![0]!!.type != "rook") {
+            if (positions[boardNumber][0][0].color != "white" || positions[boardNumber][0][0].type != "rook") {
                 whiteCastleQueen1 = false
             }
-            if (positions[boardNumber][7]!![0]!!.color != "white" || positions[boardNumber][7]!![0]!!.type != "rook") {
+            if (positions[boardNumber][7][0].color != "white" || positions[boardNumber][7][0].type != "rook") {
                 whiteCastleKing1 = false
             }
-            if (positions[boardNumber][4]!![0]!!.color != "white" || positions[boardNumber][4]!![0]!!.type != "king") {
+            if (positions[boardNumber][4][0].color != "white" || positions[boardNumber][4][0].type != "king") {
                 whiteCastleKing1 = false
                 whiteCastleQueen1 = false
             }
-            if (positions[boardNumber][0]!![7]!!.color != "black" || positions[boardNumber][0]!![7]!!.type != "rook") {
+            if (positions[boardNumber][0][7].color != "black" || positions[boardNumber][0][7].type != "rook") {
                 blackCastleQueen1 = false
             }
-            if (positions[boardNumber][7]!![7]!!.color != "black" || positions[boardNumber][7]!![7]!!.type != "rook") {
+            if (positions[boardNumber][7][7].color != "black" || positions[boardNumber][7][7].type != "rook") {
                 blackCastleKing1 = false
             }
-            if (positions[boardNumber][4]!![7]!!.color != "black" || positions[boardNumber][4]!![7]!!.type != "king") {
+            if (positions[boardNumber][4][7].color != "black" || positions[boardNumber][4][7].type != "king") {
                 blackCastleKing1 = false
                 blackCastleQueen1 = false
             }
@@ -374,7 +357,7 @@ class GameStateManager {
                         boardNumber
                     )
                     for (m in moves) {
-                        if (!checkIfMoveResultsInCheck(m.type, x, y, m.x1, m.y1, boardNumber)) {
+                        if (!checkIfMoveResultsInCheck(m.type, x, y, m.x1, m.y1, color, boardNumber)) {
                             checkmate = false
                             break
                         }
@@ -418,9 +401,15 @@ class GameStateManager {
         return captured0W //should never get here
     }
 
-    fun promote(x: Int, y: Int, piece: Piece, boardNumber: Int) {
-        positions[boardNumber][x]!![y] = piece
-        positions[boardNumber][x]!![y]!!.wasPawn = true
+    fun promote(x: Int, y: Int, piece: String, color: String, boardNumber: Int) {
+        var newPiece: Piece = Empty()
+        if (piece == "knight") newPiece = Knight(color)
+        if (piece == "bishop") newPiece = Bishop(color)
+        if (piece == "rook") newPiece = Rook(color)
+        if (piece == "queen") newPiece = Queen(color)
+        newPiece.wasPawn = true
+        positions[boardNumber][x][y] = newPiece
+        endOfMoveChecks(color, boardNumber)
     }
 
     fun pause(boardNumber: Int) {
@@ -467,7 +456,7 @@ class GameStateManager {
         return positions[boardNumber]
     }
 
-    private fun endOfMoveChecks(color: String?, boardNumber: Int) {
+    private fun endOfMoveChecks(color: String, boardNumber: Int) {
         updateLegalCastlingVariables(boardNumber)
         checkIfKingsStillStanding(boardNumber)
         checkForCheckmate(if (color == "white") "black" else "white", boardNumber)
