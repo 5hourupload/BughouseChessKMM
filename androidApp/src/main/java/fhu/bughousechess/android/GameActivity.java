@@ -1234,7 +1234,8 @@ public class GameActivity extends AppCompatActivity {
     private void setPotentialMove(String moveType, int x, int y, int x1, int y1, int boardNumber)
     {
         ImageView[][] board = this.board[boardNumber];
-        if (game.checkIfMoveResultsInCheck(moveType,x,y,x1,y1,boardNumber)) return;
+        String color = game.getPositions(boardNumber)[x][y].color;
+        if (game.checkIfMoveResultsInCheck(moveType, x, y, x1, y1, color, boardNumber)) return;
 
         board[x][y].setBackgroundColor(Color.YELLOW);
         alteredBackgrounds[boardNumber].add(x*8+y);
@@ -1459,9 +1460,13 @@ public class GameActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v)
                         {
-                            game.promote(x, y, new Queen(color), boardNumber);
+                            game.promote(x, y, "queen", color, boardNumber);
                             board[boardNumber][x][y].setImageResource(color.equals("white") ? R.mipmap.queen : R.mipmap.bqueen);
                             pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
+                            if (game.gameOver) {
+                                gameEndProcedures(game.gameOverSide, game.gameOverType);
+                                return;
+                            }
                             if (game.gameState == GameStateManager.GameState.PLAYING)
                             {
                                 game.resume(boardNumber);
@@ -1474,9 +1479,13 @@ public class GameActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v)
                         {
-                            game.promote(x, y, new Rook(color), boardNumber);
+                            game.promote(x, y, "rook", color, boardNumber);
                             board[boardNumber][x][y].setImageResource(color.equals("white") ? R.mipmap.rook : R.mipmap.brook);
                             pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
+                            if (game.gameOver) {
+                                gameEndProcedures(game.gameOverSide, game.gameOverType);
+                                return;
+                            }
                             if (game.gameState == GameStateManager.GameState.PLAYING)
                             {
                                 game.resume(boardNumber);
@@ -1489,9 +1498,13 @@ public class GameActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v)
                         {
-                            game.promote(x, y, new Bishop(color), boardNumber);
+                            game.promote(x, y, "bishop", color, boardNumber);
                             board[boardNumber][x][y].setImageResource(color.equals("white") ? R.mipmap.bishop : R.mipmap.bbishop);
                             pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
+                            if (game.gameOver) {
+                                gameEndProcedures(game.gameOverSide, game.gameOverType);
+                                return;
+                            }
                             if (game.gameState == GameStateManager.GameState.PLAYING)
                             {
                                 game.resume(boardNumber);
@@ -1504,9 +1517,13 @@ public class GameActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v)
                         {
-                            game.promote(x, y, new Knight(color), boardNumber);
+                            game.promote(x, y, "knight", color, boardNumber);
                             board[boardNumber][x][y].setImageResource(color.equals("white") ? R.mipmap.knight : R.mipmap.bknight);
                             pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
+                            if (game.gameOver) {
+                                gameEndProcedures(game.gameOverSide, game.gameOverType);
+                                return;
+                            }
                             if (game.gameState == GameStateManager.GameState.PLAYING)
                             {
                                 game.resume(boardNumber);
@@ -1517,8 +1534,12 @@ public class GameActivity extends AppCompatActivity {
                     });
                     if (!game.position1)
                     {
-                        game.promote(x, y, new Queen(color), boardNumber);
+                        game.promote(x, y, "queen", color, boardNumber);
                         board[boardNumber][x][y].setImageResource(color.equals("white") ? R.mipmap.queen : R.mipmap.bqueen);
+                        if (game.gameOver) {
+                            gameEndProcedures(game.gameOverSide, game.gameOverType);
+                            return;
+                        }
                         if (game.gameState == GameStateManager.GameState.PLAYING)
                         {
                             pawnOptions[boardNumber].setVisibility(View.INVISIBLE);
