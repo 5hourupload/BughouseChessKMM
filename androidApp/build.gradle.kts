@@ -5,13 +5,13 @@ plugins {
 
 android {
     namespace = "fhu.bughousechess.android"
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         applicationId = "fhu.bughousechess.android"
-        minSdk = 21
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = 24
+        targetSdk = 33
+        versionCode = 20
+        versionName = "12.14.22"
     }
     buildFeatures {
         compose = true

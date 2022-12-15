@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   >
-    <PreferenceCategory
-        android:title="Player/AI Options"
-        android:key="pref_key_storage_settings">
-        <ListPreference
-            android:key="player1"
-            android:title="Player 1 (white, top left)"
-            android:dialogTitle="Player 1"
-            android:entries="@array/PlayerCpuSelect"
-            android:entryValues="@array/PlayerCpuSelectValues"
-            android:defaultValue="@string/DefaultSelect"
-            android:summary="%s"/>
-        <ListPreference
-            android:key="player2"
-            android:title="Player 2 (black, top right)"
-            android:dialogTitle="Player 1"
-            android:entries="@array/PlayerCpuSelect"
-            android:entryValues="@array/PlayerCpuSelectValues"
-            android:defaultValue="@string/DefaultSelect"
-            android:summary="%s"/>
-        <ListPreference
-            android:key="player3"
-            android:title="Player 3 (black, bottom left)"
-            android:dialogTitle="Player 1"
-            android:entries="@array/PlayerCpuSelect"
-            android:entryValues="@array/PlayerCpuSelectValues"
-            android:defaultValue="@string/DefaultSelect"
-            android:summary="%s"/>
-        <ListPreference
-            android:key="player4"
-            android:title="Player 4 (white, bottom right)"
-            android:dialogTitle="Player 1"
-            android:entries="@array/PlayerCpuSelect"
-            android:entryValues="@array/PlayerCpuSelectValues"
-            android:defaultValue="@string/DefaultSelect"
-            android:summary="%s"/>
+<!--    <PreferenceCategory-->
+<!--        android:title="Player/AI Options"-->
+<!--        android:key="pref_key_storage_settings">-->
+<!--        <ListPreference-->
+<!--            android:key="player1"-->
+<!--            android:title="Player 1 (white, top left)"-->
+<!--            android:dialogTitle="Player 1"-->
+<!--            android:entries="@array/PlayerCpuSelect"-->
+<!--            android:entryValues="@array/PlayerCpuSelectValues"-->
+<!--            android:defaultValue="@string/DefaultSelect"-->
+<!--            android:summary="%s"/>-->
+<!--        <ListPreference-->
+<!--            android:key="player2"-->
+<!--            android:title="Player 2 (black, top right)"-->
+<!--            android:dialogTitle="Player 1"-->
+<!--            android:entries="@array/PlayerCpuSelect"-->
+<!--            android:entryValues="@array/PlayerCpuSelectValues"-->
+<!--            android:defaultValue="@string/DefaultSelect"-->
+<!--            android:summary="%s"/>-->
+<!--        <ListPreference-->
+<!--            android:key="player3"-->
+<!--            android:title="Player 3 (black, bottom left)"-->
+<!--            android:dialogTitle="Player 1"-->
+<!--            android:entries="@array/PlayerCpuSelect"-->
+<!--            android:entryValues="@array/PlayerCpuSelectValues"-->
+<!--            android:defaultValue="@string/DefaultSelect"-->
+<!--            android:summary="%s"/>-->
+<!--        <ListPreference-->
+<!--            android:key="player4"-->
+<!--            android:title="Player 4 (white, bottom right)"-->
+<!--            android:dialogTitle="Player 1"-->
+<!--            android:entries="@array/PlayerCpuSelect"-->
+<!--            android:entryValues="@array/PlayerCpuSelectValues"-->
+<!--            android:defaultValue="@string/DefaultSelect"-->
+<!--            android:summary="%s"/>-->
 
-    </PreferenceCategory>
+<!--    </PreferenceCategory>-->
     <PreferenceCategory
         android:title="Game Options">
         <fhu.bughousechess.android.NumberPickerPreference

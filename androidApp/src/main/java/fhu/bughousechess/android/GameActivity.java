@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -64,14 +65,14 @@ public class GameActivity extends AppCompatActivity {
 
     static int milliseconds = 5 * 60 * 1000;
 
-    private ImageView board[][][] = new ImageView[2][8][8];
-    private ImageView baseBoard[][] = new ImageView[8][8];
-    private FrameLayout roster1[] = new FrameLayout[5];
-    private FrameLayout roster2[] = new FrameLayout[5];
-    private FrameLayout roster3[] = new FrameLayout[5];
-    private FrameLayout roster4[] = new FrameLayout[5];
+    private final ImageView[][][] board = new ImageView[2][8][8];
+    private final ImageView[][] baseBoard = new ImageView[8][8];
+    private final FrameLayout[] roster1 = new FrameLayout[5];
+    private final FrameLayout[] roster2 = new FrameLayout[5];
+    private final FrameLayout[] roster3 = new FrameLayout[5];
+    private final FrameLayout[] roster4 = new FrameLayout[5];
 
-    private LinearLayout[] pawnOptions = new LinearLayout[2];
+    private final LinearLayout[] pawnOptions = new LinearLayout[2];
 
     static int minute = 5;
     static int second = 0;
@@ -170,7 +171,9 @@ public class GameActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE); // the results will be higher than using the activity context object or the getWindowManager() shortcut
         wm.getDefaultDisplay().getMetrics(displayMetrics);
-        squareSize = displayMetrics.widthPixels/10;
+        float ratio = (float) displayMetrics.heightPixels / displayMetrics.widthPixels;
+        if (ratio > 1.8) squareSize = displayMetrics.widthPixels/10;
+        else squareSize = displayMetrics.heightPixels/18;
 
         setBoardBackground();
         setStartingPiecesUI();
@@ -366,6 +369,8 @@ public class GameActivity extends AppCompatActivity {
 
     private void prepareUIElements()
     {
+        RelativeLayout top_controls = findViewById(R.id.top_controls);
+        RelativeLayout bot_controls = findViewById(R.id.bot_controls);
 
         roster1[1].post(new Runnable()
         {
@@ -425,6 +430,10 @@ public class GameActivity extends AppCompatActivity {
                 options.getLayoutParams().width = squareSize * 2;
                 options.getLayoutParams().height = (int) (squareSize * .75);
                 options.requestLayout();
+                top_controls.getLayoutParams().width = squareSize * 8;
+                bot_controls.getLayoutParams().width = squareSize * 8;
+                top_controls.requestLayout();
+                bot_controls.requestLayout();
             }
         });
 

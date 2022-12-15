@@ -30,9 +30,11 @@
             android:layout_gravity="center">
 
             <RelativeLayout
-                android:layout_width="fill_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/top_controls">
                 <TextView
                     android:layout_width="90dp"
                     android:layout_height="25dp"
@@ -1614,9 +1616,11 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_width="fill_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/bot_controls">
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="25dp"
