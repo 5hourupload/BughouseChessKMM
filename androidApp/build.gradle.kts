@@ -7,11 +7,11 @@ android {
     namespace = "fhu.bughousechess.android"
     compileSdk = 33
     defaultConfig {
-        applicationId = "fhu.bughousechess.android"
+        applicationId = "fhu.bughousechess"
         minSdk = 24
         targetSdk = 33
-        versionCode = 20
-        versionName = "12.14.22"
+        versionCode = 22
+        versionName = "12.17.22"
     }
     buildFeatures {
         compose = true

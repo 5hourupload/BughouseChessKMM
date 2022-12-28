@@ -23,7 +23,7 @@
 
 
     <string name="rules1">Welcome to Bughouse Chess, a popular variation of chess with two chessboards and four players!</string>
-    <string name="rules2">\nIf you don\'t know how to play normal chess, delete this app and learn to play normal chess, then redownload this app.
+    <string name="rules2">
     \n\nThere are many variations of bughouse, so the following rules will cover the traditional rules. You can play and combine variations in the options menu.
     </string>
     <string name="rules3">
