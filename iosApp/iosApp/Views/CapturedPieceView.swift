@@ -24,7 +24,7 @@ struct CapturedPieceView: View {
     
     var body: some View
     {
-        let squareSize = UIScreen.main.bounds.width / 10
+        let squareSize = getSquareSizeGlobal()
 
         ZStack{
             if square.quantity >= 1
@@ -55,7 +55,7 @@ struct CapturedPieceView: View {
                 }
                 .onEnded { value in
                     dragging = false
-                    let squareSize = UIScreen.main.bounds.width / 10
+                    let squareSize = getSquareSizeGlobal()
                     var newX = 0
                     var newY = 0
                     if (boardNumber == 0 && square.color == "white")
@@ -136,7 +136,6 @@ struct CapturedPieceView: View {
         }
         return 0.0
     }
-    
     
 }
 

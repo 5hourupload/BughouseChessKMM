@@ -28,7 +28,7 @@ class RosterSquare: ObservableObject {
     
     public func getUIImage() -> UIImage
     {
-        let squareSize = UIScreen.main.bounds.width / 10
+        let squareSize = getSquareSizeGlobal()
         if (color == "white")
         {
             return (UIImage(named: pieceType)?.resizeImageTo(size: CGSize(width: squareSize, height: squareSize)))!
@@ -47,7 +47,7 @@ class RosterSquare: ObservableObject {
     
     public func getCosmetic() -> UIImage
     {
-        let squareSize = UIScreen.main.bounds.width / 10
+        let squareSize = getSquareSizeGlobal()
         if (cosmetic == "yellow")
         {
             return UIColor.yellow.image(CGSize(width: squareSize, height: squareSize))
@@ -57,6 +57,7 @@ class RosterSquare: ObservableObject {
             return (UIImage(named: "nothing"))!
         }
     }
+   
 }
 extension UIColor {
     public convenience init?(hex: String) {

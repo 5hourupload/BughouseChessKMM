@@ -15,14 +15,14 @@ struct CapturedSquareView: View {
     @State var square: RosterSquare
 
     var backgroundImage: UIImage
-    let squareSize: CGFloat
 
     init(boardNumber: Int, gameManager: GameManager, square: RosterSquare) {
 
         self.boardNumber = boardNumber
         self.gameManager = gameManager
         self.square = square
-        self.squareSize = UIScreen.main.bounds.width / 10
+        
+        var squareSize: CGFloat = getSquareSizeGlobal()
 
         
         if (square.pieceType == "pawn" || square.pieceType == "bishop" || square.pieceType == "queen") {

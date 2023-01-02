@@ -19,18 +19,19 @@ struct BoardSquareView: View {
 
     
     init(x: Int, y: Int, boardNumber: Int, gameManager: GameManager) {
-        let squareSize = UIScreen.main.bounds.width / 10
+        self.x = x
+        self.y = y
+        self.boardNumber = boardNumber
+        self.gameManager = gameManager
+        
+        var squareSize: CGFloat = getSquareSizeGlobal()
+
         if ((x + y).isMultiple(of: 2)) {
             backgroundImage = (UIImage(named: "black")?.resizeImageTo(size: CGSize(width: squareSize, height: squareSize)))!
         }
         else {
             backgroundImage = (UIImage(named: "white")?.resizeImageTo(size: CGSize(width: squareSize, height: squareSize)))!
         }
-        
-        self.x = x
-        self.y = y
-        self.boardNumber = boardNumber
-        self.gameManager = gameManager
     }
     
     var body: some View
@@ -46,4 +47,6 @@ struct BoardSquareView: View {
     }
     
 }
+
+
 

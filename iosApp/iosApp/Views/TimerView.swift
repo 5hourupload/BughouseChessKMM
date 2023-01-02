@@ -23,7 +23,8 @@ struct TimerView: View {
     var timeIndex = -1
 
     init(gameManager: GameManager, color: String, boardNumber: Int) {
-        let squareSize = UIScreen.main.bounds.width / 10
+        var squareSize: CGFloat = getSquareSizeGlobal()
+        
 
         yellow = UIColor(hex: "#FFC900FF")!.image(CGSize(width: squareSize*2, height: squareSize))
         gray = UIColor(hex: "#B0B0B000")!.image(CGSize(width: squareSize*2, height: squareSize))
@@ -62,21 +63,22 @@ struct TimerView: View {
                 {
                     gameManager.times[timeIndex] = gameManager.times[timeIndex] - 100
                     self.backgroundImage = yellow
+                    if gameManager.times[timeIndex] <= 0 {
+                        var side: Int = -1
+                        if boardNumber == 0 && color == 1 { side = 1 }
+                        if boardNumber == 0 && color == 2 { side = 0 }
+                        if boardNumber == 1 && color == 1 { side = 0 }
+                        if boardNumber == 1 && color == 2 { side = 1 }
+                        gameManager.gameEndProcedures(side: Int32(side), type: 2);
+
+                    }
                 }
                 else
                 {
                     self.backgroundImage = gray
                 }
                 
-                if gameManager.times[timeIndex] <= 0 {
-                    var side: Int = -1
-                    if boardNumber == 0 && color == 1 { side = 1 }
-                    if boardNumber == 0 && color == 2 { side = 0 }
-                    if boardNumber == 1 && color == 1 { side = 0 }
-                    if boardNumber == 1 && color == 2 { side = 1 }
-                    gameManager.gameEndProcedures(side: Int32(side), type: 2);
-
-                }
+                
             }.rotationEffect(.degrees(getRotation())).foregroundColor(self.active ? .white : .gray).font(.system(size: 30, weight: .bold))
         }
 
@@ -101,5 +103,7 @@ struct TimerView: View {
         let sec = seconds % 60
         return String(min) + ":" + String(format: "%02d",sec)
     }
+    
 }
+
 

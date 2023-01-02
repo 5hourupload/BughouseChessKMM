@@ -7,10 +7,7 @@ struct GameView: View {
 
     @Binding var currentView: String
     
-
     var body: some View {
- 
-        let squareSize = UIScreen.main.bounds.width / 10
         
         ZStack()
         {
@@ -24,7 +21,7 @@ struct GameView: View {
                     StartButtonView(gameManager: gm)
                     Spacer()
                     TimerView(gameManager: gm, color: "black", boardNumber: 0)
-                }.frame(width: squareSize*8)
+                }.frame(width: getSquareSizeGlobal()*8)
                 
                 ZStack()
                 {
@@ -134,13 +131,13 @@ struct GameView: View {
                     Spacer()
                     Button("Options") {
                         currentView = "Options View"
-                    }.frame(width: squareSize * 2, height: squareSize * 0.75).foregroundColor(.black)
+                    }.frame(width: getSquareSizeGlobal() * 2, height: getSquareSizeGlobal() * 0.75).foregroundColor(.black)
                         .background(Color.gray)
                         .cornerRadius(10)
                     Spacer()
                     TimerView(gameManager: gm, color: "white", boardNumber: 1)
                     
-                }.frame(width: squareSize*8)
+                }.frame(width: getSquareSizeGlobal()*8)
                 Spacer()
 
             }
@@ -154,4 +151,11 @@ struct GameView: View {
     
     }
 
+public func getSquareSizeGlobal() -> CGFloat
+{
+    let ratio: CGFloat = UIScreen.main.bounds.height / UIScreen.main.bounds.width
+    if (ratio > 1.8) { return UIScreen.main.bounds.width / 10 }
+    else { return UIScreen.main.bounds.height / 18 - 1}
+    
+}
     

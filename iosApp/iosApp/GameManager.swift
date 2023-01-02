@@ -29,7 +29,7 @@ final class GameManager: ObservableObject {
     @Published var controlButtonText = "Start"
     var minutes: Int = 0
     var seconds: Int = 0
-    var times = [300*1000, 300*1000, 300*1000, 300*1000]
+    @Published var times = [300*1000, 300*1000, 300*1000, 300*1000]
     
     init()  {
         initBoard(boardNumber: 0)
@@ -315,8 +315,6 @@ final class GameManager: ObservableObject {
         showPawnOptions[0] = false
         showPawnOptions[1] = false
         getUserDefaults()
-        var time = 1000 * (minutes * 60 + seconds)
-        times = [time, time, time, time]
         clean(boardNumber: 0, leaveCheck: false)
         clean(boardNumber: 1, leaveCheck: false)
     }
@@ -345,6 +343,16 @@ final class GameManager: ObservableObject {
     
     public func getUserDefaults()
     {
+        let firstOpen = UserDefaults.standard.bool(forKey: "opened")
+        if !firstOpen {
+            UserDefaults.standard.set(true, forKey: "opened")
+            UserDefaults.standard.set(5, forKey: "minutes")
+            UserDefaults.standard.set(0, forKey: "seconds")
+            UserDefaults.standard.set(true, forKey: "checking")
+            UserDefaults.standard.set(true, forKey: "placing")
+            UserDefaults.standard.set(true, forKey: "reverting")
+            UserDefaults.standard.set(false, forKey: "firstrank")
+        }
         minutes = UserDefaults.standard.integer(forKey: "minutes")
         seconds = UserDefaults.standard.integer(forKey: "seconds")
         
@@ -352,5 +360,8 @@ final class GameManager: ObservableObject {
         gms.placing = UserDefaults.standard.bool(forKey: "placing")
         gms.reverting = UserDefaults.standard.bool(forKey: "reverting")
         gms.firstrank = UserDefaults.standard.bool(forKey: "firstrank")
+        
+        let time = 1000 * (minutes * 60 + seconds)
+        times = [time, time, time, time]
     }
 }

@@ -26,7 +26,7 @@ struct PawnPromotionView: View {
     
     var body: some View
     {
-        let squareSize = UIScreen.main.bounds.width / 10
+        let squareSize = getSquareSizeGlobal()
 
         if gameManager.showPawnOptions[boardNumber] {
             VStack(spacing: 10)
@@ -87,4 +87,5 @@ struct PawnPromotionView: View {
     }
     
 }
+
 

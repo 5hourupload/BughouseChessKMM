@@ -19,7 +19,7 @@ struct StartButtonView: View {
     
     var body: some View
     {
-        let squareSize = UIScreen.main.bounds.width / 10
+        let squareSize = getSquareSizeGlobal()
 
         Button(gameManager.controlButtonText) {
             gameManager.controlButtonClick()
@@ -28,6 +28,6 @@ struct StartButtonView: View {
             .cornerRadius(10)
 
     }
-    
 }
+
 

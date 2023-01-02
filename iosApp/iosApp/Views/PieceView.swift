@@ -29,7 +29,7 @@ struct PieceView: View {
     
     var body: some View
     {
-        let squareSize = UIScreen.main.bounds.width / 10
+        let squareSize = getSquareSizeGlobal()
 
         ZStack{
             Image(uiImage: gameManager.board[boardNumber][x][y].getUIImage())
@@ -58,7 +58,7 @@ struct PieceView: View {
                 }
                 .onEnded { value in
                     dragging = false
-                    let squareSize = UIScreen.main.bounds.width / 10
+                    let squareSize = getSquareSizeGlobal()
                     var newX = x
                     var newY = y
                     if boardNumber == 0
@@ -131,7 +131,6 @@ struct PieceView: View {
         return 0.0
     }
     
-    
 }
 
 extension UIImage {
@@ -157,3 +156,5 @@ extension UIImage {
         return newImage
     }
 }
+
+

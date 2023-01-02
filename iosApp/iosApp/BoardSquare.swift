@@ -20,7 +20,7 @@ struct BoardSquare {
     
     public func getUIImage() -> UIImage
     {
-        let squareSize = UIScreen.main.bounds.width / 10
+        let squareSize = getSquareSizeGlobal()
         if (piece.color == "white")
         {
             return (UIImage(named: piece.type!)?.resizeImageTo(size: CGSize(width: squareSize, height: squareSize)))!
@@ -39,7 +39,7 @@ struct BoardSquare {
     
     public func getCosmetic() -> UIImage
     {
-        let squareSize = UIScreen.main.bounds.width / 10
+        let squareSize = getSquareSizeGlobal()
         if (cosmetic == "dot")
         {
             return (UIImage(named: "dot")?.resizeImageTo(size: CGSize(width: squareSize, height: squareSize)))!
@@ -61,6 +61,7 @@ struct BoardSquare {
             return (UIImage(named: "nothing"))!
         }
     }
+    
 }
 extension UIColor {
     func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
