@@ -3,6 +3,8 @@ package fhu.bughousechess.android;
 
 import static android.content.ContentValues.TAG;
 
+import static fhu.bughousechess.android.MainActivity.ADS;
+
 import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -49,6 +51,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.TimeZone;
@@ -145,25 +148,29 @@ public class GameActivity extends AppCompatActivity {
             });
         }
 
-        AdRequest adRequest = new AdRequest.Builder().build();
+        if (ADS)
+        {
+            AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(this,"ca-app-pub-9794567752193168/1898888810", adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        // The mInterstitialAd reference will be null until
-                        // an ad is loaded.
-                        mInterstitialAd = interstitialAd;
-                        Log.i(TAG, "onAdLoaded");
-                    }
+            InterstitialAd.load(this,"ca-app-pub-9794567752193168/1898888810", adRequest,
+                    new InterstitialAdLoadCallback() {
+                        @Override
+                        public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                            // The mInterstitialAd reference will be null until
+                            // an ad is loaded.
+                            mInterstitialAd = interstitialAd;
+                            Log.i(TAG, "onAdLoaded");
+                        }
 
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error
-                        Log.d(TAG, loadAdError.toString());
-                        mInterstitialAd = null;
-                    }
-                });
+                        @Override
+                        public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                            // Handle the error
+                            Log.d(TAG, loadAdError.toString());
+                            mInterstitialAd = null;
+                        }
+                    });
+        }
+
 
         game = new GameStateManager();
 
@@ -1244,7 +1251,7 @@ public class GameActivity extends AppCompatActivity {
     {
         ImageView[][] board = this.board[boardNumber];
         String color = game.getPositions(boardNumber)[x][y].color;
-        if (game.checkIfMoveResultsInCheck(moveType, x, y, x1, y1, color, boardNumber)) return;
+        if (game.checking && game.checkIfMoveResultsInCheck(moveType, x, y, x1, y1, color, boardNumber)) return;
 
         board[x][y].setBackgroundColor(Color.YELLOW);
         alteredBackgrounds[boardNumber].add(x*8+y);
@@ -1931,10 +1938,13 @@ public class GameActivity extends AppCompatActivity {
                     public void onClick(View v)
                     {
                         finishScreen.setVisibility(View.INVISIBLE);
-                        if (mInterstitialAd != null) {
-                            mInterstitialAd.show(GameActivity.this);
-                        } else {
-                            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                        if (ADS)
+                        {
+                            if (mInterstitialAd != null) {
+                                mInterstitialAd.show(GameActivity.this);
+                            } else {
+                                Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                            }
                         }
                     }
                 });

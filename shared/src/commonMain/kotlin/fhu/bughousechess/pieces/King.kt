@@ -21,7 +21,7 @@ class King(color: String?) : Piece() {
         if (x + 1 < 8) {
             if (positions[x + 1][y].empty) {
                 moves.add(Move(x, y, x + 1, y, "move"))
-                if (positions[6][0].empty && positions[4][0].type == "king" && positions[4][0].color == "white") {
+                if (x == 4 && y == 0 && positions[6][0].empty && positions[4][0].type == "king" && positions[4][0].color == "white") {
                     //setting those empty positions to "white" so that they can be checked whether
                     //they are in check or not
                     if (boardNumber == 0) {
@@ -72,11 +72,11 @@ class King(color: String?) : Piece() {
                         }
                     }
                 }
-                if (positions[6][7].empty && positions[4][7].type == "king" && positions[4][7].color == "black") {
+                if (x == 4 && y == 7 && positions[6][7].empty && positions[4][7].type == "king" && positions[4][7].color == "black") {
                     //setting those empty positions to "white" so that they can be checked whether
                     //they are in check or not
                     if (boardNumber == 0) {
-                        if (GameStateManager.whiteCastleKing1 && positions[6][7].empty && !GameStateManager.castleCheckCheck(
+                        if (GameStateManager.blackCastleKing1 && positions[6][7].empty && !GameStateManager.castleCheckCheck(
                                 "black",
                                 positions,
                                 4,
@@ -99,7 +99,7 @@ class King(color: String?) : Piece() {
                             moves.add(Move(x, y, 6, 7, "blackKingCastle"))
                         }
                     } else {
-                        if (GameStateManager.whiteCastleKing2 && positions[6][7].empty && !GameStateManager.castleCheckCheck(
+                        if (GameStateManager.blackCastleKing2 && positions[6][7].empty && !GameStateManager.castleCheckCheck(
                                 "black",
                                 positions,
                                 4,
@@ -147,7 +147,7 @@ class King(color: String?) : Piece() {
         if (x - 1 > -1) {
             if (positions[x - 1][y].empty) {
                 moves.add(Move(x, y, x - 1, y, "move"))
-                if (positions[2][0].empty && positions[1][0].empty && positions[4][0].type == "king") {
+                if (x == 4 && y == 0 && positions[2][0].empty && positions[1][0].empty && positions[4][0].type == "king") {
                     if (boardNumber == 0) {
                         if (GameStateManager.whiteCastleQueen1 && positions[2][0].empty && !GameStateManager.castleCheckCheck(
                                 "white",
@@ -208,9 +208,9 @@ class King(color: String?) : Piece() {
                         }
                     }
                 }
-                if (positions[2][7].empty && positions[1][7].empty && positions[4][7].type == "king") {
+                if (x == 4 && y == 7 && positions[2][7].empty && positions[1][7].empty && positions[4][7].type == "king") {
                     if (boardNumber == 0) {
-                        if (GameStateManager.whiteCastleQueen1 && positions[2][7].empty && !GameStateManager.castleCheckCheck(
+                        if (GameStateManager.blackCastleQueen1 && positions[2][7].empty && !GameStateManager.castleCheckCheck(
                                 "black",
                                 positions,
                                 1,
@@ -239,7 +239,7 @@ class King(color: String?) : Piece() {
                             moves.add(Move(x, y, 2, 7, "blackQueenCastle"))
                         }
                     } else {
-                        if (GameStateManager.whiteCastleQueen2 && positions[2][7].empty && !GameStateManager.castleCheckCheck(
+                        if (GameStateManager.blackCastleQueen2 && positions[2][7].empty && !GameStateManager.castleCheckCheck(
                                 "black",
                                 positions,
                                 1,

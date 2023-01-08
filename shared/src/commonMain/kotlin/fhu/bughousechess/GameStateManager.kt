@@ -195,21 +195,30 @@ class GameStateManager {
     }
 
     fun checkIfMoveResultsInCheck(moveType: String, x: Int, y: Int, x1: Int, y1: Int, color: String, boardNumber: Int): Boolean {
-        if (checking) {
-            val temp1 = positions[boardNumber][0].copyOf()
-            val temp2 = positions[boardNumber][1].copyOf()
-            val temp3 = positions[boardNumber][2].copyOf()
-            val temp4 = positions[boardNumber][3].copyOf()
-            val temp5 = positions[boardNumber][4].copyOf()
-            val temp6 = positions[boardNumber][5].copyOf()
-            val temp7 = positions[boardNumber][6].copyOf()
-            val temp8 = positions[boardNumber][7].copyOf()
-            val tempPositions =
-                arrayOf<Array<Piece>>(temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8)
-            switchPositions(moveType, tempPositions, x, y, x1, y1)
+        val temp1 = positions[boardNumber][0].copyOf()
+        val temp2 = positions[boardNumber][1].copyOf()
+        val temp3 = positions[boardNumber][2].copyOf()
+        val temp4 = positions[boardNumber][3].copyOf()
+        val temp5 = positions[boardNumber][4].copyOf()
+        val temp6 = positions[boardNumber][5].copyOf()
+        val temp7 = positions[boardNumber][6].copyOf()
+        val temp8 = positions[boardNumber][7].copyOf()
+        val tempPositions =
+            arrayOf<Array<Piece>>(temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8)
+        switchPositions(moveType, tempPositions, x, y, x1, y1)
 
-            if (inCheck(tempPositions, color, boardNumber)) return true
+        if (inCheck(tempPositions, color, boardNumber)) return true
+        return false
+    }
+
+    fun checkIfRosterMoveResultsInCheck(x: Int, y: Int, color: String, boardNumber: Int): Boolean {
+        val old = positions[boardNumber][x][y]
+        positions[boardNumber][x][y] = Queen(color)
+        if (inCheck(positions[boardNumber], color, boardNumber)) {
+            positions[boardNumber][x][y] = old
+            return true
         }
+        positions[boardNumber][x][y] = old
         return false
     }
 
@@ -369,8 +378,11 @@ class GameStateManager {
         val moves = getRosterMoves(positions[boardNumber], "queen", color)
         for (m in moves) {
             if (rosterMoveIsLegal("queen", color, m.x1, m.y1, boardNumber)) {
-                checkmate = false
-                break
+                if (!checkIfRosterMoveResultsInCheck(m.x1,m.y1, color, boardNumber))
+                {
+                    checkmate = false
+                    break
+                }
             }
         }
 

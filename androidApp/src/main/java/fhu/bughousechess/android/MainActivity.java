@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
 {
     public static int currentApiVersion;
     static int dialog_margin;
+    public static boolean ADS = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -92,12 +93,12 @@ public class MainActivity extends AppCompatActivity
                 new RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build();
         MobileAds.setRequestConfiguration(configuration);
 
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest request = new AdRequest.Builder().build();
-        mAdView.loadAd(request);
-
-
-
+        if (ADS)
+        {
+            AdView mAdView = findViewById(R.id.adView);
+            AdRequest request = new AdRequest.Builder().build();
+            mAdView.loadAd(request);
+        }
 
 
         final LinearLayout mainmenu = findViewById(R.id.mainmenu);

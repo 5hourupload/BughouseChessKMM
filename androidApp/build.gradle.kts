@@ -10,8 +10,8 @@ android {
         applicationId = "fhu.bughousechess"
         minSdk = 24
         targetSdk = 33
-        versionCode = 22
-        versionName = "12.17.22"
+        versionCode = 23
+        versionName = "1.7.23"
     }
     buildFeatures {
         compose = true
